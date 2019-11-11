@@ -11,10 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +41,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:text="First Name"
+            android:textSize="24sp"
             android:visibility="visible"
             app:layout_constraintBaseline_toBaselineOf="@+id/etFirstName"
             app:layout_constraintEnd_toStartOf="@+id/etFirstName"
@@ -59,6 +57,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:text="Last Name"
+            android:textSize="24sp"
             android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@+id/etLastName"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +87,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:text="Phone Number"
+            android:textSize="24sp"
             android:visibility="visible"
             app:layout_constraintBaseline_toBaselineOf="@+id/etPhoneNumber"
             app:layout_constraintEnd_toStartOf="@+id/etPhoneNumber"
@@ -118,6 +118,7 @@
             android:layout_marginRight="24dp"
             android:layout_marginBottom="36dp"
             android:text="Job"
+            android:textSize="24sp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/etJob"
@@ -152,6 +153,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:text="Password"
+        android:textSize="24sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/etPassword"
         app:layout_constraintEnd_toStartOf="@+id/etPassword"
         app:layout_constraintStart_toStartOf="parent" />
@@ -160,7 +162,7 @@
         android:id="@+id/etPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:ems="10"
@@ -168,7 +170,7 @@
         android:inputType="textPassword"
         android:tag="Password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constLayoutCreat" />
+        app:layout_constraintTop_toBottomOf="@+id/etUserId" />
 
     <TextView
         android:id="@+id/textView10"
@@ -178,8 +180,10 @@
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
+        android:layout_marginBottom="29dp"
         android:text="User Id"
-        app:layout_constraintBaseline_toBaselineOf="@+id/etUserId"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toStartOf="@+id/etUserId"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -195,31 +199,30 @@
         android:inputType="textPersonName"
         android:tag="UserId"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/constLayoutCreat" />
 
     <Button
         android:id="@+id/btnLogIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:text="LogIn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserId" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCreatNew"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreatNew"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnCreatNew"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <Button
         android:id="@+id/btnCreatNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:text="Creat a New Profile"
-        app:layout_constraintEnd_toStartOf="@+id/btnLogIn"
+        android:layout_marginTop="8dp"
+        android:text="SignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUserId" />
+        app:layout_constraintTop_toBottomOf="@+id/btnLogIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
