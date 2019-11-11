@@ -43,27 +43,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
+        // hide keyborde on the start
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
-        // HelloWord=findViewById(R.id.tvHello);
-       // HelloWord.setOnClickListener(this);
 
         Name=findViewById(R.id.etName);
         LastName=findViewById(R.id.etLastName);
         Job=findViewById(R.id.etJob);
+
         Sand=findViewById(R.id.btnSand);
         btnGetDataFromSurver=findViewById(R.id.btnGetDataFromSurver);
+        GoToTheActivityLayout=findViewById(R.id.btnGoToTheActivityLayout);
+
+
         Sand.setOnClickListener(this);
         btnGetDataFromSurver.setOnClickListener(this);
-
-        GoToTheActivityLayout=findViewById(R.id.btnGoToTheActivityLayout);
         GoToTheActivityLayout.setOnClickListener(this);
 
-
+        //Animation background
         constraintLayout=findViewById(R.id.consLayout1);
         animationDrawable=(AnimationDrawable) constraintLayout.getBackground();
 
+        //Animation mLottie
         mLottie=findViewById(R.id.loading_view);
 
         TheObjectList=findViewById(R.id.tvTheList);
@@ -110,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnGetDataFromSurver:
             try{
                 TheObjectList.setText("");
+
+                //by a specific Single code:
+
                /* ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Person");
                 parseQuery.getInBackground("cFVIkm463K", new GetCallback<ParseObject>() {
                     @Override
@@ -119,8 +124,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });*/
+
+
+
+                // listPars.
                 ParseQuery<ParseObject> listPars = ParseQuery.getQuery("Person");
-               // listPars.
                 listPars.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
