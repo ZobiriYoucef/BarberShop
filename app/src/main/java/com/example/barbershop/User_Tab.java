@@ -12,12 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.shape.ShapePath;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.List;
 
 
 /**
@@ -61,14 +65,20 @@ public class User_Tab extends Fragment implements View.OnClickListener {
             textView4.setText(ParseUser.getCurrentUser().getObjectId());
 
             ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery(ParseUser.getQuery().getClassName());
+            parseQuery.whereEqualTo("username",ParseUser.getCurrentUser().getUsername());
+
             parseQuery.getInBackground(ParseUser.getCurrentUser().getObjectId(), new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject object, ParseException e) {
-                    if (object!=null && e==null){
-                        FancyToast.makeText(getContext(),object.get("password").toString(),FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
-                    }
+                    if(e==null){
+                        FancyToast.makeText(getContext(),object.getString("password"),FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+
+                    } else  FancyToast.makeText(getContext(),"No",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+
                 }
             });
+
+            //FancyToast.makeText(getContext(),object.get("password").toString(),FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
 
         }
     }
