@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +23,6 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
-
-import java.util.ArrayList;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -248,7 +243,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private boolean isNotEmpty(EditText etText) {
+     private boolean isNotEmpty(EditText etText) {
         if (etText.getText().toString().trim().length() > 0)
             return true;
 
