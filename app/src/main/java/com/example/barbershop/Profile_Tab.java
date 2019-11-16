@@ -4,18 +4,17 @@ package com.example.barbershop;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -23,11 +22,13 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import libs.mjn.prettydialog.PrettyDialog;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Profile_Tab extends Fragment implements AdapterView.OnItemClickListener {
+public class Profile_Tab extends Fragment implements AdapterView.OnItemClickListener , AdapterView.OnItemLongClickListener {
 
     //varible declaration
     private ListView listView;
@@ -55,6 +56,7 @@ public class Profile_Tab extends Fragment implements AdapterView.OnItemClickList
 
         //insialise the item onclick lisner
         listView.setOnItemClickListener(this);
+        listView.setOnItemLongClickListener(this);
 
         //Declare the progress dialog and show it
         progressDialog =new ProgressDialog(getActivity());
@@ -98,5 +100,29 @@ public class Profile_Tab extends Fragment implements AdapterView.OnItemClickList
                 startActivity(intent);
 
         }
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        switch (adapterView.getId()){
+            case R.id.lvUser:
+                ParseQuery<ParseUser> parseUserParseQuery = ParseUser.getQuery();
+                parseUserParseQuery.whereEqualTo("username",arrayList.get(i));
+                parseUserParseQuery.getFirstInBackground(new GetCallback<ParseUser>() {
+                    @Override
+                    public void done(ParseUser object, ParseException e) {
+                        if(object!=null && e==null){
+                           // Toast.makeText(getContext(), object.get("PictureInfo")+"", Toast.LENGTH_SHORT).show();
+                             PrettyDialog prettyDialog=new PrettyDialog(getContext())
+                                    .setTitle(object.getUsername()+"")
+                                    .setMessage(object.getUsername()+"\n"+object.get("PictureInfo"))
+                                    .setIcon(R.drawable.ic_account_circle_black_24dp);
+                                    }
+                                }
+                });
+
+                         break;
+                }
+        return true;
     }
 }
