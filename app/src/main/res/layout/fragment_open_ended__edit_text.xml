@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/openEndedFragmentRelativeLayoutId"
+    tools:context=".QuestionType.Open_ended_EditText">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/openEndedFragmentTextViewId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="The Question will display here"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/openEndedFragmentTextValueId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/openEndedFragmentTextViewId"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:hint="Writ the answers here"
+        android:inputType="textPersonName"
+        android:textSize="20sp" />
+
+</RelativeLayout>

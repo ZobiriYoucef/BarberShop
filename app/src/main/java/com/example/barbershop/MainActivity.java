@@ -27,6 +27,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "MainActivity";
     //private TextView HelloWord;
     private EditText Name,LastName,Job;
     private Button Sand,btnGetDataFromSurver,GoToTheActivityLayout;

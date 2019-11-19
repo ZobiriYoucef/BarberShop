@@ -14,15 +14,14 @@ public class TabAdopter extends FragmentPagerAdapter {
     public Fragment getItem(int tabposition) {
         switch (tabposition){
             case 0:
-                Profile_Tab profile_tab = new Profile_Tab();
-                return profile_tab;
+                return new Profile_Tab();
 
             case 1:
                 return new User_Tab();
 
             case 2:
-                Share_Tab share_tab=new Share_Tab();
-                return share_tab;
+                return new Share_Tab();
+
             default: return null;
 
         }

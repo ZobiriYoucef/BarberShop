@@ -32,12 +32,7 @@ public class UserInfo extends AppCompatActivity {
     private ImageView IvUserImage;
     private TextView tvUserImageInfo;
 
-    /**
-     * Find the Views in the layout<br />
-     * <br />
-     * Auto-created on 2019-11-14 15:59:28 by Android Layout Finder
-     * (http://www.buzzingandroid.com/tools/android-layout-finder)
-     */
+
     private void findViews() {
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         IvUserImage = (ImageView) findViewById(R.id.IvUserImage);
