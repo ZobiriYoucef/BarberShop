@@ -1,12 +1,5 @@
 package com.example.barbershop;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,12 +10,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
@@ -30,8 +26,6 @@ import com.parse.ParseUser;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
-
-import github.chenupt.springindicator.SpringIndicator;
 
 public class ActivityAfterLogIn extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,7 +35,7 @@ public class ActivityAfterLogIn extends AppCompatActivity implements View.OnClic
 
     private androidx.appcompat.widget.Toolbar myToolBar;
 
-    //private TabLayout tabLayout;
+    private TabLayout tabLayout;
     private ViewPager viewPager;
     private TabAdopter tabAdopter;
 
@@ -72,13 +66,12 @@ public class ActivityAfterLogIn extends AppCompatActivity implements View.OnClic
         tabAdopter =new TabAdopter(getSupportFragmentManager());
         viewPager.setAdapter(tabAdopter);
 
-        //tabLayout = findViewById( R.id.tabLayout );
-        //tabLayout.setupWithViewPager(viewPager,false);
+        tabLayout = findViewById(R.id.tabLayout2);
+        tabLayout.setupWithViewPager(viewPager,false);
     }
 
 
     //Creat the menu:
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
