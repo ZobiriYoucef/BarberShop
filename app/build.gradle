@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -57,6 +58,8 @@ dependencies {
     implementation 'com.github.chenupt.android:springindicator:1.0.2@aar'
 
     implementation 'com.github.ch4vi:CheckTextList:1.0.0'
+
+
 }
 
 repositories {

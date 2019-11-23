@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserInfo"></activity>
+        <activity android:name=".QuestionType.QuestionsCreature"></activity>
+        <activity android:name=".QuestionType.AllQuestionActivity" />
+        <activity android:name=".UserInfo" />
         <activity
             android:name=".ActivityAfterLogIn"
             android:theme="@style/AppTheme.NoActionBar" />

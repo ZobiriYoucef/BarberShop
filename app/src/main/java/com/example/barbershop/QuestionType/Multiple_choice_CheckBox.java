@@ -23,14 +23,13 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Multiple_choice_CheckBox extends Fragment {
+
+public class Multiple_choice_CheckBox extends Fragment implements View.OnLongClickListener {
 
 
     public Multiple_choice_CheckBox(ArrayList<String> testArrayList) {
         TestArrayList = testArrayList;
     }
-
-    MyRecyclerViewAdapter adapter;
 
     public ArrayList<String> TestArrayList;
 
@@ -46,18 +45,24 @@ public class Multiple_choice_CheckBox extends Fragment {
         View view = inflater.inflate(R.layout.fragment_multiple_choice__check_box, container, false);
         ButterKnife.bind(this,view);
 
-        adapter = new MyRecyclerViewAdapter();
+        MyRecyclerViewAdapter adapter = new MyRecyclerViewAdapter();
         multipleChoiceFragmentRecyclerViewId.setAdapter(adapter);
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         multipleChoiceFragmentRecyclerViewId.setLayoutManager(mLayoutManager);
-
         multipleChoiceFragmentRecyclerViewId.setItemAnimator(new DefaultItemAnimator());
 
         multipleChoiceFragmentQuestionTextId.setText("Test Question");
+
         adapter.notifyDataSetChanged();
 
+        //multipleChoiceFragmentLinearLayoutId.setOnLongClickListener(this);
+
         return view;
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+       return false;
     }
 
     public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder>{
@@ -89,6 +94,7 @@ public class Multiple_choice_CheckBox extends Fragment {
 
                 }
             });
+
         }
 
         @Override
@@ -108,6 +114,7 @@ public class Multiple_choice_CheckBox extends Fragment {
             }
         }
     }
+
 
 }
 

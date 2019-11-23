@@ -40,6 +40,7 @@ public class TabAdopter extends FragmentPagerAdapter {
                 answers2.selectedAnswerList.add("fer");
                 return new Multiple_choice_CheckBox(answers2.selectedAnswerList);
 
+
             default: return null;
 
         }

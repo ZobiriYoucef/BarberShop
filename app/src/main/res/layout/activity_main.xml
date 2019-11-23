@@ -139,11 +139,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
         android:layout_marginBottom="24dp"
         android:text="Log in Acttivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/xxx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoToTheActivityLayout"
+        app:layout_constraintEnd_toEndOf="@+id/btnGoToTheActivityLayout"
+        app:layout_constraintStart_toStartOf="@+id/btnGoToTheActivityLayout" />
 
     <!-- app:lottie_loop="false"
     app:lottie_autoPlay="true"

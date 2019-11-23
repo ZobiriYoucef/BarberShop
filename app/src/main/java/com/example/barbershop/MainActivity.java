@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.barbershop.QuestionType.AllQuestionActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -28,9 +29,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
-    //private TextView HelloWord;
-    private EditText Name,LastName,Job;
-    private Button Sand,btnGetDataFromSurver,GoToTheActivityLayout;
+
+    private EditText Name, LastName, Job;
+    private Button Sand, btnGetDataFromSurver,GoToTheActivityLayout,vvv;
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private LottieAnimationView mLottie;
@@ -49,14 +50,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
+        Name = findViewById(R.id.etName);
+        LastName = findViewById(R.id.etLastName);
+        Job = findViewById(R.id.etJob);
 
-        Name=findViewById(R.id.etName);
-        LastName=findViewById(R.id.etLastName);
-        Job=findViewById(R.id.etJob);
-
-        Sand=findViewById(R.id.btnSand);
-        btnGetDataFromSurver=findViewById(R.id.btnGetDataFromSurver);
-        GoToTheActivityLayout=findViewById(R.id.btnGoToTheActivityLayout);
+        Sand = findViewById(R.id.btnSand);
+        btnGetDataFromSurver = findViewById(R.id.btnGetDataFromSurver);
+        GoToTheActivityLayout = findViewById(R.id.btnGoToTheActivityLayout);
 
 
         Sand.setOnClickListener(this);
@@ -64,14 +64,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GoToTheActivityLayout.setOnClickListener(this);
 
         //Animation background
-        constraintLayout=findViewById(R.id.consLayout1);
-        animationDrawable=(AnimationDrawable) constraintLayout.getBackground();
+        constraintLayout = findViewById(R.id.consLayout1);
+        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
 
         //Animation mLottie
-        mLottie=findViewById(R.id.loading_view);
+        mLottie = findViewById(R.id.loading_view);
 
-        TheObjectList=findViewById(R.id.tvTheList);
+        TheObjectList = findViewById(R.id.tvTheList);
 
+        vvv =findViewById(R.id.xxx);
+        vvv.setOnClickListener(this);
 
         /*animationDrawable.setEnterFadeDuration(3000);
         animationDrawable.setExitFadeDuration(1000);
@@ -84,38 +86,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSand:
-               try{
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                try {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(constraintLayout.getWindowToken(), 0);
                     mLottie.playAnimation();
-                    ParseObject Person=new ParseObject("Person");
-                    Person.put("Name",Name.getText().toString());
-                    Person.put("LastName",LastName.getText().toString());
-                    Person.put("Job",Job.getText().toString());
+                    ParseObject Person = new ParseObject("Person");
+                    Person.put("Name", Name.getText().toString());
+                    Person.put("LastName", LastName.getText().toString());
+                    Person.put("Job", Job.getText().toString());
 
                     Person.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            if (e==null) {
+                            if (e == null) {
                                 mLottie.cancelAnimation();
-                                FancyToast.makeText(MainActivity.this,"The Person object is save successfully",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
-                            }
+                                FancyToast.makeText(MainActivity.this, "The Person object is save successfully", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+                            } else
+                                FancyToast.makeText(MainActivity.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
 
-                        else FancyToast.makeText(MainActivity.this,e.getMessage(),FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
-
-                    }
+                        }
                     });
 
-                }catch (Exception e){
-                   FancyToast.makeText(MainActivity.this,e.getMessage(),FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
-               }
-            break;
+                } catch (Exception e) {
+                    FancyToast.makeText(MainActivity.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                }
+                break;
 
             case R.id.btnGetDataFromSurver:
-            try{
-                TheObjectList.setText("");
+                try {
+                    TheObjectList.setText("");
 
-                //by a specific Single code:
+                    //by a specific Single code:
 
                /* ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Person");
                 parseQuery.getInBackground("cFVIkm463K", new GetCallback<ParseObject>() {
@@ -128,37 +129,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });*/
 
 
+                    // listPars.
+                    ParseQuery<ParseObject> listPars = ParseQuery.getQuery("Person");
+                    listPars.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
 
-                // listPars.
-                ParseQuery<ParseObject> listPars = ParseQuery.getQuery("Person");
-                listPars.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List<ParseObject> objects, ParseException e) {
-
-                       if(e==null && objects.size()>0)
-                            {
-                                for(ParseObject listPars:objects){
-                                    Thelist=Thelist+listPars.get("Name").toString()+"\n";
+                            if (e == null && objects.size() > 0) {
+                                for (ParseObject listPars : objects) {
+                                    Thelist = Thelist + listPars.get("Name").toString() + "\n";
                                 }
-                                FancyToast.makeText(MainActivity.this, Thelist,FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
-                            }
-                           else FancyToast.makeText(MainActivity.this,"error",FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
-                    }
-                });
+                                FancyToast.makeText(MainActivity.this, Thelist, FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show();
+                            } else
+                                FancyToast.makeText(MainActivity.this, "error", FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                        }
+                    });
 
-            }catch (Exception e){
-                FancyToast.makeText(MainActivity.this,e.getMessage(),FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
-            }
-            break;
+                } catch (Exception e) {
+                    FancyToast.makeText(MainActivity.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
+                }
+                break;
 
             case R.id.btnGoToTheActivityLayout:
-                try{
-                    Intent intent = new Intent(MainActivity.this,LogInActivity.class);
+                try {
+                    Intent intent = new Intent(MainActivity.this, LogInActivity.class);
                     startActivity(intent);
 
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
+
+            case R.id.xxx:{
+                Intent intent = new Intent(MainActivity.this, AllQuestionActivity.class);
+                startActivity(intent);
+            }
 
         }
     }
