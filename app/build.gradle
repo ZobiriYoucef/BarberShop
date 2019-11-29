@@ -59,6 +59,12 @@ dependencies {
 
     implementation 'com.github.ch4vi:CheckTextList:1.0.0'
 
+    implementation 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+
+    implementation 'com.github.clans:fab:1.6.4'
+
+
+
 
 }
 

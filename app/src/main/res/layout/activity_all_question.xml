@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context=".QuestionType.Closed_ended_ImageYesNo">
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to Creat Question" />
+
     <TextView
         android:id="@+id/allQuestionsFragmentQuestionTextId"
         android:layout_width="match_parent"
@@ -28,6 +34,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent">
+
     </FrameLayout>
 
 
