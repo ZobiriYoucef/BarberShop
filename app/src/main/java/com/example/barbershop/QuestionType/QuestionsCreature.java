@@ -1,63 +1,131 @@
 package com.example.barbershop.QuestionType;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.barbershop.R;
-import com.github.clans.fab.FloatingActionMenu;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
-public class QuestionsCreature extends AppCompatActivity implements View.OnClickListener {
+public class QuestionsCreature extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+
+    @BindView(R.id.ListViewID)
+    ListView ListViewID;
+    private ArrayList<String> stringArrayList;
+    private ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_questions_creature);
+        ButterKnife.bind(this);
+
+        //initialise:
+        stringArrayList = new ArrayList<>();
+        arrayAdapter= new ArrayAdapter<>(this,android.R.layout.simple_list_item_checked, stringArrayList);
+        ListViewID.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+        ListViewID.setOnItemClickListener(this);
+
+        /*ParseUser parseUser =ParseUser.getCurrentUser();
+        parseUser.put("TeamWith",null);*/
 
 
-    }
-    //Create a button to attach the menu:
-    ImageView icon = new ImageView(this); // Create an icon
-        icon.setImageResource(R.drawable.plus);
-    FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
-            .setContentView(icon)
-            .build();
-    //Create menu items:
-    SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-    AddFloatingActionButton(itemBuilder,"AddQuestion",R.drawable.addquestion);
-    AddFloatingActionButton(itemBuilder,"AddQuestionChoise",R.drawable.addquestionchoise);
-    AddFloatingActionButton(itemBuilder,"AddQuestionRules",R.drawable.addquestionrules);
-    //Create the menu with the items:
-    FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
-            .addSubActionView(subActionButton.get("AddQuestion"))
-            .addSubActionView(subActionButton.get("AddQuestionChoise"))
-            .addSubActionView(subActionButton.get("AddQuestionRules"))
-            .attachTo(actionButton)
-            .build();
+        // mange the flowing user(The teammate)
+        try{
+            ParseQuery<ParseUser> query= ParseUser.getQuery();
+            query.whereNotEqualTo("username",ParseUser.getCurrentUser().getUsername());
+            query.findInBackground(new FindCallback<ParseUser>() {
+                @Override
+                public void done(List<ParseUser> objects, ParseException e) {
+                    if (objects.size()>0 && e == null){
+                        for(ParseUser User:objects){
+                            stringArrayList.add(User.getUsername());
+                        }
+                    }
+                    ListViewID.setAdapter(arrayAdapter);
+                    for(String TeamMate:stringArrayList){
+                        if(ParseUser.getCurrentUser().getList("TeamWith")!=null) {
 
-    private final Map<String, SubActionButton> subActionButton = new HashMap<>();
-    public void AddFloatingActionButton(SubActionButton.Builder itemBuilder,String buttonName,int ImageResource){
-        FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(20, 20);
-        ImageView itemIcon = new ImageView(this);
-        itemIcon.setImageResource(ImageResource);
-        SubActionButton button = itemBuilder.setContentView(itemIcon)
-                .setTheme(3)
-                .build();
-        subActionButton.put(buttonName,button);
+                            if (ParseUser.getCurrentUser().getList("TeamWith").contains(TeamMate)) {
+                                ListViewID.setItemChecked(stringArrayList.indexOf(TeamMate), true);
+                            }
+
+                        }
+                    }
+                }
+            });
+
+        }catch (Exception e){
+
+        }
+
+        List TeamWithList=ParseUser.getCurrentUser().getList("TeamWith");
+
+        for(Object Teammate:TeamWithList){
+
+
+        }
+
+
+
     }
 
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        CheckedTextView checkedTextView =(CheckedTextView) view;
+        List TeamWithList=ParseUser.getCurrentUser().getList("TeamWith");
+        if(checkedTextView.isChecked()){
+            if(TeamWithList.contains(stringArrayList.get(position))){
+                Toast.makeText(this, "You are ready team with: "+ stringArrayList.get(position), Toast.LENGTH_SHORT).show();
+            }else {
+                ParseUser.getCurrentUser().add("TeamWith", stringArrayList.get(position));
+                Toast.makeText(this, stringArrayList.get(position) + " is checked", Toast.LENGTH_SHORT).show();
+            }
+        } else{
+            TeamWithList.remove(stringArrayList.get(position));
+            ParseUser.getCurrentUser().put("TeamWith",TeamWithList);
+            Toast.makeText(this, stringArrayList.get(position)+" is inchecked", Toast.LENGTH_SHORT).show();
+        }
+
+        ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e==null){
+                    Toast.makeText(QuestionsCreature.this, "The object has been save", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_teammate_menu,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
 

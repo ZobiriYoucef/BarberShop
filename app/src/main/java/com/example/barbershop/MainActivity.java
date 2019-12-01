@@ -87,14 +87,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btnSand:
                 try {
+                    //Keybord
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(constraintLayout.getWindowToken(), 0);
+
+                    //StartAnimation
                     mLottie.playAnimation();
+
+                    //Creat a new Class:
                     ParseObject Person = new ParseObject("Person");
                     Person.put("Name", Name.getText().toString());
                     Person.put("LastName", LastName.getText().toString());
                     Person.put("Job", Job.getText().toString());
 
+                    //Save In Background
                     Person.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         }
                     });
+
 
                 } catch (Exception e) {
                     FancyToast.makeText(MainActivity.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();

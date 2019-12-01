@@ -31,8 +31,11 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginactivity);
+
+        //initialise var:
         findViews();
         setTitle("Sign Up");
+
         if(ParseUser.getCurrentUser()!=null){
            // ParseUser.getCurrentUser().logOut();
             SwitchToProfiles();
@@ -58,6 +61,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     private EditText etUserId;
     private Button btnLogIn;
     private Button btnCreatNew;
+
+
     private ParseObject Users =new ParseObject("UsersInfo");
 
 
@@ -104,7 +109,9 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnLogIn:
+
                 HideKeyBord();
+
                 if(btnLogIn.getText().toString()!="Cancel"){
                     if (isNotEmpty(etUserId)&& isNotEmpty(etPassword)) {
                         progressDialog =new ProgressDialog(this);

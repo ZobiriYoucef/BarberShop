@@ -76,8 +76,6 @@ public class ActivityAfterLogIn extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_menu,menu);
-
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -168,5 +166,4 @@ public class ActivityAfterLogIn extends AppCompatActivity implements View.OnClic
         }
     }
 
-    //OnBackPressed
 }
