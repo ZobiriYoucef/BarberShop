@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.barbershop.QuestionType.AddQuestion;
 import com.example.barbershop.QuestionType.AllQuestionActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.parse.FindCallback;
@@ -27,11 +28,16 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
+    @BindView(R.id.goToAddQuestion)
+    Button goToAddQuestion;
 
     private EditText Name, LastName, Job;
-    private Button Sand, btnGetDataFromSurver,GoToTheActivityLayout,vvv;
+    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout, vvv;
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private LottieAnimationView mLottie;
@@ -42,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
         Fresco.initialize(this);
@@ -63,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnGetDataFromSurver.setOnClickListener(this);
         GoToTheActivityLayout.setOnClickListener(this);
 
+        goToAddQuestion.setOnClickListener(this);
+
         //Animation background
         constraintLayout = findViewById(R.id.consLayout1);
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
@@ -72,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TheObjectList = findViewById(R.id.tvTheList);
 
-        vvv =findViewById(R.id.xxx);
+        vvv = findViewById(R.id.xxx);
         vvv.setOnClickListener(this);
 
         /*animationDrawable.setEnterFadeDuration(3000);
@@ -166,8 +175,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
 
-            case R.id.xxx:{
+            case R.id.xxx: {
                 Intent intent = new Intent(MainActivity.this, AllQuestionActivity.class);
+                startActivity(intent);
+            }
+            case R.id.goToAddQuestion: {
+                Intent intent = new Intent(MainActivity.this, AddQuestion.class);
                 startActivity(intent);
             }
 

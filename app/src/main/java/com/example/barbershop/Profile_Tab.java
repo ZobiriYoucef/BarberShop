@@ -14,15 +14,12 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import libs.mjn.prettydialog.PrettyDialog;
 
 
 /**
@@ -106,7 +103,9 @@ public class Profile_Tab extends Fragment implements AdapterView.OnItemClickList
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         switch (adapterView.getId()){
             case R.id.lvUser:
-                ParseQuery<ParseUser> parseUserParseQuery = ParseUser.getQuery();
+
+                // to show
+                /*ParseQuery<ParseUser> parseUserParseQuery = ParseUser.getQuery();
                 parseUserParseQuery.whereEqualTo("username",arrayList.get(i));
                 parseUserParseQuery.getFirstInBackground(new GetCallback<ParseUser>() {
                     @Override
@@ -119,7 +118,9 @@ public class Profile_Tab extends Fragment implements AdapterView.OnItemClickList
                                     .setIcon(R.drawable.ic_account_circle_black_24dp);
                                     }
                                 }
-                });
+                });*/
+
+
 
                          break;
                 }

@@ -13,12 +13,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.barbershop.Answers.Answers;
-import com.example.barbershop.MainActivity;
 import com.example.barbershop.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class AllQuestionActivity extends AppCompatActivity implements View.OnClickListener {
 
