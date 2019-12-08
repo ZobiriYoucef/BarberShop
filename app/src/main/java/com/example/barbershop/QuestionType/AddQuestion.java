@@ -6,8 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +18,12 @@ import com.example.barbershop.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ListHolder;
 import com.orhanobut.dialogplus.OnBackPressListener;
 import com.orhanobut.dialogplus.OnCancelListener;
 import com.orhanobut.dialogplus.OnClickListener;
 import com.orhanobut.dialogplus.OnDismissListener;
 import com.orhanobut.dialogplus.OnItemClickListener;
-import com.orhanobut.dialogplus.ViewHolder;
 
 import java.util.ArrayList;
 
@@ -37,12 +39,17 @@ public class AddQuestion extends AppCompatActivity {
     FloatingActionButton floatingButton2;
     @BindView(R.id.menu)
     FloatingActionMenu floatingMenu;
+    @BindView(R.id.list)
+    ListView list;
 
     public ArrayAdapter QuestionTypeAdaptor;
 
     Questions questions = new Questions();
-    @BindView(R.id.list)
-    ListView list;
+
+    ArrayList<SubjectData> subjectDataArrayList = new ArrayList<>();
+    CustomAdapterForListWithImage customAdapterForListWithImage = new CustomAdapterForListWithImage(subjectDataArrayList, this);
+
+
 
 
     @Override
@@ -57,11 +64,16 @@ public class AddQuestion extends AppCompatActivity {
         //get the question list from the questions constractor
 
         //try to work with image in a listview
-        ArrayList<SubjectData> subjectDataArrayList = new ArrayList<>();
-        subjectDataArrayList.add(new SubjectData("image1", "link1"));
-        subjectDataArrayList.add(new SubjectData("image2", "link2"));
-        CustomAdapterForListWithImage customAdapterForListWithImage = new CustomAdapterForListWithImage(subjectDataArrayList, this);
+        subjectDataArrayList.add(new SubjectData("image1", R.drawable.plus));
+        subjectDataArrayList.add(new SubjectData("image2", R.drawable.addquestion));
         list.setAdapter(customAdapterForListWithImage);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String s=subjectDataArrayList.get(i).SubjectName;
+                Toast.makeText(AddQuestion.this, s, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -85,20 +97,21 @@ public class AddQuestion extends AppCompatActivity {
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
-                       /* String TypeOftheSelectedQuestion = item.toString();
+
+                        String TypeOftheSelectedQuestion = subjectDataArrayList.get(position).SubjectName;
                         Toast.makeText(AddQuestion.this, TypeOftheSelectedQuestion, Toast.LENGTH_SHORT).show();
-                        questions.SelectedType=TypeOftheSelectedQuestion;
-                        dialog.dismiss();*/
+                        //questions.SelectedType=TypeOftheSelectedQuestion;
+                        dialog.dismiss();
                     }
                 })
 
-                //.setAdapter(QuestionTypeAdaptor)
+                .setAdapter(customAdapterForListWithImage)
 
                 //global click listener to you dialog
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(DialogPlus dialog, View view) {
-
+                       // dialog.dismiss();
                     }
                 })
 
@@ -132,7 +145,9 @@ public class AddQuestion extends AppCompatActivity {
                     }
                 })
 
-                .setContentHolder(new ViewHolder(R.layout.types_of_questions))
+                //.setContentHolder(new ViewHolder(R.layout.types_of_questions))
+
+                .setContentHolder(new ListHolder())
                 .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
                 .setGravity(Gravity.CENTER)
                 .setCancelable(true)

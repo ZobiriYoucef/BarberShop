@@ -63,7 +63,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
             <com.github.florent37.shapeofview.shapes.DiagonalView
                 android:layout_width="match_parent"
                 android:layout_height="300dp"

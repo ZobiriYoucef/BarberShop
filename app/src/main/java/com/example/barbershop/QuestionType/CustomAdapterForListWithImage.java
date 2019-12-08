@@ -5,15 +5,15 @@ import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.example.barbershop.R;
 
 import java.util.ArrayList;
 
-public class CustomAdapterForListWithImage implements ListAdapter {
+public class CustomAdapterForListWithImage extends BaseAdapter {
 
     ArrayList<SubjectData> subjectDataArrayList;
     Context context;
@@ -76,18 +76,13 @@ public class CustomAdapterForListWithImage implements ListAdapter {
         SubjectData subjectData=subjectDataArrayList.get(position);
         if(convertView==null){
             LayoutInflater layoutInflater=LayoutInflater.from(context);
-            convertView=layoutInflater.inflate(R.layout.list_row,null);
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            convertView=layoutInflater.inflate(R.layout.list_row,null,true);
 
-                }
-            });
             TextView TheTextList=convertView.findViewById(R.id.TheListText);
             ImageView TheImageList = convertView.findViewById(R.id.TheListImage);
-            TheTextList.setText(subjectData.SubjectName);
-            TheImageList.setImageResource();
 
+            TheTextList.setText(subjectData.SubjectName);
+            TheImageList.setImageResource(subjectData.ImageResources);
         }
 
 
