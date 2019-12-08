@@ -58,6 +58,7 @@ public class QuestionsCreature extends AppCompatActivity implements View.OnClick
 
 
         final ArrayList<HashMap<String,String>> TheListInfo =new ArrayList<>();
+
         final SimpleAdapter simpleAdapter=new SimpleAdapter(this,TheListInfo,android.R.layout.simple_list_item_2,
                 new String[]{"UserName","PhotoInfo"},new int[]{android.R.id.text1,android.R.id.text2});
 
@@ -84,11 +85,6 @@ public class QuestionsCreature extends AppCompatActivity implements View.OnClick
             e.printStackTrace();
         }
 
-
-
-
-        /*ParseUser parseUser =ParseUser.getCurrentUser();
-        parseUser.put("TeamWith",null);*/
 
 
         // mange the flowing user(The teammate)
