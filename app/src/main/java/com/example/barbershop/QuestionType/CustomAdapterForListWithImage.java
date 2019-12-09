@@ -28,7 +28,6 @@ public class CustomAdapterForListWithImage extends BaseAdapter {
         return false;
     }
 
-
     // i made change here False to True
     @Override
     public boolean isEnabled(int position) {
@@ -84,8 +83,6 @@ public class CustomAdapterForListWithImage extends BaseAdapter {
             TheTextList.setText(subjectData.SubjectName);
             TheImageList.setImageResource(subjectData.ImageResources);
         }
-
-
         return convertView;
     }
 

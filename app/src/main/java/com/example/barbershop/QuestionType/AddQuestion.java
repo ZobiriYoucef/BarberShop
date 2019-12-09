@@ -1,13 +1,12 @@
 package com.example.barbershop.QuestionType;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -42,14 +41,11 @@ public class AddQuestion extends AppCompatActivity {
     @BindView(R.id.list)
     ListView list;
 
-    public ArrayAdapter QuestionTypeAdaptor;
-
-    Questions questions = new Questions();
+    public int numberOfQuestion;
+    public static  ArrayList<Questions> questionsArrayList = new ArrayList<>();
 
     ArrayList<SubjectData> subjectDataArrayList = new ArrayList<>();
     CustomAdapterForListWithImage customAdapterForListWithImage = new CustomAdapterForListWithImage(subjectDataArrayList, this);
-
-
 
 
     @Override
@@ -57,23 +53,13 @@ public class AddQuestion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
         ButterKnife.bind(this);
+        numberOfQuestion=0;
 
 
-        QuestionTypeAdaptor = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, questions.QuestionTypeArrayList);
-
-        //get the question list from the questions constractor
-
-        //try to work with image in a listview
-        subjectDataArrayList.add(new SubjectData("image1", R.drawable.plus));
-        subjectDataArrayList.add(new SubjectData("image2", R.drawable.addquestion));
-        list.setAdapter(customAdapterForListWithImage);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String s=subjectDataArrayList.get(i).SubjectName;
-                Toast.makeText(AddQuestion.this, s, Toast.LENGTH_SHORT).show();
-            }
-        });
+        //try to work with image in a listView in the the center of the screen
+        subjectDataArrayList.add(new SubjectData("Open", R.drawable.plus));
+        subjectDataArrayList.add(new SubjectData("OneChoice", R.drawable.addquestion));
+        subjectDataArrayList.add(new SubjectData("MultiChoice", R.drawable.addquestion));
 
     }
 
@@ -84,7 +70,6 @@ public class AddQuestion extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
@@ -100,7 +85,25 @@ public class AddQuestion extends AppCompatActivity {
 
                         String TypeOftheSelectedQuestion = subjectDataArrayList.get(position).SubjectName;
                         Toast.makeText(AddQuestion.this, TypeOftheSelectedQuestion, Toast.LENGTH_SHORT).show();
-                        //questions.SelectedType=TypeOftheSelectedQuestion;
+                        switch (TypeOftheSelectedQuestion){
+                            case "Open":
+                                Intent intent=new Intent(AddQuestion.this, OpenQuestion.class);
+                                intent.putExtra("NumberOfTheQuestion",numberOfQuestion);
+                                dialog.dismiss();
+                                startActivity(intent);
+
+                                break;
+
+                            case "OneChoice":
+
+                                break;
+
+                            case "MultiChoice":
+
+                                break;
+
+                        }
+
                         dialog.dismiss();
                     }
                 })
