@@ -89,9 +89,8 @@ public class AddQuestion extends AppCompatActivity {
                             case "Open":
                                 Intent intent=new Intent(AddQuestion.this, OpenQuestion.class);
                                 intent.putExtra("NumberOfTheQuestion",numberOfQuestion);
-                                dialog.dismiss();
                                 startActivity(intent);
-
+                                dialog.dismiss();
                                 break;
 
                             case "OneChoice":

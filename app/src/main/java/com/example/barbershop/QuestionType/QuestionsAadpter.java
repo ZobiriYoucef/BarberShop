@@ -1,9 +1,12 @@
 package com.example.barbershop.QuestionType;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.example.barbershop.R;
 
 import java.util.ArrayList;
 
@@ -38,6 +41,8 @@ public class QuestionsAadpter extends BaseAdapter {
         Questions questions=questionsArrayList.get(position);
         switch (questions.SelectedType){
             case "Open":
+                LayoutInflater layoutInflater=LayoutInflater.from(context);
+                convertView=layoutInflater.inflate(R.layout.list_row,null,true);
 
                 break;
 
