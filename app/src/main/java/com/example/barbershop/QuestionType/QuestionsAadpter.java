@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.barbershop.R;
 
@@ -12,13 +14,13 @@ import java.util.ArrayList;
 
 public class QuestionsAadpter extends BaseAdapter {
     Context context;
-    ArrayList<Questions> questionsArrayList=new ArrayList<>();
-    String TypeOfQuestions;
+    ArrayList<Questions> questionsArrayList;
+    //String TypeOfQuestions;
 
-    public QuestionsAadpter(Context context, ArrayList<Questions> questionsArrayList, String typeOfQuestions) {
+    public QuestionsAadpter(Context context, ArrayList<Questions> questionsArrayList) {
         this.context = context;
         this.questionsArrayList = questionsArrayList;
-        TypeOfQuestions = typeOfQuestions;
+        //TypeOfQuestions = typeOfQuestions;
     }
 
     @Override
@@ -38,27 +40,32 @@ public class QuestionsAadpter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Questions questions=questionsArrayList.get(position);
-        switch (questions.SelectedType){
-            case "Open":
-                LayoutInflater layoutInflater=LayoutInflater.from(context);
-                convertView=layoutInflater.inflate(R.layout.list_row,null,true);
+        if (questionsArrayList.size()==0) {
+            return convertView;
+        }else{
+            Questions questions = questionsArrayList.get(position);
+                switch (questions.getType()) {
+                    case "Open":
+                        LayoutInflater layoutInflater = LayoutInflater.from(context);
+                        convertView = layoutInflater.inflate(R.layout.open_question_layout, null, true);
+                        EditText etAQA = convertView.findViewById(R.id.etOQA);
+                        TextView tvOQT = convertView.findViewById(R.id.tvOQT);
 
-                break;
+                        tvOQT.setText(questions.getQuestionText());
 
-            case "OneChoice":
 
-                break;
+                        return convertView;
+                    case "OneChoice":
 
-            case "MultiChoice":
+                        break;
 
-                break;
+                    case "MultiChoice":
 
+                        break;
+
+                }
+            }
+            return convertView;
         }
-
-
-
-
-        return null;
     }
-}
+

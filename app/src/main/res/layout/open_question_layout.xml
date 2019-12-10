@@ -4,16 +4,20 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/tvOQT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:hint="@string/QuestionText"
+        android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/etOQA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/TapAnswer"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:selectAllOnFocus="false"
+        android:singleLine="false"
+        android:textSize="18sp" />
 </LinearLayout>

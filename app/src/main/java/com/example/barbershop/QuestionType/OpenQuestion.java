@@ -9,10 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.barbershop.R;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,75 +39,67 @@ public class OpenQuestion extends AppCompatActivity implements AdapterView.OnIte
 
     private String TempType;
 
-    Questions openQuestions=new Questions();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_question);
         ButterKnife.bind(this);
 
-
-        Intent recivedIntentObject = getIntent();
-        openQuestions.QuestionsNumber = recivedIntentObject.getIntExtra("NumberOfTheQuestion",0);
-
-
-
+        //Spinner thing
         spinnerTypeOfAnswerId.setOnItemSelectedListener(this);
-
         List<String> categories = new ArrayList<String>();
         categories.add("Text");
         categories.add("Number");
         categories.add("PhoneNumber");
-
-        ArrayAdapter<String> SpinerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-        spinnerTypeOfAnswerId.setAdapter(SpinerAdapter);
+        ArrayAdapter<String> SpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        spinnerTypeOfAnswerId.setAdapter(SpinnerAdapter);
 
     }
 
+    //SpinnerFunction
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
          TempType = parent.getItemAtPosition(position).toString();
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
+
+
     @OnClick(R.id.OpenValidateId)
     public void onOpenValidateIdClicked() {
-        /*if(OpenQuestionTextId.getText().toString().equals("")){
+        if(OpenQuestionTextId.getText().toString().equals("")){
             FancyToast.makeText(this,"Plz enter a Question text and try again",FancyToast.LENGTH_SHORT,FancyToast.WARNING,false).show();
             return;
-        }*/
+        }
 
-        /*if(TempType==null){
+        if(TempType==null){
             FancyToast.makeText(this,"chose what type of answer you need and try again",FancyToast.LENGTH_SHORT,FancyToast.WARNING,false).show();
             return;
-        }*/
+        }
 
-        openQuestions.ExepectedAnswerType=TempType;
+        ArrayList<String> choiseArraylist = new ArrayList<>();
 
-        openQuestions.numberOfAnswersChoice=1;
 
-        openQuestions.answersChoice.add(OpenQuestionTextId.getText().toString()+"");
+        Questions openQuestions=new Questions("TestProfile","Open",1,OpenQuestionTextId.getText().toString(),
+                TempType,1,null,switch1.isChecked());
 
-        openQuestions.isTheAnswerRequierd=switch1.isChecked();
 
-        AddQuestion.questionsArrayList.add(openQuestions);
 
         new SweetAlertDialog(this)
                 .setTitleText("You have Successfully Add a question")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        finish();
+                        Intent intent = new Intent(OpenQuestion.this, AddQuestion.class);
+                        intent.putExtra("OpenQuestion",openQuestions);
+                        startActivity(intent);
                     }
                 })
                 .show();
 
-        //Toast.makeText(this, AddQuestion.questionsArrayList.size()+"", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, AddQuestion.questionsArrayList.size()+"", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.OpenCancelId)
@@ -130,8 +124,5 @@ public class OpenQuestion extends AppCompatActivity implements AdapterView.OnIte
                 })
                 .show();
     }
-
-
-
 
 }

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,12 +41,16 @@ public class AddQuestion extends AppCompatActivity {
     FloatingActionMenu floatingMenu;
     @BindView(R.id.list)
     ListView list;
+    @BindView(R.id.numberOfItemInArray)
+    TextView numberOfItemInArray;
 
-    public int numberOfQuestion;
-    public static  ArrayList<Questions> questionsArrayList = new ArrayList<>();
+    public static ArrayList<Questions> questionsArrayList = new ArrayList<>();
 
     ArrayList<SubjectData> subjectDataArrayList = new ArrayList<>();
     CustomAdapterForListWithImage customAdapterForListWithImage = new CustomAdapterForListWithImage(subjectDataArrayList, this);
+
+    public QuestionsAadpter questionsAadpter = new QuestionsAadpter(AddQuestion.this, questionsArrayList);
+
 
 
     @Override
@@ -53,16 +58,27 @@ public class AddQuestion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_question);
         ButterKnife.bind(this);
-        numberOfQuestion=0;
-
 
         //try to work with image in a listView in the the center of the screen
         subjectDataArrayList.add(new SubjectData("Open", R.drawable.plus));
         subjectDataArrayList.add(new SubjectData("OneChoice", R.drawable.addquestion));
         subjectDataArrayList.add(new SubjectData("MultiChoice", R.drawable.addquestion));
 
+        list.setAdapter(questionsAadpter);
+
+        Intent intent=getIntent();
+        Questions Openquestions=intent.getParcelableExtra("OpenQuestion");
+        if(Openquestions!=null){
+            questionsArrayList.add(Openquestions);
+        }
+
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        questionsAadpter.notifyDataSetChanged();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,6 +86,7 @@ public class AddQuestion extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return super.onOptionsItemSelected(item);
@@ -77,6 +94,8 @@ public class AddQuestion extends AppCompatActivity {
 
     @OnClick(R.id.floatingButton1)
     public void onViewClicked() {
+        numberOfItemInArray.setText(questionsArrayList.size()+"");
+
         DialogPlus dialog = DialogPlus.newDialog(this)
 
                 .setOnItemClickListener(new OnItemClickListener() {
@@ -85,10 +104,11 @@ public class AddQuestion extends AppCompatActivity {
 
                         String TypeOftheSelectedQuestion = subjectDataArrayList.get(position).SubjectName;
                         Toast.makeText(AddQuestion.this, TypeOftheSelectedQuestion, Toast.LENGTH_SHORT).show();
-                        switch (TypeOftheSelectedQuestion){
+
+                        switch (TypeOftheSelectedQuestion) {
+
                             case "Open":
-                                Intent intent=new Intent(AddQuestion.this, OpenQuestion.class);
-                                intent.putExtra("NumberOfTheQuestion",numberOfQuestion);
+                                Intent intent = new Intent(AddQuestion.this, OpenQuestion.class);
                                 startActivity(intent);
                                 dialog.dismiss();
                                 break;
@@ -113,7 +133,7 @@ public class AddQuestion extends AppCompatActivity {
                 .setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(DialogPlus dialog, View view) {
-                       // dialog.dismiss();
+                        // dialog.dismiss();
                     }
                 })
 

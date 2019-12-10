@@ -17,4 +17,7 @@
     <string name="Max">Max</string>
     <string name="Min">Min</string>
     <string name="CurrentNot">Current Note</string>
+
+    <string name="TapAnswer">Tap the answer here</string>
+    <string name="QuestionText">The Question text will show up here</string>
 </resources>
