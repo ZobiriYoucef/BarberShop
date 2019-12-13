@@ -3,10 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/SaveTheSurveyQuestionsItem"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:title="Save SurveyQuestions"
+        android:icon="@drawable/ic_save_black_24dp"/>
+
+    <item
+    android:id="@+id/RetriveTheSurveyQuestionsItem"
+    android:orderInCategory="100"
+    app:showAsAction="ifRoom"
+    android:title="Retrieve The Survey Questions"
+    android:icon="@drawable/ic_file_download_black_24dp"/>
+
+    <item
         android:id="@+id/postImageItem"
         android:orderInCategory="100"
-        app:showAsAction="always"
-        android:title="Post Image"
+        app:showAsAction="ifRoom"
+        android:title="Picture .."
         android:icon="@drawable/camera_icon"/>
 
     <item

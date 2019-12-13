@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -95,11 +94,10 @@ public class OpenQuestion extends AppCompatActivity implements AdapterView.OnIte
                         Intent intent = new Intent(OpenQuestion.this, AddQuestion.class);
                         intent.putExtra("OpenQuestion",openQuestions);
                         startActivity(intent);
+                        finish();
                     }
                 })
                 .show();
-
-        Toast.makeText(this, AddQuestion.questionsArrayList.size()+"", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.OpenCancelId)

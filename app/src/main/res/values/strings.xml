@@ -20,4 +20,8 @@
 
     <string name="TapAnswer">Tap the answer here</string>
     <string name="QuestionText">The Question text will show up here</string>
+
+    <string name="menu_item_call">Test 1</string>
+    <string name="menu_item_text">test 2</string>
+    <string name="menu_item_email">test 3</string>
 </resources>

@@ -6,141 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".QuestionType.AddQuestion">
 
-    <!--<com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu"
-        app:menu_animationDelayPerItem="50"
-        app:menu_colorPressed="#E75043"
-        app:menu_colorRipple="#99FFFFFF"
-        app:menu_fab_label="your_label_here"
-        app:menu_icon="@drawable/ic_add_circle_black_24dp"
-        app:menu_labels_colorNormal="#333333"
-        app:menu_labels_colorPressed="#444444"
-        app:menu_labels_colorRipple="#66FFFFFF"
-        app:menu_labels_cornerRadius="3dp"
-        app:menu_labels_ellipsize="none"
-        app:menu_labels_textColor="#FFFFFF"
-        app:menu_labels_textSize="14sp"
-        app:menu_openDirection="up"
-        app:menu_shadowColor="#66000000"
-        app:menu_shadowRadius="4dp"
-        app:menu_shadowXOffset="1dp"
-        app:menu_shadowYOffset="3dp"
-        app:menu_showShadow="true"
+    <io.github.yavski.fabspeeddial.FabSpeedDial
+        android:id="@+id/FabSpeedID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">-->
-
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-
+        android:layout_gravity="bottom|end"
+        app:fabGravity="bottom_end"
+        app:fabMenu="@menu/fab_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:miniFabBackgroundTint="@android:color/white"
+        app:miniFabDrawableTint="?attr/colorPrimaryDark"
+        app:miniFabTitleTextColor="?attr/colorPrimaryDark" />
 
-        app:menu_animationDelayPerItem="50"
-
-        app:menu_backgroundColor="@android:color/transparent"
-        app:menu_colorNormal="#DA4336"
-        app:menu_colorPressed="#E75043"
-        app:menu_colorRipple="#99FFFFFF"
-
-        app:menu_buttonSpacing="0dp"
-
-
-
-        app:menu_fab_size="normal"
-
-        app:menu_icon="@drawable/fab_add"
-
-        app:menu_fab_label="your_label_here"
-        app:menu_labels_colorNormal="#333333"
-        app:menu_labels_colorPressed="#444444"
-        app:menu_labels_colorRipple="#66FFFFFF"
-        app:menu_labels_cornerRadius="3dp"
-        app:menu_labels_ellipsize="none"
-        app:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-        app:menu_labels_margin="0dp"
-        app:menu_labels_maxLines="-1"
-        app:menu_labels_padding="8dp"
-        app:menu_labels_paddingBottom="4dp"
-        app:menu_labels_paddingLeft="8dp"
-        app:menu_labels_paddingRight="8dp"
-        app:menu_labels_paddingTop="4dp"
-        app:menu_labels_position="left"
-        app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-        app:menu_labels_showShadow="true"
-        app:menu_labels_singleLine="false"
-        app:menu_labels_textColor="#FFFFFF"
-        app:menu_labels_textSize="14sp"
-
-        app:menu_openDirection="up"
-        app:menu_showShadow="true"
-        app:menu_shadowColor="#66000000"
-        app:menu_shadowRadius="4dp"
-        app:menu_shadowXOffset="1dp"
-        app:menu_shadowYOffset="3dp">
-
-        <!--app:menu_fab_show_animation="@anim/my_show_animation"
-        app:menu_fab_hide_animation="@anim/my_hide_animation"
-        app:menu_labels_style="@style/YourCustomLabelsStyle"-->
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/floatingButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_account_circle_black_24dp"
-            app:fab_label="Menu item 1"
-            app:fab_size="normal" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/floatingButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginBottom="8dp"
-
-            android:src="@drawable/fab_add"
-
-            app:fab_colorNormal="#DA4336"
-            app:fab_colorPressed="#E75043"
-            app:fab_colorRipple="#99FFFFFF"
-
-            app:fab_showShadow="true"
-            app:fab_shadowColor="#66000000"
-            app:fab_shadowRadius="4dp"
-            app:fab_shadowXOffset="1dp"
-            app:fab_shadowYOffset="3dp"
-
-            app:fab_size="normal"
-            app:fab_showAnimation="@anim/fab_scale_up"
-            app:fab_hideAnimation="@anim/fab_scale_down"
-
-            app:fab_label="Button to do..."
-
-            app:fab_progress_color="#FF009688"
-            app:fab_progress_backgroundColor="#4D000000"
-            app:fab_progress_indeterminate="false"
-            app:fab_progress_max="100"
-            app:fab_progress="0"
-            app:fab_progress_showBackground="true"/>
-
-
-    </com.github.clans.fab.FloatingActionMenu>
+    <!--app:miniFabTitleTextColorList="@array/fab_menu_item_colors"
+    app:miniFabBackgroundTintList="@array/fab_menu_item_colors"-->
 
     <ListView
         android:id="@+id/list"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
         android:divider="#000"
         android:dividerHeight="1dp"
         android:footerDividersEnabled="false"

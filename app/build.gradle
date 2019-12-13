@@ -64,16 +64,23 @@ dependencies {
 
     implementation 'com.github.ch4vi:CheckTextList:1.0.0'
 
-    //implementation 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+    //FloatingActionMenu
+    implementation 'io.github.yavski:fab-speed-dial:1.0.6'
 
-    implementation 'com.github.clans:fab:1.6.4'
 
+    //RefreshLayout
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
 
+    //dialogplus
     implementation 'com.orhanobut:dialogplus:1.11@aar'
 
+    //sweetalert
     implementation 'com.github.f0ris.sweetalert:library:1.5.6'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 
 }
 
