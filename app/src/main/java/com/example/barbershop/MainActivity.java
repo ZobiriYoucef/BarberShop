@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.barbershop.QuestionType.AddQuestion;
 import com.example.barbershop.QuestionType.AllQuestionActivity;
+import com.example.barbershop.QuestionType.SurvyLibTest;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button goToAddQuestion;
 
     private EditText Name, LastName, Job;
-    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout, vvv;
+    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout, vvv,goToSurveyLabTest;
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private LottieAnimationView mLottie;
@@ -83,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         vvv = findViewById(R.id.xxx);
         vvv.setOnClickListener(this);
+
+        goToSurveyLabTest=findViewById(R.id.goToSurveyLabTest);
+        goToSurveyLabTest.setOnClickListener(this);
 
         /*animationDrawable.setEnterFadeDuration(3000);
         animationDrawable.setExitFadeDuration(1000);
@@ -168,20 +172,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnGoToTheActivityLayout:
                 try {
-                    Intent intent = new Intent(MainActivity.this, LogInActivity.class);
-                    startActivity(intent);
+                    Intent intentToLogInActivity = new Intent(MainActivity.this, LogInActivity.class);
+                    startActivity(intentToLogInActivity);
 
                 } catch (Exception e) {
 
                 }
 
             case R.id.xxx: {
-                Intent intent = new Intent(MainActivity.this, AllQuestionActivity.class);
-                startActivity(intent);
+                Intent intentToAllQuestionActivity = new Intent(MainActivity.this, AllQuestionActivity.class);
+                startActivity(intentToAllQuestionActivity);
+                break;
             }
             case R.id.goToAddQuestion: {
-                Intent intent = new Intent(MainActivity.this, AddQuestion.class);
-                startActivity(intent);
+                Intent intentToAddQuestion = new Intent(MainActivity.this, AddQuestion.class);
+                startActivity(intentToAddQuestion);
+                break;
+            }
+            case R.id.goToSurveyLabTest: {
+                Intent intentToGoToSurveyLabTest = new Intent(MainActivity.this, SurvyLibTest.class);
+                startActivity(intentToGoToSurveyLabTest);
+                break;
             }
 
         }

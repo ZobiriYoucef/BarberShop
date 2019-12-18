@@ -67,8 +67,8 @@ public class AllQuestionActivity extends AppCompatActivity implements View.OnCli
                 break;
 
             case R.id.button2:
-               Intent intent = new Intent(AllQuestionActivity.this, QuestionsCreature.class);
-               startActivity(intent);
+               Intent intentToQuestionsCreature = new Intent(AllQuestionActivity.this, QuestionsCreature.class);
+               startActivity(intentToQuestionsCreature);
                break;
         }
     }

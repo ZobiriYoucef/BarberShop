@@ -268,8 +268,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void SwitchToProfiles(){
-        Intent intent = new Intent(LogInActivity.this,ActivityAfterLogIn.class);
-        startActivity(intent);
+        Intent intentSwitchTOActivityAfterLogIn = new Intent(LogInActivity.this,ActivityAfterLogIn.class);
+        startActivity(intentSwitchTOActivityAfterLogIn);
         finish();
     }
 

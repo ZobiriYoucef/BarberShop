@@ -17,8 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".QuestionType.OpenQuestion"/>
-        <activity android:name=".QuestionType.AddQuestion" />
+        <activity android:name=".QuestionType.SurvyLibTest"></activity>
+        <activity android:name=".QuestionType.OpenQuestion" />
+        <activity
+            android:name=".QuestionType.AddQuestion"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".QuestionType.QuestionsCreature" />
         <activity android:name=".QuestionType.AllQuestionActivity" />
         <activity android:name=".UserInfo" />
