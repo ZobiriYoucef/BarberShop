@@ -25,11 +25,29 @@
     <string name="menu_item_text">test 2</string>
     <string name="menu_item_email">test 3</string>
 
-    <string name="SurveyTitle">This is the title of the test survey</string>
-    <string name="SurveyDescription">This is the description of the survey</string>
+
+
+    //Survey String
+    <string name="Next">Next</string>
+    <string name="SurveyTitle">Commercialisation des pneumatiques en Algérie</string>
+    <string name="SurveyDescription">Questionnaire s"'"adressant aux personnes possédant un véhicule immatriculé entre 2008 et 2018</string>
+
+    <string name="Region">Region</string>
+    West
+
+
+
+
+    Région
+
+    <string name="IntegerHintTest">You tap here an integer</string>
+
+
     <string name="SurveyFinal">You have end the survey</string>
     <string name="TQ1">The Test of the first Question</string>
     <string name="TQ1T">The Test of the first Question</string>
     <string name="TQ2">The second Test Question</string>
     <string name="TQ3">The Third Test Question</string>
+    <string name="boolean_example_title">Test bolean</string>
+    <string name="boolean_example_text">Test Bolean Dicr</string>
 </resources>
