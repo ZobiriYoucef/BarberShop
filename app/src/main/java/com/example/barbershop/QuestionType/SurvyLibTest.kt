@@ -1,5 +1,7 @@
 package com.example.barbershop.QuestionType
 
+import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
@@ -8,26 +10,29 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.barbershop.R
-import com.quickbirdstudios.surveykit.AnswerFormat
-import com.quickbirdstudios.surveykit.FinishReason
-import com.quickbirdstudios.surveykit.NavigableOrderedTask
-import com.quickbirdstudios.surveykit.SurveyTheme
+import com.quickbirdstudios.surveykit.*
 import com.quickbirdstudios.surveykit.result.TaskResult
 import com.quickbirdstudios.surveykit.steps.CompletionStep
 import com.quickbirdstudios.surveykit.steps.InstructionStep
 import com.quickbirdstudios.surveykit.steps.QuestionStep
 import com.quickbirdstudios.surveykit.survey.SurveyView
+import com.shashank.sony.fancytoastlib.FancyToast
+import java.util.*
+import kotlin.collections.ArrayList
 
 open class SurvyLibTest : AppCompatActivity() {
     protected lateinit var survey: SurveyView
     private lateinit var container: ViewGroup
 
+    private lateinit var dataBaseHelper:DataBaseHelperClass
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survy_lib_test)
+
+        dataBaseHelper= DataBaseHelperClass(this)
 
         survey = findViewById(R.id.survey_view)
         container = findViewById(R.id.surveyContainer)
@@ -158,11 +163,34 @@ open class SurvyLibTest : AppCompatActivity() {
 
         surveyView.onSurveyFinish = { taskResult: TaskResult, reason: FinishReason ->
             if (reason == FinishReason.Completed) {
-                val intent = Intent(this, StartASurvey::class.java)
+                /*val intent = Intent(this, StartASurvey::class.java)
                 intent.putExtra("TaskResult", taskResult)
                 startActivity(intent)
                 finish()
-                //container.removeAllViews()
+                container.removeAllViews()*/
+                val questionResult:ArrayList<String> = ArrayList()
+
+                val taskIdentifier: TaskIdentifier =taskResult.id
+                val taskStartDate: Date =taskResult.startDate
+                val taskEndDate: Date =taskResult.endDate
+
+                taskResult.results.forEach { stepResult ->stepResult.results.forEach{
+                    questionResult.add(it.stringIdentifier)
+                }
+                }
+
+                val db=dataBaseHelper.writableDatabase
+
+                val values = ContentValues()
+
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q1,questionResult[1])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q2,questionResult[2])
+
+                val resultRowId=db.insert(IrisTyres.DataBaseTableEntry.TabName,null,values)
+
+                setResult(Activity.RESULT_OK, Intent())
+
+                FancyToast.makeText(this,resultRowId.toString(), FancyToast.LENGTH_LONG, FancyToast.SUCCESS, false).show()
             }
             if (reason == FinishReason.Discarded){
                 Toast.makeText(this@SurvyLibTest, "Discarded", Toast.LENGTH_LONG).show()
@@ -171,10 +199,11 @@ open class SurvyLibTest : AppCompatActivity() {
                 Toast.makeText(this@SurvyLibTest, "Failed", Toast.LENGTH_LONG).show()
                 finish()
             }
-            if (reason == FinishReason.Saved)
-            {
+            if (reason == FinishReason.Saved) {
                 Toast.makeText(this@SurvyLibTest, "Saved", Toast.LENGTH_LONG).show()
             }
+
+            finish()
         }
 
         val configuration = SurveyTheme(
