@@ -23,11 +23,12 @@ open class SurvyLibTest : AppCompatActivity() {
     private lateinit var container: ViewGroup
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survy_lib_test)
 
-        // val surveyView = findViewById<SurveyView>(R.id.survey_view)
         survey = findViewById(R.id.survey_view)
         container = findViewById(R.id.surveyContainer)
 
@@ -157,11 +158,11 @@ open class SurvyLibTest : AppCompatActivity() {
 
         surveyView.onSurveyFinish = { taskResult: TaskResult, reason: FinishReason ->
             if (reason == FinishReason.Completed) {
-                    val intent = Intent(this, StartASurvey::class.java)
-                    intent.putExtra("TaskResult", taskResult)
-                    startActivity(intent)
-                    finish()
-                    //container.removeAllViews()
+                val intent = Intent(this, StartASurvey::class.java)
+                intent.putExtra("TaskResult", taskResult)
+                startActivity(intent)
+                finish()
+                //container.removeAllViews()
             }
             if (reason == FinishReason.Discarded){
                 Toast.makeText(this@SurvyLibTest, "Discarded", Toast.LENGTH_LONG).show()
