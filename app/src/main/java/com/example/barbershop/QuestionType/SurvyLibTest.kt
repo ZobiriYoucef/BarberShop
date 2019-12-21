@@ -52,6 +52,7 @@ open class SurvyLibTest : AppCompatActivity() {
     lateinit var Q11: QuestionStep
     lateinit var Q12: QuestionStep
     lateinit var Q13: QuestionStep
+    lateinit var Q13A: QuestionStep
     lateinit var Q14: QuestionStep
     lateinit var Q15: QuestionStep
     lateinit var Q15A: QuestionStep
@@ -63,6 +64,7 @@ open class SurvyLibTest : AppCompatActivity() {
     lateinit var Q19: QuestionStep
     lateinit var Q19A: QuestionStep
     lateinit var Q20: QuestionStep
+    lateinit var Q20A: QuestionStep
     lateinit var Q21: QuestionStep
     lateinit var Q21A: QuestionStep
     lateinit var Q22: QuestionStep
@@ -99,6 +101,218 @@ open class SurvyLibTest : AppCompatActivity() {
     private fun setupSurvey(surveyView: SurveyView) {
 
         val task = NavigableOrderedTask(steps = allSteps)
+
+        task.setNavigationRule(
+                Q1.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q1A.id
+                                else -> Q2.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q8.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q8A.id
+                                else -> Q9.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q7.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q7A.id
+                                "Lorsque vous partiez au trajet"->Q8.id
+                                else -> Q7B.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q9.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q9A.id
+                                "Selon le Kilométrage"->Q10.id
+                                "Selon La période (durée)"->Q11.id
+                                "Selon le niveau d'usure des pneus"->Q12.id
+                                else -> null
+                            }
+                        }
+                )
+        )
+        task.setNavigationRule(
+                Q9A.id,
+                NavigationRule.DirectStepNavigationRule(
+                        destinationStepStepIdentifier = Q12.id
+                )
+        )
+
+        task.setNavigationRule(
+                Q10.id,
+                NavigationRule.DirectStepNavigationRule(
+                        destinationStepStepIdentifier = Q12.id
+                )
+        )
+
+        task.setNavigationRule(
+                Q12.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Oui" -> Q13.id
+                                "Non"->Q20A.id
+                                else -> null
+                            }
+                        }
+                )
+        )
+        task.setNavigationRule(
+                Q13.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q13A.id
+                                else -> Q14.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q15.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q15A.id
+                                else -> Q16.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q16.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q16A.id
+                                else -> Q17.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q17.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q17A.id
+                                else -> Q18.id
+                            }
+                        }
+                )
+        )
+        task.setNavigationRule(
+                Q20.id,
+                NavigationRule.DirectStepNavigationRule(
+                        destinationStepStepIdentifier = Q21.id
+                )
+        )
+
+        task.setNavigationRule(
+                Q21.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q21A.id
+                                else -> Q22.id
+                            }
+                        }
+                )
+        )
+        task.setNavigationRule(
+                Q23.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Oui" -> Q24.id
+                                "Non" -> Q25.id
+                                else -> null
+                            }
+                        }
+                )
+        )
+        task.setNavigationRule(
+                Q25.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Oui" -> Q26.id
+                                "Non" -> Q27.id
+                                else -> null
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q26.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q26A.id
+                                else -> Q30.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q26A.id,
+                NavigationRule.DirectStepNavigationRule(
+                        destinationStepStepIdentifier = Q30.id
+                )
+        )
+
+        task.setNavigationRule(
+                Q27.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q27A.id
+                                else -> Q28.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                Q28.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Autres" -> Q28A.id
+                                else -> Q29.id
+                            }
+                        }
+                )
+        )
+
+
 
         surveyView.onSurveyFinish = { taskResult: TaskResult, reason: FinishReason ->
             if (reason == FinishReason.Completed) {
@@ -300,7 +514,6 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Vulcanisateurs"),
                                 TextChoice("Garages mécaniques spécialisés"),
                                 TextChoice("Concessionnaire (Agent Agréé)"),
-                                TextChoice("Lorsque vous partiez au trajet"),
                                 TextChoice("Autres")
                         )
                 )
@@ -313,7 +526,7 @@ open class SurvyLibTest : AppCompatActivity() {
         Q9 = QuestionStep(
                 title = "A quelle fréquence changez-vous vos pneus ?",
                 text = "",
-                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
                                 TextChoice("Selon le Kilométrage"),
                                 TextChoice("Selon La période (durée)"),
@@ -353,6 +566,24 @@ open class SurvyLibTest : AppCompatActivity() {
         )
         Q13 = QuestionStep(
                 title = "Pourquoi vous avez changé vous pneus ?",
+                text = "SVP préciser!!",
+                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
+                        textChoices = listOf(
+                                TextChoice("Le pneu à éclater"),
+                                TextChoice("Une bosse qui sort du pneu"),
+                                TextChoice("Une coupure profonde sur le pneu"),
+                                TextChoice("Vous devez ajouter de l'air dans l'un de vos pneus qutidianment"),
+                                TextChoice("Une vibration dans la course du pneu"),
+                                TextChoice("La bande de roulement est trop usée"),
+                                TextChoice("Une vibration dans la course du pneu"),
+                                TextChoice("l’âge: les pneus atteindre leur limite dans le temps"),
+                                TextChoice("la saison: remplacé les anciens pneus par les pneus d'hiver"),
+                                TextChoice("Autres")
+                        )
+                )
+        )
+        Q13A = QuestionStep(
+                title = "Autres",
                 text = "SVP préciser!!",
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
@@ -466,6 +697,17 @@ open class SurvyLibTest : AppCompatActivity() {
                         hint = "Mois"
                 )
         )
+        Q20A = QuestionStep(
+                title = "Si vous devez changer un pneus ou plus est ce que vous changer",
+                text = "",
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                        textChoices = listOf(
+                                TextChoice("seulement les pneus endommagés"),
+                                TextChoice("4 pneus à la fois"),
+                                TextChoice("2 par 2")
+                        )
+                )
+        )
         Q21 = QuestionStep(
                 title = "Quel critère important pour vous lors de l'achat d'un pneu ? ",
                 text = "Possibilité de réponses Multiples",
@@ -519,8 +761,8 @@ open class SurvyLibTest : AppCompatActivity() {
                 )
         )
         Q25 = QuestionStep(
-                title = "",
-                text = "Si on vous dit qu’IRIS suit les normes internationales et européennes de la fabrication des pneus, Envisageriez-vous d’achetée des pneus IRIS ?",
+                title = "Si on vous dit qu’IRIS suit les normes internationales et européennes de la fabrication des pneus, Envisageriez-vous d’achetée des pneus IRIS ?",
+                text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
                                 TextChoice("Oui"),
@@ -529,7 +771,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 )
         )
         Q26 = QuestionStep(
-                title = "Quel critère important pour vous lors de l'achat d'un pneu ? ",
+                title = "Qu'est-ce qui vous motiverait à le faire ?",
                 text = "Possibilité de réponses Multiples",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
@@ -568,8 +810,8 @@ open class SurvyLibTest : AppCompatActivity() {
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q28 = QuestionStep(
-                title = "",
-                text = "quel(s) est (sont) pour vous le(s) facteur(s) important(s) qui vous inciterait (aient) à l'achat d'un pneu IRIS ?  ",
+                title = "quel(s) est (sont) pour vous le(s) facteur(s) important(s) qui vous inciterait (aient) à l'achat d'un pneu IRIS ?",
+                text = "",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
                                 TextChoice("Recommandation"),
@@ -588,8 +830,8 @@ open class SurvyLibTest : AppCompatActivity() {
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q29 = QuestionStep(
-                title = "",
-                text = "Si on vous dit qu’IRIS fait de l’exportation des pneus, envisageriez-vous d’achetée des pneus IRIS ?",
+                title = "Si on vous dit qu’IRIS fait de l’exportation des pneus, envisageriez-vous d’achetée des pneus IRIS ?",
+                text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
                                 TextChoice("Oui"),
@@ -670,6 +912,7 @@ open class SurvyLibTest : AppCompatActivity() {
                  Q11,
                  Q12,
                  Q13,
+                Q13A,
                 Q14,
                  Q15,
                 Q15A,
@@ -681,6 +924,7 @@ open class SurvyLibTest : AppCompatActivity() {
                  Q19,
                  Q19A,
                 Q20,
+                Q20A,
                  Q21,
                  Q21A,
                  Q22,
