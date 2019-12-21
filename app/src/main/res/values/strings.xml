@@ -26,19 +26,16 @@
     <string name="menu_item_email">test 3</string>
 
 
-
     //Survey String
     <string name="Next">Next</string>
     <string name="SurveyTitle">Commercialisation des pneumatiques en Algérie</string>
     <string name="SurveyDescription">Questionnaire s"'"adressant aux personnes possédant un véhicule immatriculé entre 2008 et 2018</string>
 
     <string name="Region">Region</string>
-    West
 
 
 
 
-    Région
 
     <string name="IntegerHintTest">You tap here an integer</string>
 
@@ -50,4 +47,21 @@
     <string name="TQ3">The Third Test Question</string>
     <string name="boolean_example_title">Test bolean</string>
     <string name="boolean_example_text">Test Bolean Dicr</string>
+
+
+    //from the tuto
+    <string name="app_name2">Globo Med</string>
+    <string name="action_delete">Delete</string>
+    <string name="name">Full Name</string>
+    <string name="designation">Designation</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="dob">DOB: dd/mm/yyyy</string>
+    <string name="action_delete_all">Delete All</string>
+    <string name="confirm_sure">Are you sure you want to delete all data?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="IsSurgeon">Is Surgeon: </string>
+    <string name="delete">Are you sure you want to delete this</string>
+    <string name="required">Required Field</string>
 </resources>

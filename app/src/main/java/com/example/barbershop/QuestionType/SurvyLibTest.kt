@@ -1,13 +1,17 @@
 package com.example.barbershop.QuestionType
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.barbershop.R
-import com.quickbirdstudios.surveykit.*
+import com.quickbirdstudios.surveykit.AnswerFormat
+import com.quickbirdstudios.surveykit.FinishReason
+import com.quickbirdstudios.surveykit.NavigableOrderedTask
+import com.quickbirdstudios.surveykit.SurveyTheme
 import com.quickbirdstudios.surveykit.result.TaskResult
 import com.quickbirdstudios.surveykit.steps.CompletionStep
 import com.quickbirdstudios.surveykit.steps.InstructionStep
@@ -51,7 +55,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 hint = this.resources.getString(R.string.how_old_hint)
                         )
                 ),
-                QuestionStep(
+                /*QuestionStep(
                         title = this.resources.getString(R.string.how_fat_question_title),
                         text = this.resources.getString(R.string.how_fat_question_text),
                         isOptional = true,
@@ -141,7 +145,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                         ImageChoice(R.drawable.ic_account_circle_black_24dp)
                                 )
                         )
-                ),
+                ),*/
                 CompletionStep(
                         title = this.resources.getString(R.string.finish_question_title),
                         text = this.resources.getString(R.string.finish_question_text),
@@ -153,10 +157,22 @@ open class SurvyLibTest : AppCompatActivity() {
 
         surveyView.onSurveyFinish = { taskResult: TaskResult, reason: FinishReason ->
             if (reason == FinishReason.Completed) {
-                taskResult.results.forEach { stepResult ->
-                    Log.e("ASDF", "answer ${stepResult.results.firstOrNull()}")
-                    container.removeAllViews()
-                }
+                    val intent = Intent(this, StartASurvey::class.java)
+                    intent.putExtra("TaskResult", taskResult)
+                    startActivity(intent)
+                    finish()
+                    //container.removeAllViews()
+            }
+            if (reason == FinishReason.Discarded){
+                Toast.makeText(this@SurvyLibTest, "Discarded", Toast.LENGTH_LONG).show()
+            }
+            if (reason == FinishReason.Failed){
+                Toast.makeText(this@SurvyLibTest, "Failed", Toast.LENGTH_LONG).show()
+                finish()
+            }
+            if (reason == FinishReason.Saved)
+            {
+                Toast.makeText(this@SurvyLibTest, "Saved", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -175,6 +191,8 @@ open class SurvyLibTest : AppCompatActivity() {
             true
         } else false
     }
+
+
 
 
 }

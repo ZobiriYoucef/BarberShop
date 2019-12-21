@@ -17,7 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.barbershop.QuestionType.AddQuestion;
 import com.example.barbershop.QuestionType.AllQuestionActivity;
-import com.example.barbershop.QuestionType.SurvyLibTest;
+import com.example.barbershop.QuestionType.StartASurvey;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
             case R.id.goToSurveyLabTest: {
-                Intent intentToGoToSurveyLabTest = new Intent(MainActivity.this, SurvyLibTest.class);
+                Intent intentToGoToSurveyLabTest = new Intent(MainActivity.this, StartASurvey.class);
                 startActivity(intentToGoToSurveyLabTest);
                 break;
             }
