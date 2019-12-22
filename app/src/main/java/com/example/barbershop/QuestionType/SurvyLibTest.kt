@@ -38,6 +38,7 @@ open class SurvyLibTest : AppCompatActivity() {
     lateinit var Q1A: QuestionStep
     lateinit var Q2: QuestionStep
     lateinit var Q3: QuestionStep
+    lateinit var Q3A: QuestionStep
     lateinit var Q4: QuestionStep
     lateinit var Q5: QuestionStep
     lateinit var Q6: QuestionStep
@@ -375,7 +376,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 text = this.resources.getString(R.string.SurveyDescription)
         )
         I1 = QuestionStep(
-                title = "Nom d'enquêteur",
+                title = "Nom d'enquêté",
                 text = "",
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
@@ -451,12 +452,74 @@ open class SurvyLibTest : AppCompatActivity() {
         Q2 = QuestionStep(
                 title = "Quelle est la marque de votre véhicule ?",
                 text = "",
-                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
+                answerFormat = AnswerFormat.ImageSelectorFormat(
+                        numberOfColumns = 5,
+                        defaultSelectedImagesIndices = listOf(1),
+                        imageChoiceList = listOf(
+                                ImageChoice(R.drawable.alfa),
+                                ImageChoice(R.drawable.aston),
+                                ImageChoice(R.drawable.audi),
+                                ImageChoice(R.drawable.bentley),
+                                ImageChoice(R.drawable.bmw),
+                                ImageChoice(R.drawable.byd),
+                                ImageChoice(R.drawable.chery),
+                                ImageChoice(R.drawable.chevrolet),
+                                ImageChoice(R.drawable.citron),
+                                ImageChoice(R.drawable.dacia),
+                                ImageChoice(R.drawable.daihatsu),
+                                ImageChoice(R.drawable.dfm),
+                                ImageChoice(R.drawable.dfsk),
+                                ImageChoice(R.drawable.dodge),
+                                ImageChoice(R.drawable.ferrari),
+                                ImageChoice(R.drawable.fiat),
+                                ImageChoice(R.drawable.ford),
+                                ImageChoice(R.drawable.gmc),
+                                ImageChoice(R.drawable.honda),
+                                ImageChoice(R.drawable.hummer),
+                                ImageChoice(R.drawable.hyundai),
+                                ImageChoice(R.drawable.infiniti),
+                                ImageChoice(R.drawable.isuzu),
+                                ImageChoice(R.drawable.jaguar),
+                                ImageChoice(R.drawable.jeep),
+                                ImageChoice(R.drawable.kia),
+                                ImageChoice(R.drawable.lancia),
+                                ImageChoice(R.drawable.land),
+                                ImageChoice(R.drawable.lexus),
+                                ImageChoice(R.drawable.lifan),
+                                ImageChoice(R.drawable.mahindra),
+                                ImageChoice(R.drawable.mazda),
+                                ImageChoice(R.drawable.mercedes),
+                                ImageChoice(R.drawable.mg),
+                                ImageChoice(R.drawable.mini),
+                                ImageChoice(R.drawable.mitsubishi),
+                                ImageChoice(R.drawable.nissan),
+                                ImageChoice(R.drawable.opel),
+                                ImageChoice(R.drawable.peugeot),
+                                ImageChoice(R.drawable.porsche),
+                                ImageChoice(R.drawable.renault),
+                                ImageChoice(R.drawable.saab),
+                                ImageChoice(R.drawable.skoda),
+                                ImageChoice(R.drawable.ssangyong),
+                                ImageChoice(R.drawable.subaru),
+                                ImageChoice(R.drawable.suzuki),
+                                ImageChoice(R.drawable.toyota),
+                                ImageChoice(R.drawable.volkswagen),
+                                ImageChoice(R.drawable.volvo)
+                        )
+                )
         )
         Q3 = QuestionStep(
                 title = "Quel est le model de ce véhicule ?",
                 text = "",
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
+        )
+        Q3A = QuestionStep(
+                title = "c'est quoi la dimension de vous pneus",
+                text = "",
+                answerFormat = AnswerFormat.ValuePickerAnswerFormat(
+                        choices = (14..22).toList().map { it.toString() },
+                        defaultValue = 16.toString()
+                )
         )
         Q4 = QuestionStep(
                 title = "Année du véhicule ?",
@@ -898,6 +961,7 @@ open class SurvyLibTest : AppCompatActivity() {
             Q1A,
              Q2,
             Q3,
+                Q3A,
              Q4,
                  Q5,
                  Q6,
