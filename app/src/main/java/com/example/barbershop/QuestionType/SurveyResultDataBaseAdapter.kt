@@ -27,7 +27,7 @@ class SurveyResultDataBaseAdapter(private val context: Context?) :
 
     override fun onBindViewHolder(holder: SurveyResultDataBaseViewHolder, position: Int) {
    val singleFinished=finishedSurveyResultList[position]
-        holder.setDATA(singleFinished.Q1,singleFinished.Q2)
+        holder.setDATA(singleFinished.I1,singleFinished.I2)
     }
 
     fun setFinishedSurveyResult(FinishedSurveyResult: ArrayList<SurveyResultDataBaseModule>) {

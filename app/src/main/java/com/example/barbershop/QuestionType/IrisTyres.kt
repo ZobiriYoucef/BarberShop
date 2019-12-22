@@ -65,60 +65,60 @@ object IrisTyres {
 
         const val SQL_CREATE_ENTRIES =
                 "CREATE TABLE $TabName (" +
-                        COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "$COLUMN_I1   TEXT, " +
-                        "$COLUMN_I2   TEXT,)"+
-                        "$COLUMN_I3   TEXT,)"+
-                        "$COLUMN_I4   TEXT,)"+
-                        "$COLUMN_I5   TEXT,)"+
-                        "$COLUMN_I6   TEXT,)"+
-                        "$COLUMN_I7   TEXT,)"+
-                        "$COLUMN_Q1   TEXT,)"+
-                        "$COLUMN_Q1A  TEXT,)"+
-                        "$COLUMN_Q2   TEXT,)"+
-                        "$COLUMN_Q3   TEXT,)"+
-                        "$COLUMN_Q3A  TEXT,)"+
-                        "$COLUMN_Q4   TEXT,)"+
-                        "$COLUMN_Q5   TEXT,)"+
-                        "$COLUMN_Q6   TEXT,)"+
-                        "$COLUMN_Q7   TEXT,)"+
-                        "$COLUMN_Q7A  TEXT,)"+
-                        "$COLUMN_Q7B  TEXT,)"+
-                        "$COLUMN_Q8   TEXT,)"+
-                        "$COLUMN_Q8A  TEXT,)"+
-                        "$COLUMN_Q9   TEXT,)"+
-                        "$COLUMN_Q9A  TEXT,)"+
-                        "$COLUMN_Q10  TEXT,)"+
-                        "$COLUMN_Q11  TEXT,)"+
-                        "$COLUMN_Q12  TEXT,)"+
-                        "$COLUMN_Q13  TEXT,)"+
-                        "$COLUMN_Q13A TEXT,)"+
-                        "$COLUMN_Q14  TEXT,)"+
-                        "$COLUMN_Q15  TEXT,)"+
-                        "$COLUMN_Q15A TEXT,)"+
-                        "$COLUMN_Q16  TEXT,)"+
-                        "$COLUMN_Q16A TEXT,)"+
-                        "$COLUMN_Q17  TEXT,)"+
-                        "$COLUMN_Q17A TEXT,)"+
-                        "$COLUMN_Q18  TEXT,)"+
-                        "$COLUMN_Q19  TEXT,)"+
-                        "$COLUMN_Q19A TEXT,)"+
-                        "$COLUMN_Q20  TEXT,)"+
-                        "$COLUMN_Q20A TEXT,)"+
-                        "$COLUMN_Q21  TEXT,)"+
-                        "$COLUMN_Q21A TEXT,)"+
-                        "$COLUMN_Q22  TEXT,)"+
-                        "$COLUMN_Q23  TEXT,)"+
-                        "$COLUMN_Q24  TEXT,)"+
-                        "$COLUMN_Q25  TEXT,)"+
-                        "$COLUMN_Q26  TEXT,)"+
-                        "$COLUMN_Q26A TEXT,)"+
-                        "$COLUMN_Q27  TEXT,)"+
-                        "$COLUMN_Q27A TEXT,)"+
-                        "$COLUMN_Q28  TEXT,)"+
-                        "$COLUMN_Q28A TEXT,)" +
-                        "$COLUMN_Q29 TEXT,)" +
-                        "$COLUMN_Q30 TEXT)"
+                        COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                        "$COLUMN_I1   TEXT,"+
+                        "$COLUMN_I2   TEXT,"+
+                        "$COLUMN_I3   TEXT,"+
+                        "$COLUMN_I4   TEXT,"+
+                        "$COLUMN_I5   TEXT,"+
+                        "$COLUMN_I6   TEXT,"+
+                        "$COLUMN_I7   TEXT,"+
+                        "$COLUMN_Q1   TEXT,"+
+                        "$COLUMN_Q1A  TEXT,"+
+                        "$COLUMN_Q2   TEXT,"+
+                        "$COLUMN_Q3   TEXT,"+
+                        "$COLUMN_Q3A  TEXT,"+
+                        "$COLUMN_Q4   TEXT,"+
+                        "$COLUMN_Q5   TEXT,"+
+                        "$COLUMN_Q6   TEXT,"+
+                        "$COLUMN_Q7   TEXT,"+
+                        "$COLUMN_Q7A  TEXT,"+
+                        "$COLUMN_Q7B  TEXT,"+
+                        "$COLUMN_Q8   TEXT,"+
+                        "$COLUMN_Q8A  TEXT,"+
+                        "$COLUMN_Q9   TEXT,"+
+                        "$COLUMN_Q9A  TEXT,"+
+                        "$COLUMN_Q10  TEXT,"+
+                        "$COLUMN_Q11  TEXT,"+
+                        "$COLUMN_Q12  TEXT,"+
+                        "$COLUMN_Q13  TEXT,"+
+                        "$COLUMN_Q13A TEXT,"+
+                        "$COLUMN_Q14  TEXT,"+
+                        "$COLUMN_Q15  TEXT,"+
+                        "$COLUMN_Q15A TEXT,"+
+                        "$COLUMN_Q16  TEXT,"+
+                        "$COLUMN_Q16A TEXT,"+
+                        "$COLUMN_Q17  TEXT,"+
+                        "$COLUMN_Q17A TEXT,"+
+                        "$COLUMN_Q18  TEXT,"+
+                        "$COLUMN_Q19  TEXT,"+
+                        "$COLUMN_Q19A TEXT,"+
+                        "$COLUMN_Q20  TEXT,"+
+                        "$COLUMN_Q20A TEXT,"+
+                        "$COLUMN_Q21  TEXT,"+
+                        "$COLUMN_Q21A TEXT,"+
+                        "$COLUMN_Q22  TEXT,"+
+                        "$COLUMN_Q23  TEXT,"+
+                        "$COLUMN_Q24  TEXT,"+
+                        "$COLUMN_Q25  TEXT,"+
+                        "$COLUMN_Q26  TEXT,"+
+                        "$COLUMN_Q26A TEXT,"+
+                        "$COLUMN_Q27  TEXT,"+
+                        "$COLUMN_Q27A TEXT,"+
+                        "$COLUMN_Q28  TEXT,"+
+                        "$COLUMN_Q28A TEXT,"+
+                        "$COLUMN_Q29  TEXT,"+
+                        "$COLUMN_Q30  TEXT)"
 
         const val SQL_DROP_TABLE = "DROP TABLE IF EXISTS $TabName"
     }

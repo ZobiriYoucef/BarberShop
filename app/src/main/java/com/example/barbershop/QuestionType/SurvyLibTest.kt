@@ -83,9 +83,18 @@ open class SurvyLibTest : AppCompatActivity() {
     lateinit var completionStep: CompletionStep
     lateinit var allSteps: List<Step>
 
+    lateinit var questionResult:ArrayList<String>
+    lateinit var questionRID:ArrayList<String>
+    lateinit var questionR:ArrayList<String>
+    lateinit var questionIdCopy:ArrayList<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survy_lib_test)
+        questionResult=ArrayList()
+        questionR= ArrayList()
+        questionRID= ArrayList()
+        questionIdCopy=ArrayList()
 
         setupSteps()
 
@@ -322,23 +331,95 @@ open class SurvyLibTest : AppCompatActivity() {
                 startActivity(intent)
                 finish()
                 container.removeAllViews()*/
-                val questionResult:ArrayList<String> = ArrayList()
 
                 val taskIdentifier: TaskIdentifier =taskResult.id
                 val taskStartDate: Date =taskResult.startDate
                 val taskEndDate: Date =taskResult.endDate
 
-                taskResult.results.forEach { stepResult ->stepResult.results.forEach{
-                    questionResult.add(it.stringIdentifier)
+                taskResult.results.forEach { stepResult ->
+                    stepResult.results.forEach{questionResult->
+
+                        questionR.add(questionResult.stringIdentifier)
+                    }
                 }
+
+                taskResult.results.forEach { stepResult ->
+                    questionRID.add(stepResult.id.id)
+                }
+
+                for (i in 0 until questionResult.size){
+                    for(j in 0 until questionRID.size){
+                        if (questionResult.get(i)==questionRID.get(j)){
+                            questionResult.set(i,questionR.get(j))
+                        }
+                    }
+                }
+
+                for (i in 0 until questionResult.size){
+                    for(j in 0 until questionIdCopy.size){
+                        if (questionResult.get(i)==questionIdCopy.get(j)){
+                            questionResult.set(i,"")
+                        }
+                    }
                 }
 
                 val db=dataBaseHelper.writableDatabase
 
                 val values = ContentValues()
 
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q1,questionResult[1])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q2,questionResult[2])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_I1  ,questionResult[1])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_I2  ,questionResult[2])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_I3  ,questionResult[3])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_I4  ,questionResult[4])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_I5  ,questionResult[5])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_I6  ,questionResult[6])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_I7  ,questionResult[7])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q1  ,questionResult[8])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q1A ,questionResult[9])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q2  ,questionResult[10])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3  ,questionResult[11])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3A ,questionResult[12])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q4  ,questionResult[13])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q5  ,questionResult[14])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q6  ,questionResult[15])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7  ,questionResult[16])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7A ,questionResult[17])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7B ,questionResult[18])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q8  ,questionResult[19])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q8A ,questionResult[20])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q9  ,questionResult[21])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q9A ,questionResult[22])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q10 ,questionResult[23])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q11 ,questionResult[24])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q12 ,questionResult[25])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q13 ,questionResult[26])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q13A,questionResult[27])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q14 ,questionResult[28])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q15 ,questionResult[29])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q15A,questionResult[30])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q16 ,questionResult[31])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q16A,questionResult[32])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q17 ,questionResult[33])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q17A,questionResult[34])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q18 ,questionResult[35])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q19 ,questionResult[36])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q19A,questionResult[37])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q20 ,questionResult[38])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q20A,questionResult[39])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q21 ,questionResult[40])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q21A,questionResult[41])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q22 ,questionResult[42])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q23 ,questionResult[43])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q24 ,questionResult[44])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q25 ,questionResult[45])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q26 ,questionResult[46])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q26A,questionResult[47])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q27 ,questionResult[48])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q27A,questionResult[49])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q28 ,questionResult[50])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q28A,questionResult[51])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q29 ,questionResult[52])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q30 ,questionResult[53])
 
                 val resultRowId=db.insert(IrisTyres.DataBaseTableEntry.TabName,null,values)
 
@@ -540,8 +621,9 @@ open class SurvyLibTest : AppCompatActivity() {
         Q6 = QuestionStep(
                 title = "En moyenne, Combien de Kilomètre voulez-vous par mois ?",
                 text = "",
-                answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "en Km"
+                answerFormat = AnswerFormat.ValuePickerAnswerFormat(
+                        choices = (300..2000).toList().map { it.toString() },
+                        defaultValue = 500.toString()
                 )
         )
         Q7 = QuestionStep(
@@ -1005,6 +1087,9 @@ open class SurvyLibTest : AppCompatActivity() {
                  Q30,
             completionStep
         )
+
+        allSteps.forEach { Step->questionResult.add(Step.id.id)  }
+        allSteps.forEach { Step->questionIdCopy.add(Step.id.id)  }
 
     }
 
