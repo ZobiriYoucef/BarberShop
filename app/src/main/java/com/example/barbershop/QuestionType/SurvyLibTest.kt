@@ -126,6 +126,17 @@ open class SurvyLibTest : AppCompatActivity() {
                         }
                 )
         )
+        task.setNavigationRule(
+                I6.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "Non" -> Q1.id
+                                else -> I7.id
+                            }
+                        }
+                )
+        )
 
         task.setNavigationRule(
                 Q8.id,
@@ -146,6 +157,7 @@ open class SurvyLibTest : AppCompatActivity() {
                             when (input) {
                                 "Autres" -> Q7A.id
                                 "Lorsque vous partiez au trajet"->Q8.id
+                                "lorsque je remarque que le pneu est dégonflé"->Q8.id
                                 else -> Q7B.id
                             }
                         }
@@ -512,8 +524,12 @@ open class SurvyLibTest : AppCompatActivity() {
         I7 = QuestionStep(
                 title = "CSP",
                 text = "quel est votre revenu Mensuel (NET)",
-                answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "en DZD"
+                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
+                        textChoices = listOf(
+                                TextChoice("A"),
+                                TextChoice("B"),
+                                TextChoice("C"),
+                                TextChoice("D"))
                 )
         )
         Q1 = QuestionStep(
@@ -581,7 +597,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 ImageChoice(R.drawable.peugeot),
                                 ImageChoice(R.drawable.porsche),
                                 ImageChoice(R.drawable.renault),
-                                ImageChoice(R.drawable.saab),
+                                ImageChoice(R.drawable.seat),
                                 ImageChoice(R.drawable.skoda),
                                 ImageChoice(R.drawable.ssangyong),
                                 ImageChoice(R.drawable.subaru),
@@ -616,18 +632,25 @@ open class SurvyLibTest : AppCompatActivity() {
         Q5 = QuestionStep(
                 title = "Kilométrage actuel ?",
                 text = "en mille Km x1000",
-                answerFormat = AnswerFormat.ValuePickerAnswerFormat(
+                /*answerFormat = AnswerFormat.ValuePickerAnswerFormat(
                         choices = (20..300).toList().map { it.toString() },
                         defaultValue = 70.toString()
-                )
+                )*/
+                        answerFormat = AnswerFormat.IntegerAnswerFormat(
+                        hint = "en Km"
+                        )
         )
         Q6 = QuestionStep(
                 title = "En moyenne, Combien de Kilomètre voulez-vous par mois ?",
                 text = "",
-                answerFormat = AnswerFormat.ValuePickerAnswerFormat(
+                /*answerFormat = AnswerFormat.ValuePickerAnswerFormat(
                         choices = (300..2000).toList().map { it.toString() },
                         defaultValue = 500.toString()
+                )*/
+                answerFormat = AnswerFormat.IntegerAnswerFormat(
+                        hint = "en Km"
                 )
+
         )
         Q7 = QuestionStep(
                 title = "A quelle fréquence vérifiez-vous la pression de vos pneus ?",
@@ -638,6 +661,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Par semaine"),
                                 TextChoice("Par jour"),
                                 TextChoice("Lorsque vous partiez au trajet"),
+                                TextChoice("lorsque je remarque que le pneu est dégonflé"),
                                 TextChoice("Autres")
                         )
                 )
@@ -804,7 +828,9 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Kumho"),
                                 TextChoice("Hankook"),
                                 TextChoice("Barum"),
+                                TextChoice("Marque chinoise"),
                                 TextChoice("Autres")
+
 
                         )
                 )
@@ -817,7 +843,20 @@ open class SurvyLibTest : AppCompatActivity() {
         Q18 = QuestionStep(
                 title = "Pourquoi avez-vous choisi cette marque ?",
                 text = "SVP préciser!!",
-                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
+                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
+                        textChoices = listOf(
+                                TextChoice("La Qualité"),
+                                TextChoice("basé sur des recommandation"),
+                                TextChoice("Le prix"),
+                                TextChoice("Pneu original"),
+                                TextChoice("Apparence - Sculpture (Dessein)"),
+                                TextChoice("Meilleure offre"),
+                                TextChoice("Disponibilité du produit"),
+                                TextChoice("Même marque que l'OE"),
+                                TextChoice("L’origine de pneu"),
+                                TextChoice("Publicité"),
+                                TextChoice("Sécurité")
+                        ))
         )
         Q19 = QuestionStep(
                 title = "Combien était le prix ?",
@@ -861,6 +900,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 text = "Possibilité de réponses Multiples",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
+                                TextChoice("La Qualité"),
                                 TextChoice("Notoriété de la marque"),
                                 TextChoice("Budget (prix)"),
                                 TextChoice("Meilleure offre"),
@@ -870,6 +910,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Même marque que l'OE"),
                                 TextChoice("L’origine de pneu"),
                                 TextChoice("Publicité"),
+                                TextChoice("Sécurité"),
                                 TextChoice("Autres")
                         )
                 )
@@ -990,7 +1031,20 @@ open class SurvyLibTest : AppCompatActivity() {
         Q30 = QuestionStep(
                 title = "Quelle sont vos attentes de la part de marque IRIS ?",
                 text = "",
-                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
+                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
+                        textChoices = listOf(
+                                TextChoice("Un bon Produit"),
+                                TextChoice("un bon rapport qualité prix"),
+                                TextChoice("utiliser des technologie Européenne"),
+                                TextChoice("avoir plus de developpement"),
+                                TextChoice("un bon Dessein"),
+                                TextChoice("Moins cher que les autres marques"),
+                                TextChoice("Disponibilité"),
+                                TextChoice("faire de l'exportation"),
+                                TextChoice("la communication des resultats des test"),
+                                TextChoice("la maintenabilité de la qualité"),
+                                TextChoice("l'évolution de la marque et sa maintenabilité")
+                        ))
         )
         /* QuestionStep(
                      title = this.resources.getString(R.string.date_picker_title),
