@@ -1,12 +1,10 @@
 package com.example.barbershop;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,15 +17,7 @@ import com.example.barbershop.QuestionType.AddQuestion;
 import com.example.barbershop.QuestionType.AllQuestionActivity;
 import com.example.barbershop.QuestionType.StartASurvey;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseInstallation;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.SaveCallback;
-import com.shashank.sony.fancytoastlib.FancyToast;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,9 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
         Fresco.initialize(this);
+
 
         // hide keyborde on the start
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -98,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnSand:
+            /*case R.id.btnSand:
                 try {
                     //Keybord
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -130,15 +122,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (Exception e) {
                     FancyToast.makeText(MainActivity.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
                 }
-                break;
+                break;*/
 
-            case R.id.btnGetDataFromSurver:
+            /*case R.id.btnGetDataFromSurver:
                 try {
                     TheObjectList.setText("");
 
                     //by a specific Single code:
 
-               /* ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Person");
+                ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Person");
                 parseQuery.getInBackground("cFVIkm463K", new GetCallback<ParseObject>() {
                     @Override
                     public void done(ParseObject object, ParseException e) {
@@ -146,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             FancyToast.makeText(MainActivity.this,object.get("Name").toString(),FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                         }
                     }
-                });*/
+                });
 
 
                     // listPars.
@@ -168,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } catch (Exception e) {
                     FancyToast.makeText(MainActivity.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, false).show();
                 }
-                break;
+                break;*/
 
             case R.id.btnGoToTheActivityLayout:
                 try {

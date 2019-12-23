@@ -91,6 +91,9 @@ open class SurvyLibTest : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survy_lib_test)
+
+        title = "ADD A NEW SURVEY"
+
         questionResult=ArrayList()
         questionR= ArrayList()
         questionRID= ArrayList()
@@ -443,8 +446,8 @@ open class SurvyLibTest : AppCompatActivity() {
 
         val configuration = SurveyTheme(
                 themeColorDark = ContextCompat.getColor(this, R.color.black),
-                themeColor = ContextCompat.getColor(this, R.color.cyan_normal),
-                textColor = ContextCompat.getColor(this, R.color.cyan_text)
+                themeColor = ContextCompat.getColor(this, R.color.Orange),
+                textColor = ContextCompat.getColor(this, R.color.Orange)
         )
 
         surveyView.start(task, configuration)

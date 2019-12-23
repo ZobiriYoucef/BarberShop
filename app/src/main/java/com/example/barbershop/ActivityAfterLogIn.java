@@ -44,7 +44,7 @@ public class ActivityAfterLogIn extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_log_in);
 
-        setTitle("Title");
+        setTitle("ActivityAfterLogIn");
         findViews();
     }
 
@@ -56,7 +56,7 @@ public class ActivityAfterLogIn extends AppCompatActivity implements View.OnClic
 
 
     private void findViews() {
-        appBarLayout = (AppBarLayout)findViewById( R.id.appBarLayout );
+        appBarLayout = findViewById( R.id.appBarLayout );
 
         myToolBar = findViewById( R.id.myToolBar );
         setSupportActionBar(myToolBar);

@@ -32,6 +32,8 @@ class StartASurvey : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_asurvey)
 
+        title = "IRIS TYRES SURVEY DB"
+
         dataBaseHelper= DataBaseHelperClass(this)
 
         recyclerView.adapter=surveyResultDataBaseAdapter
@@ -67,10 +69,10 @@ class StartASurvey : AppCompatActivity(){
         val permissionCheck = ContextCompat.checkSelfPermission(
                 this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Log.i("Mensaje", "No se tiene permiso para leer.")
+            Log.i("PERMISSION","PERMISSION_GRANTED")
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 225)
         } else {
-            Log.i("Mensaje", "Se tiene permiso para leer!")
+            Log.i("PERMISSION", "PERMISSION_GRANTED DENIED")
         }
     }
 
