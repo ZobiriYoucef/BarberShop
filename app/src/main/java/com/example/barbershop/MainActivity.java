@@ -13,22 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.barbershop.QuestionType.AddQuestion;
-import com.example.barbershop.QuestionType.AllQuestionActivity;
 import com.example.barbershop.QuestionType.StartASurvey;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.parse.ParseInstallation;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
-    @BindView(R.id.goToAddQuestion)
-    Button goToAddQuestion;
 
     private EditText Name, LastName, Job;
-    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout, vvv,goToSurveyLabTest;
+    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout,goToSurveyLabTest;
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private LottieAnimationView mLottie;
@@ -40,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        setTitle("TheSurveyTestApp");
 
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnGetDataFromSurver.setOnClickListener(this);
         GoToTheActivityLayout.setOnClickListener(this);
 
-        goToAddQuestion.setOnClickListener(this);
+
 
         //Animation background
         constraintLayout = findViewById(R.id.consLayout1);
@@ -74,14 +71,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TheObjectList = findViewById(R.id.tvTheList);
 
-        vvv = findViewById(R.id.xxx);
-        vvv.setOnClickListener(this);
-
         goToSurveyLabTest=findViewById(R.id.goToSurveyLabTest);
         goToSurveyLabTest.setOnClickListener(this);
 
-        /*animationDrawable.setEnterFadeDuration(3000);
-        animationDrawable.setExitFadeDuration(1000);
+        /*animationDrawable.setEnterFadeDuration(3000000);
+        animationDrawable.setExitFadeDuration(1000000);
         animationDrawable.start();*/
 
 
@@ -163,24 +157,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;*/
 
             case R.id.btnGoToTheActivityLayout:
-                try {
                     Intent intentToLogInActivity = new Intent(MainActivity.this, LogInActivity.class);
                     startActivity(intentToLogInActivity);
-
-                } catch (Exception e) {
-
-                }
-
-            case R.id.xxx: {
-                Intent intentToAllQuestionActivity = new Intent(MainActivity.this, AllQuestionActivity.class);
-                startActivity(intentToAllQuestionActivity);
                 break;
-            }
-            case R.id.goToAddQuestion: {
-                Intent intentToAddQuestion = new Intent(MainActivity.this, AddQuestion.class);
-                startActivity(intentToAddQuestion);
-                break;
-            }
+
             case R.id.goToSurveyLabTest: {
                 Intent intentToGoToSurveyLabTest = new Intent(MainActivity.this, StartASurvey.class);
                 startActivity(intentToGoToSurveyLabTest);

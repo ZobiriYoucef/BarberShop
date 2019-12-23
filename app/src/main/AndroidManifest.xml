@@ -19,12 +19,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".QuestionType.StartASurvey"></activity>
         <activity android:name=".QuestionType.SurvyLibTest" />
-        <activity android:name=".QuestionType.OpenQuestion" />
-        <activity
-            android:name=".QuestionType.AddQuestion"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".QuestionType.QuestionsCreature" />
-        <activity android:name=".QuestionType.AllQuestionActivity" />
         <activity android:name=".UserInfo" />
         <activity
             android:name=".ActivityAfterLogIn"
