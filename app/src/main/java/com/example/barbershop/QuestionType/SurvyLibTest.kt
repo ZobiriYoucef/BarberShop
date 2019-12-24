@@ -554,7 +554,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 text = "",
                 answerFormat = AnswerFormat.ImageSelectorFormat(
                         numberOfColumns = 5,
-                        defaultSelectedImagesIndices = listOf(1),
+                        defaultSelectedImagesIndices= listOf(0),
                         imageChoiceList = listOf(
                                 ImageChoice(R.drawable.alfa),
                                 ImageChoice(R.drawable.aston),
@@ -789,9 +789,9 @@ open class SurvyLibTest : AppCompatActivity() {
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q16 = QuestionStep(
-                title = "Avez-vous déjà changé vos pneus ?",
+                title = "Quelle était la marque de vos pneus avant de le changer ? ",
                 text = "",
-                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
                                 TextChoice("Michelin"),
                                 TextChoice("Pirelli"),
@@ -803,6 +803,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Kumho"),
                                 TextChoice("Hankook"),
                                 TextChoice("Barum"),
+                                TextChoice("Marque chinoise"),
                                 TextChoice("Autres")
 
                         )
@@ -816,7 +817,7 @@ open class SurvyLibTest : AppCompatActivity() {
         Q17 = QuestionStep(
                 title = "Quand vous l'avez changé, quelle est la marque que vous avez choisie ?",
                 text = "",
-                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
                                 TextChoice("Michelin"),
                                 TextChoice("Pirelli"),
@@ -1034,16 +1035,21 @@ open class SurvyLibTest : AppCompatActivity() {
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
                                 TextChoice("Un bon Produit"),
-                                TextChoice("un bon rapport qualité prix"),
-                                TextChoice("utiliser des technologie Européenne"),
-                                TextChoice("avoir plus de developpement"),
-                                TextChoice("un bon Dessein"),
+                                TextChoice("Un bon rapport qualité prix"),
+                                TextChoice("Utiliser des technologie européenne"),
+                                TextChoice("Avoir plus de developpement"),
+                                TextChoice("Un bon Dessein"),
                                 TextChoice("Moins cher que les autres marques"),
                                 TextChoice("Disponibilité"),
                                 TextChoice("faire de l'exportation"),
-                                TextChoice("la communication des resultats des test"),
-                                TextChoice("la maintenabilité de la qualité"),
-                                TextChoice("l'évolution de la marque et sa maintenabilité")
+                                TextChoice("La communication des resultats des test"),
+                                TextChoice("La maintenabilité de la qualité"),
+                                TextChoice("L'évolution de la marque et sa maintenabilité"),
+                                TextChoice("Plus de variété des modules et des dimension"),
+                                TextChoice("Commencer a produire des pneus de neige"),
+                                TextChoice("Commencer a produire des pneus pour les véhicules poid lourdes"),
+                                TextChoice("Proposer une offre sous forme de pack "),
+                                TextChoice("plus de publicité")
                         ))
         )
         /* QuestionStep(
