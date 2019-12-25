@@ -158,6 +158,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 "Autres" -> Q7A.id
                                 "Lorsque vous partiez au trajet"->Q8.id
                                 "lorsque je remarque que le pneu est dégonflé"->Q8.id
+                                "lorsque je sens des vibration"->Q8.id
                                 else -> Q7B.id
                             }
                         }
@@ -173,6 +174,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 "Selon le Kilométrage"->Q10.id
                                 "Selon La période (durée)"->Q11.id
                                 "Selon le niveau d'usure des pneus"->Q12.id
+                                "Selon Selon la saison"->Q12.id
                                 else -> null
                             }
                         }
@@ -616,17 +618,15 @@ open class SurvyLibTest : AppCompatActivity() {
         Q3A = QuestionStep(
                 title = "c'est quoi la dimension de vous pneus",
                 text = "",
-                answerFormat = AnswerFormat.ValuePickerAnswerFormat(
-                        choices = (14..22).toList().map { it.toString() },
-                        defaultValue = 16.toString()
+                answerFormat = AnswerFormat.IntegerAnswerFormat(
+                        hint = "Ex: 16'"
                 )
         )
         Q4 = QuestionStep(
                 title = "Année du véhicule ?",
                 text = "",
-                answerFormat = AnswerFormat.ValuePickerAnswerFormat(
-                        choices = (2008..2018).toList().map { it.toString() },
-                        defaultValue = 2010.toString()
+                answerFormat = AnswerFormat.IntegerAnswerFormat(
+                        hint = "Ex: 2017"
                 )
         )
         Q5 = QuestionStep(
@@ -662,6 +662,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Par jour"),
                                 TextChoice("Lorsque vous partiez au trajet"),
                                 TextChoice("lorsque je remarque que le pneu est dégonflé"),
+                                TextChoice("lorsque je sens des vibration") ,
                                 TextChoice("Autres")
                         )
                 )
@@ -703,6 +704,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Selon le Kilométrage"),
                                 TextChoice("Selon La période (durée)"),
                                 TextChoice("Selon le niveau d'usure des pneus"),
+                                TextChoice("Selon Selon la saison"),
                                 TextChoice("Autres")
                         )
                 )
@@ -804,6 +806,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Hankook"),
                                 TextChoice("Barum"),
                                 TextChoice("Marque chinoise"),
+                                TextChoice("j'ai oublié son nom"),
                                 TextChoice("Autres")
 
                         )
@@ -830,6 +833,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Hankook"),
                                 TextChoice("Barum"),
                                 TextChoice("Marque chinoise"),
+                                TextChoice("j'ai oublié son nom"),
                                 TextChoice("Autres")
 
 
@@ -856,6 +860,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Même marque que l'OE"),
                                 TextChoice("L’origine de pneu"),
                                 TextChoice("Publicité"),
+                                TextChoice("la durabilité"),
                                 TextChoice("Sécurité")
                         ))
         )
@@ -912,6 +917,7 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("L’origine de pneu"),
                                 TextChoice("Publicité"),
                                 TextChoice("Sécurité"),
+                                TextChoice("la durabilité"),
                                 TextChoice("Autres")
                         )
                 )
@@ -965,12 +971,14 @@ open class SurvyLibTest : AppCompatActivity() {
                 text = "Possibilité de réponses Multiples",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
+                                TextChoice("La Qualité"),
                                 TextChoice("Prix moins cher"),
                                 TextChoice("Sculpture (Dessein)"),
                                 TextChoice("Offre MKT/service"),
                                 TextChoice("Notoriété de la marque"),
                                 TextChoice("Production local"),
                                 TextChoice("Disponibilité"),
+                                TextChoice("la durabilité"),
                                 TextChoice("Autres")
                         )
                 )
@@ -1005,11 +1013,14 @@ open class SurvyLibTest : AppCompatActivity() {
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
                                 TextChoice("Recommandation"),
+                                TextChoice("La Qualité"),
                                 TextChoice("Critiques positives"),
                                 TextChoice("Technologie Européenne"),
                                 TextChoice("Sculpture (Dessein)"),
                                 TextChoice("Moins cher que les autres marques"),
                                 TextChoice("Disponibilité"),
+                                TextChoice("je veux le tester"),
+                                TextChoice("Production local"),
                                 TextChoice("Autres")
                         )
                 )
@@ -1049,7 +1060,9 @@ open class SurvyLibTest : AppCompatActivity() {
                                 TextChoice("Commencer a produire des pneus de neige"),
                                 TextChoice("Commencer a produire des pneus pour les véhicules poid lourdes"),
                                 TextChoice("Proposer une offre sous forme de pack "),
-                                TextChoice("plus de publicité")
+                                TextChoice("Plus de publicité"),
+                                TextChoice("Commencer à fabriquer les pièces de rechange auto") ,
+                                TextChoice("Produit un produit solide avec une longue duree de vie")
                         ))
         )
         /* QuestionStep(
