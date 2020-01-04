@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="NameOfInvestigator">Nom d\'enquêté</string>
+    <string name="EquityIdentifier">L’identificateur de l\'équité</string>
+    <string name="PhoneNumber">Numéro de téléphone</string>
+    <string name="PlzEnterYOurPhoneNumber">Veuillez entrer votre numéro de téléphone</string>
+    <string name="Region">Région</string>
+    <string name="West">Ouest</string>
+    <string name="Centre">Centre</string>
+    <string name="Est">Est</string>
+    <string name="Sex">Sexe</string>
+    <string name="Man">Homme</string>
+    <string name="Woman">Femme</string>
+    <string name="YourAge">Votre Age ?</string>
+    <string name="PleaseEnterYourAge">Please Enter Your Age</string>
+    <string name="DoYouWork">Travaillez-vous ?</string>
+    <string name="Yes">Oui</string>
+    <string name="No">Non</string>
+    <string name="CSP">CSP</string>
+    <string name="monthlyIncome">quel est votre revenu Mensuel (NET)</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="typeofvehicle">Quel type de véhicule possédez-vous ?</string>
+    <string name="MultiChoose">Possibilité de réponses Multiples</string>
+    <string name="Tourist">Touristique</string>
+    <string name="SUV">SUV / 4x4</string>
+    <string name="Utility">Utilitaire</string>
+    <string name="Others">Autres</string>
+    <string name="OthersCarType">Autres type de véhicule</string>
+    <string name="beSpecified">SVP préciser</string>
+    <string name="WhatIsYourCarBrand">Quelle est la marque de votre véhicule ?</string>
+    <string name="ModelOfTheCar">Quel est le model de ce véhicule ?</string>
+    <string name="Yearofthevehicle">Année du véhicule ?</string>
+    <string name="RimSize">c\'est quoi la dimension de vous pneus</string>
+    <string name="travelledmiles">Kilométrage actuel ?</string>
+    <string name="x1000Km">en mille Km x1000</string>
+    <string name="AverageMilesByMonth">En moyenne, Combien de Kilomètre voulez-vous par mois ?</string>
+    <string name="InKm">en Km</string>
+    <string name="tirepressure">A quelle fréquence vérifiez-vous la pression de vos pneus ?</string>
+    <string name="ByMonth">Par mois</string>
+    <string name="Byweek">Par semaine</string>
+    <string name="ByDay">Par jour</string>
+    <string name="traget">Lorsque vous partiez au trajet</string>
+    <string name="deflated">lorsque je remarque que le pneu est dégonflé</string>
+    <string name="vibration">lorsque je sens des vibration</string>
+    <string name="HowMany">combien de fois ?</string>
+    <string name="TyresProvider">Chez quel prestataire faites-vous la vérification de vos pneus ?</string>
+    <string name="Vulcanisateurs">Vulcanisateurs</string>
+    <string name="SpecializedMechanical">Garages mécaniques spécialisés</string>
+    <string name="AccreditedAgent">Concessionnaire (Agent Agréé)</string>
+    <string name="ChangeYourTires">A quelle fréquence changez-vous vos pneus ?</string>
+    <string name="Mileage">Selon le Kilométrage</string>
+    <string name="duration">Selon La période (durée)</string>
+    <string name="levelOfWear">Selon le niveau d\'usure des pneus</string>
+    <string name="ByTheSaison">Selon Selon la saison</string>
+    <string name="IFmileage">Si le Kilométrage, combien ?</string>
+    <string name="IFperiod">Si la période, Combien ?</string>
+    <string name="InMonth">par mois SPV</string>
+    <string name="Month">mois</string>
+    <string name="HaveYouChangedYourTires">Avez-vous déjà changé vos pneus ?</string>
+    <string name="WhyHaveYouChange">Pourquoi vous avez changé vous pneus ?</string>
+    <string name="WhyChange1">Le pneu à éclater</string>
+    <string name="WhyChange2">Une bosse qui sort du pneu</string>
+    <string name="WhyChange3">Une coupure profonde sur le pneu</string>
+    <string name="WhyChange4">Vous devez ajouter de l\'air dans l\'un de vos pneus qutidianment</string>
+    <string name="WhyChange5">Une vibration dans la course du pneu</string>
+    <string name="WhyChange6">La bande de roulement est trop usée</string>
+    <string name="WhyChange7">Une vibration dans la course du pneu</string>
+    <string name="WhyChange8">l’âge: les pneus atteindre leur limite dans le temps</string>
+    <string name="WhyChange9">la saison: remplacé les anciens pneus par les pneus d\'hiver</string>
+    <string name="HowManyHaveYouChange">Combien de pneus avez vous changez ?</string>
+    <string name="HabitOfChange">Est ce que vous avez l\'habitude de changer votre pneus</string>
+    <string name="Habit1">4 pneus à la fois</string>
+    <string name="Habit2">2 par 2</string>
+    <string name="Habit3">Chaque pneu selon état</string>
+    <string name="WhatWasFirstTyresBrand">Quelle était la marque de vos pneus avant de le changer ?</string>
+    <string name="WhatWasSecondTyresBrand">Quand vous l\'avez changé, quelle est la marque que vous avez choisie ?</string>
+    <string name="TyresBrand1">Michelin</string>
+    <string name="TyresBrand2">Pirelli</string>
+    <string name="TyresBrand3">Continental</string>
+    <string name="TyresBrand4">Triangle</string>
+    <string name="TyresBrand5">Bridge stone</string>
+    <string name="TyresBrand6">Dunlop</string>
+    <string name="TyresBrand7">Goodyear</string>
+    <string name="TyresBrand8">Kumho</string>
+    <string name="TyresBrand9">Hankook</string>
+    <string name="TyresBrand10">Barum</string>
+    <string name="ChinisTyresBrand">Marque chinoise</string>
+    <string name="ForgetTyresBrand">j\'ai oublié son nom</string>
+    <string name="WhyThisTyresBrand">Pourquoi avez-vous choisi cette marque ?</string>
+    <string name="WhyThisTyresBrand0">"Notoriété de la marque"</string>
+    <string name="WhyThisTyresBrand1">"La Qualité"</string>
+    <string name="WhyThisTyresBrand2">"basé sur des recommandation"</string>
+    <string name="WhyThisTyresBrand3">"Le prix"</string>
+    <string name="WhyThisTyresBrand4">"Pneu original"</string>
+    <string name="WhyThisTyresBrand5"> "Apparence - Sculpture (Dessein)"</string>
+    <string name="WhyThisTyresBrand6"> "Meilleure offre"</string>
+    <string name="WhyThisTyresBrand7"> "Disponibilité du produit"</string>
+    <string name="WhyThisTyresBrand8"> "Même marque que l'OE"</string>
+    <string name="WhyThisTyresBrand9"> "L’origine de pneu"</string>
+    <string name="WhyThisTyresBrand10"> "Publicité"</string>
+    <string name="WhyThisTyresBrand11"> "la durabilité"</string>
+    <string name="WhyThisTyresBrand12"> "Sécurité"</string>
+
+    <string name="WhatWasThePrice">Combien était le prix ?</string>
+    <string name="InDZD">ed DZD</string>
+    <string name="ThisPriceIsForHowManyTyre">ce prix est pour combien de pneus ?</string>
+    <string name="sinceWhen">Depuis quand ?</string>
+    <string name="IfYouHaveToChangeTyres">Si vous devez changer un pneus ou plus est ce que vous changer</string>
+    <string name="importantCriterion">Quel critère important pour vous lors de l\'achat d\'un pneu ?</string>
+    <string name="budgetForBuying">Quel est votre budget pour l’achat d’un pneu ?</string>
+    <string name="DoYouKnowIris">Connaissez-vous la marque IRIS ?</string>
+    <string name="DidYouKnowThatIrisProduces">Savez-vous qu’IRIS produit des pneus en Algérie ?</string>
+    <string name="IfIrisFlowEuropeIso">Si on vous dit qu’IRIS suit les normes internationales et européennes de la fabrication des pneus, Envisageriez-vous d’achetée des pneus IRIS ?</string>
+
+    <string name="WhyIris">Qu\'est-ce qui vous motiverait à le faire ?</string>
+
+    <string name="WhyIris1">La Qualité           </string>
+    <string name="WhyIris2">Prix moins cher        </string>
+    <string name="WhyIris3">Sculpture (Dessein)    </string>
+    <string name="WhyIris4">Offre MKT/service      </string>
+    <string name="WhyIris5">Notoriété de la marque </string>
+    <string name="WhyIris6">Production local       </string>
+    <string name="WhyIris7">Disponibilité          </string>
+    <string name="WhyIris8">la durabilité          </string>
+
+
+    <string name="WhyNotIris">Qu’est-ce qui vous empêcherait le faire ?</string>
+
+
+    <string name="WhyNotIris1">Attendre les critiques </string>
+    <string name="WhyNotIris2">Sculpture (Dessein)   </string>
+    <string name="WhyNotIris3">Prix cher              </string>
+    <string name="WhyNotIris4">Production local       </string>
+    <string name="WhyNotIris5">Offre MKT/service      </string>
+
+
+    <string name="HowWeCanChangeYourMind">quel(s) est (sont) pour vous le(s) facteur(s) important(s) qui vous inciterait (aient) à l\'achat d\'un pneu IRIS ?</string>
+
+
+
+    <string name="HowWeCanChangeYourMind1">Recommandation                           </string>
+    <string name="HowWeCanChangeYourMind2">La Qualité                               </string>
+    <string name="HowWeCanChangeYourMind3">Critiques positives"                     </string>
+    <string name="HowWeCanChangeYourMind4">Technologie Européenne                   </string>
+    <string name="HowWeCanChangeYourMind5">Sculpture (Dessein)                      </string>
+    <string name="HowWeCanChangeYourMind6">Moins cher que les autres marques       </string>
+    <string name="HowWeCanChangeYourMind7">Disponibilité                           </string>
+    <string name="HowWeCanChangeYourMind8">je veux le tester                        </string>
+    <string name="HowWeCanChangeYourMind9">Production local                        </string>
+
+
+    <string name="IfWeToldYouThatIrisExport">Si on vous dit qu’IRIS fait de l’exportation des pneus, envisageriez-vous d’achetée des pneus IRIS ?</string>
+
+    <string name="expectationsFromIris">Quelle sont vos attentes de la part de marque IRIS ?</string>
+
+    <string name="expectationsFromIris1"> Un bon Produit                       </string>
+    <string name="expectationsFromIris2"> Un bon rapport qualité prix"         </string>
+    <string name="expectationsFromIris3"> Utiliser des technologie européenne </string>
+    <string name="expectationsFromIris4"> Avoir plus de developpement          </string>
+    <string name="expectationsFromIris5"> Un bon Dessein                       </string>
+    <string name="expectationsFromIris6"> Moins cher que les autres marques   </string>
+    <string name="expectationsFromIris7"> Disponibilité                       </string>
+    <string name="expectationsFromIris8"> faire de l\'exportation               </string>
+    <string name="expectationsFromIris9"> La communication des resultats des test         </string>
+    <string name="expectationsFromIris10"> La maintenabilité de la qualité                                   </string>
+    <string name="expectationsFromIris11"> L\'évolution de la marque et sa maintenabilité                     </string>
+    <string name="expectationsFromIris12"> Plus de variété des modules et des dimension                      </string>
+    <string name="expectationsFromIris13"> Commencer à produire des pneus de neige                           </string>
+    <string name="expectationsFromIris14"> Commencer à produire des pneus pour les véhicules poid lourdes    </string>
+    <string name="expectationsFromIris15"> Commencer à produire des pneus pour les engins                   </string>
+    <string name="expectationsFromIris16"> Commencer à produire des pneus pour les motos et scooters        </string>
+    <string name="expectationsFromIris17"> Proposer une offre sous forme de pack                             </string>
+    <string name="expectationsFromIris18"> Plus de publicité                                              </string>
+    <string name="expectationsFromIris19"> Commencer à fabriquer les pièces de rechange auto            </string>
+    <string name="expectationsFromIris20"> Produit un produit solide avec une longue duree de vie     </string>
+
+
+    <string name="RimExp">Ex: 16\'</string>
+    <string name="YearExp">Ex: 2017</string>
+    <string name="EndOfSurvey">Terminé</string>
+    <string name="EndOfSurveyText">Merci d\'avoir répondu à ce questionnaire est d\'avoir participera ce tirage au sort, je vous souhaite bonne chance</string>
+    <string name="Retierd">retraité(e)</string>
+
+
+</resources>

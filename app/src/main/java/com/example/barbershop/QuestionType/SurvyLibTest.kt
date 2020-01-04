@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.barbershop.R
 import com.quickbirdstudios.surveykit.*
+import com.quickbirdstudios.surveykit.result.StepResult
 import com.quickbirdstudios.surveykit.result.TaskResult
 import com.quickbirdstudios.surveykit.steps.CompletionStep
 import com.quickbirdstudios.surveykit.steps.InstructionStep
@@ -37,6 +38,15 @@ open class SurvyLibTest : AppCompatActivity() {
     lateinit var Q1: QuestionStep
     lateinit var Q1A: QuestionStep
     lateinit var Q2: QuestionStep
+
+    //Car Brand
+    lateinit var Q2Audi         : QuestionStep
+    lateinit var Q2Dacia        : QuestionStep
+    lateinit var Q2Citron        : QuestionStep
+    lateinit var Q2Bmw          : QuestionStep
+    lateinit var Q2Chevrolet    : QuestionStep
+
+
     lateinit var Q3: QuestionStep
     lateinit var Q3A: QuestionStep
     lateinit var Q4: QuestionStep
@@ -88,9 +98,15 @@ open class SurvyLibTest : AppCompatActivity() {
     lateinit var questionR:ArrayList<String>
     lateinit var questionIdCopy:ArrayList<String>
 
+    lateinit var Temp:String
+
+    //lateinit var Q2ModulList:List<TextChoice>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survy_lib_test)
+
+        Temp= ""
 
         title = "ADD A NEW SURVEY"
 
@@ -109,18 +125,20 @@ open class SurvyLibTest : AppCompatActivity() {
         setupSurvey(survey)
 
 
+
+
     }
 
     private fun setupSurvey(surveyView: SurveyView) {
 
-        val task = NavigableOrderedTask(steps = allSteps)
+        var task = NavigableOrderedTask(steps = allSteps)
 
         task.setNavigationRule(
                 Q1.id,
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q1A.id
+                                getString(R.string.Others) -> Q1A.id
                                 else -> Q2.id
                             }
                         }
@@ -131,10 +149,34 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Non" -> Q1.id
+                                getString(R.string.No) -> Q1.id
+                                getString(R.string.Retierd)  -> Q1.id
                                 else -> I7.id
                             }
                         }
+                )
+        )
+
+        /* TODO : Complete The Car Brand Task Rules */
+        task.setNavigationRule(
+                Q2.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                "0" -> Q2Audi.id
+                                "1" -> Q2Bmw.id
+                                "4" -> Q2Chevrolet.id
+                                "5" -> Q2Citron.id
+                                "6" -> Q2Dacia.id
+                                else -> Q3.id
+                            }
+                        }
+                )
+        )
+        task.setNavigationRule(
+                Q2Audi.id,
+                NavigationRule.DirectStepNavigationRule(
+                        destinationStepStepIdentifier = Q3A.id
                 )
         )
 
@@ -143,7 +185,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q8A.id
+                                getString(R.string.Others) -> Q8A.id
                                 else -> Q9.id
                             }
                         }
@@ -155,10 +197,10 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q7A.id
-                                "Lorsque vous partiez au trajet"->Q8.id
-                                "lorsque je remarque que le pneu est dégonflé"->Q8.id
-                                "lorsque je sens des vibration"->Q8.id
+                                getString(R.string.Others) -> Q7A.id
+                                getString(R.string.traget)->Q8.id
+                                getString(R.string.deflated)->Q8.id
+                                getString(R.string.vibration)->Q8.id
                                 else -> Q7B.id
                             }
                         }
@@ -170,11 +212,11 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q9A.id
-                                "Selon le Kilométrage"->Q10.id
-                                "Selon La période (durée)"->Q11.id
-                                "Selon le niveau d'usure des pneus"->Q12.id
-                                "Selon Selon la saison"->Q12.id
+                                getString(R.string.Others) -> Q9A.id
+                                getString(R.string.Mileage)->Q10.id
+                                getString(R.string.duration)->Q11.id
+                                getString(R.string.levelOfWear)->Q12.id
+                                getString(R.string.ByTheSaison)->Q12.id
                                 else -> null
                             }
                         }
@@ -199,8 +241,8 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Oui" -> Q13.id
-                                "Non"->Q20A.id
+                                getString(R.string.Yes) -> Q13.id
+                                getString(R.string.No) ->Q20A.id
                                 else -> null
                             }
                         }
@@ -211,7 +253,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q13A.id
+                                getString(R.string.Others)-> Q13A.id
                                 else -> Q14.id
                             }
                         }
@@ -223,7 +265,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q15A.id
+                                getString(R.string.Others) -> Q15A.id
                                 else -> Q16.id
                             }
                         }
@@ -235,7 +277,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q16A.id
+                               getString(R.string.Others) -> Q16A.id
                                 else -> Q17.id
                             }
                         }
@@ -247,7 +289,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q17A.id
+                                getString(R.string.Others) -> Q17A.id
                                 else -> Q18.id
                             }
                         }
@@ -265,7 +307,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q21A.id
+                                getString(R.string.Others) -> Q21A.id
                                 else -> Q22.id
                             }
                         }
@@ -276,8 +318,8 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Oui" -> Q24.id
-                                "Non" -> Q25.id
+                                 getString(R.string.Yes) -> Q24.id
+                                 getString(R.string.No)  -> Q25.id
                                 else -> null
                             }
                         }
@@ -288,8 +330,8 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Oui" -> Q26.id
-                                "Non" -> Q27.id
+                                getString(R.string.Yes) -> Q26.id
+                                getString(R.string.No) -> Q27.id
                                 else -> null
                             }
                         }
@@ -301,7 +343,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q26A.id
+                                getString(R.string.Others) -> Q26A.id
                                 else -> Q30.id
                             }
                         }
@@ -320,7 +362,7 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q27A.id
+                                getString(R.string.Others) -> Q27A.id
                                 else -> Q28.id
                             }
                         }
@@ -332,12 +374,21 @@ open class SurvyLibTest : AppCompatActivity() {
                 NavigationRule.ConditionalDirectionStepNavigationRule(
                         resultToStepIdentifierMapper = { input ->
                             when (input) {
-                                "Autres" -> Q28A.id
+                                getString(R.string.Others) -> Q28A.id
                                 else -> Q29.id
                             }
                         }
                 )
         )
+
+        surveyView.onStepResult={step: Step?, stepResult: StepResult? ->
+            if (step?.id==Q2.id && stepResult?.id==Q2.id){
+                Toast.makeText(this@SurvyLibTest, stepResult.results[0].stringIdentifier, Toast.LENGTH_LONG).show()
+                Temp=stepResult.results[0].stringIdentifier
+
+            }
+        }
+
 
 
 
@@ -380,6 +431,8 @@ open class SurvyLibTest : AppCompatActivity() {
                     }
                 }
 
+
+
                 val db=dataBaseHelper.writableDatabase
 
                 val values = ContentValues()
@@ -394,49 +447,60 @@ open class SurvyLibTest : AppCompatActivity() {
                 values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q1  ,questionResult[8])
                 values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q1A ,questionResult[9])
                 values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q2  ,questionResult[10])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3  ,questionResult[11])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3A ,questionResult[12])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q4  ,questionResult[13])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q5  ,questionResult[14])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q6  ,questionResult[15])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7  ,questionResult[16])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7A ,questionResult[17])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7B ,questionResult[18])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q8  ,questionResult[19])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q8A ,questionResult[20])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q9  ,questionResult[21])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q9A ,questionResult[22])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q10 ,questionResult[23])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q11 ,questionResult[24])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q12 ,questionResult[25])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q13 ,questionResult[26])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q13A,questionResult[27])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q14 ,questionResult[28])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q15 ,questionResult[29])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q15A,questionResult[30])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q16 ,questionResult[31])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q16A,questionResult[32])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q17 ,questionResult[33])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q17A,questionResult[34])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q18 ,questionResult[35])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q19 ,questionResult[36])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q19A,questionResult[37])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q20 ,questionResult[38])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q20A,questionResult[39])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q21 ,questionResult[40])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q21A,questionResult[41])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q22 ,questionResult[42])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q23 ,questionResult[43])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q24 ,questionResult[44])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q25 ,questionResult[45])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q26 ,questionResult[46])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q26A,questionResult[47])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q27 ,questionResult[48])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q27A,questionResult[49])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q28 ,questionResult[50])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q28A,questionResult[51])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q29 ,questionResult[52])
-                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q30 ,questionResult[53])
+
+                // For The Car Brand
+                when (Temp){
+                    "0"->values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3  ,questionResult[11])
+                    "1"->values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3  ,questionResult[12])
+                    "4"-> values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3  ,questionResult[13])
+                    "5"->values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3  ,questionResult[14])
+                    "6"->values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3  ,questionResult[15])
+                    else ->values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3  ,questionResult[16])
+                }
+
+
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q3A ,questionResult[17])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q4  ,questionResult[18])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q5  ,questionResult[19])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q6  ,questionResult[20])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7  ,questionResult[21])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7A ,questionResult[22])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q7B ,questionResult[23])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q8  ,questionResult[24])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q8A ,questionResult[25])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q9  ,questionResult[26])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q9A ,questionResult[27])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q10 ,questionResult[28])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q11 ,questionResult[29])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q12 ,questionResult[30])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q13 ,questionResult[31])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q13A,questionResult[32])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q14 ,questionResult[33])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q15 ,questionResult[34])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q15A,questionResult[35])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q16 ,questionResult[36])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q16A,questionResult[37])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q17 ,questionResult[38])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q17A,questionResult[39])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q18 ,questionResult[40])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q19 ,questionResult[41])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q19A,questionResult[42])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q20 ,questionResult[43])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q20A,questionResult[44])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q21 ,questionResult[45])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q21A,questionResult[46])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q22 ,questionResult[47])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q23 ,questionResult[48])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q24 ,questionResult[49])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q25 ,questionResult[50])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q26 ,questionResult[51])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q26A,questionResult[52])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q27 ,questionResult[53])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q27A,questionResult[54])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q28 ,questionResult[55])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q28A,questionResult[56])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q29 ,questionResult[57])
+                values.put(IrisTyres.DataBaseTableEntry.COLUMN_Q30 ,questionResult[58])
 
                 val resultRowId=db.insert(IrisTyres.DataBaseTableEntry.TabName,null,values)
 
@@ -474,94 +538,92 @@ open class SurvyLibTest : AppCompatActivity() {
                 text = this.resources.getString(R.string.SurveyDescription)
         )
         I1 = QuestionStep(
-                title = "Nom d'enquêté",
+                title = getString(R.string.NameOfInvestigator),
                 text = "",
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         I2 = QuestionStep(
-                title = "L’identificateur de l'équité",
-                text = "Numéro de téléphone",
+                title = getString(R.string.EquityIdentifier),
+                text = getString(R.string.PhoneNumber),
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "Please Enter Your Phone Number"
+                        hint = getString(R.string.PlzEnterYOurPhoneNumber)
                 )
         )
         I3 = QuestionStep(
-                title = "Région",
+                title = getString(R.string.Region),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Ouest"),
-                                TextChoice("Centre"),
-                                TextChoice("Est")
+                                TextChoice(getString(R.string.West)),
+                                TextChoice(getString(R.string.Centre)),
+                                TextChoice(getString(R.string.Est))
                         )
                 )
         )
         I4 = QuestionStep(
-                title = "Sexe",
+                title = getString(R.string.Sex),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Homme"),
-                                TextChoice("Femme")
+                                TextChoice(getString(R.string.Man)),
+                                TextChoice(getString(R.string.Woman))
                         )
                 )
         )
         I5 = QuestionStep(
-                title = "Votre Age ?",
+                title = getString(R.string.YourAge),
                 text = "",
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "Please Enter Your Age"
+                        hint = getString(R.string.PleaseEnterYourAge)
                 )
         )
         I6 = QuestionStep(
-                title = "Travaillez-vous ?",
+                title = getString(R.string.DoYouWork),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Oui"),
-                                TextChoice("Non")
+                                TextChoice(getString(R.string.Yes)),
+                                TextChoice(getString(R.string.No)) ,
+                                TextChoice(getString(R.string.Retierd))
                         )
                 )
         )
         I7 = QuestionStep(
-                title = "CSP",
-                text = "quel est votre revenu Mensuel (NET)",
+                title = getString(R.string.CSP),
+                text = getString(R.string.monthlyIncome),
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("A"),
-                                TextChoice("B"),
-                                TextChoice("C"),
-                                TextChoice("D"))
+                                TextChoice(getString(R.string.A)),
+                                TextChoice(getString(R.string.B)),
+                                TextChoice(getString(R.string.C)),
+                                TextChoice(getString(R.string.D)))
                 )
         )
         Q1 = QuestionStep(
-                title = "Quel type de véhicule possédez-vous ?",
-                text = "is ok to choose more than one",
+                title = getString(R.string.typeofvehicle),
+                text = getString(R.string.MultiChoose),
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Touristique"),
-                                TextChoice("SUV / 4x4"),
-                                TextChoice("Utilitaire"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.Tourist)),
+                                TextChoice(getString(R.string.SUV)),
+                                TextChoice(getString(R.string.Utility)),
+                                TextChoice(getString(R.string.Others))
                         )
                 )
         )
         Q1A = QuestionStep(
-                title = "Autres type de véhicule",
-                text = "SVP préciser le type de véhicule que vous possédez",
-                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = "Super Car lol")
+                title = getString(R.string.OthersCarType),
+                text = getString(R.string.beSpecified),
+                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5)
         )
         Q2 = QuestionStep(
-                title = "Quelle est la marque de votre véhicule ?",
+                title = getString(R.string.WhatIsYourCarBrand),
                 text = "",
                 answerFormat = AnswerFormat.ImageSelectorFormat(
                         numberOfColumns = 5,
                         defaultSelectedImagesIndices= listOf(0),
                         imageChoiceList = listOf(
-                                ImageChoice(R.drawable.alfa),
-                                ImageChoice(R.drawable.aston),
                                 ImageChoice(R.drawable.audi),
-                                ImageChoice(R.drawable.bentley),
                                 ImageChoice(R.drawable.bmw),
                                 ImageChoice(R.drawable.byd),
                                 ImageChoice(R.drawable.chery),
@@ -571,22 +633,11 @@ open class SurvyLibTest : AppCompatActivity() {
                                 ImageChoice(R.drawable.daihatsu),
                                 ImageChoice(R.drawable.dfm),
                                 ImageChoice(R.drawable.dfsk),
-                                ImageChoice(R.drawable.dodge),
-                                ImageChoice(R.drawable.ferrari),
                                 ImageChoice(R.drawable.fiat),
                                 ImageChoice(R.drawable.ford),
-                                ImageChoice(R.drawable.gmc),
-                                ImageChoice(R.drawable.honda),
-                                ImageChoice(R.drawable.hummer),
                                 ImageChoice(R.drawable.hyundai),
-                                ImageChoice(R.drawable.infiniti),
-                                ImageChoice(R.drawable.isuzu),
-                                ImageChoice(R.drawable.jaguar),
-                                ImageChoice(R.drawable.jeep),
                                 ImageChoice(R.drawable.kia),
-                                ImageChoice(R.drawable.lancia),
                                 ImageChoice(R.drawable.land),
-                                ImageChoice(R.drawable.lexus),
                                 ImageChoice(R.drawable.lifan),
                                 ImageChoice(R.drawable.mahindra),
                                 ImageChoice(R.drawable.mazda),
@@ -597,172 +648,214 @@ open class SurvyLibTest : AppCompatActivity() {
                                 ImageChoice(R.drawable.nissan),
                                 ImageChoice(R.drawable.opel),
                                 ImageChoice(R.drawable.peugeot),
-                                ImageChoice(R.drawable.porsche),
                                 ImageChoice(R.drawable.renault),
                                 ImageChoice(R.drawable.seat),
                                 ImageChoice(R.drawable.skoda),
-                                ImageChoice(R.drawable.ssangyong),
-                                ImageChoice(R.drawable.subaru),
                                 ImageChoice(R.drawable.suzuki),
                                 ImageChoice(R.drawable.toyota),
                                 ImageChoice(R.drawable.volkswagen),
-                                ImageChoice(R.drawable.volvo)
+                                ImageChoice(R.drawable.other)
                         )
                 )
         )
+
+
+        /*TODO: Complete The car brand */
+        // Cars Brand Fuck
+
+        Q2Audi=QuestionStep(
+                title = "Quel est le model de votre Audi",
+                text = "",
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                        textChoices =CarBrand.AudiList)
+                )
+
+        Q2Bmw=QuestionStep(
+                title = "Quel est le model de votre Audi",
+                text = "",
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                        textChoices =CarBrand.BMWList)
+        )
+
+        Q2Chevrolet=QuestionStep(  //4
+                title = "Quel est le model de votre Audi",
+                text = "",
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                        textChoices =CarBrand.BMWList)
+        )
+
+        Q2Citron=QuestionStep( //5
+                title = "Quel est le model de votre Audi",
+                text = "",
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                        textChoices =CarBrand.BMWList)
+        )
+
+        Q2Dacia=QuestionStep( //6
+                title = "Quel est le model de votre Audi",
+                text = "",
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                        textChoices =CarBrand.BMWList)
+        )
+
+
+
+
+
+
         Q3 = QuestionStep(
-                title = "Quel est le model de ce véhicule ?",
+                title = getString(R.string.ModelOfTheCar),
                 text = "",
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q3A = QuestionStep(
-                title = "c'est quoi la dimension de vous pneus",
+                title = getString(R.string.RimSize),
                 text = "",
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "Ex: 16'"
+                        hint = getString(R.string.RimExp)
                 )
         )
         Q4 = QuestionStep(
-                title = "Année du véhicule ?",
+                title = getString(R.string.Yearofthevehicle),
                 text = "",
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "Ex: 2017"
+                        hint = getString(R.string.YearExp)
                 )
         )
         Q5 = QuestionStep(
-                title = "Kilométrage actuel ?",
-                text = "en mille Km x1000",
+                title = getString(R.string.travelledmiles),
+                text = getString(R.string.x1000Km),
                 /*answerFormat = AnswerFormat.ValuePickerAnswerFormat(
                         choices = (20..300).toList().map { it.toString() },
                         defaultValue = 70.toString()
                 )*/
                         answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "en Km"
+                        hint = getString(R.string.InKm)
                         )
         )
         Q6 = QuestionStep(
-                title = "En moyenne, Combien de Kilomètre voulez-vous par mois ?",
+                title = getString(R.string.AverageMilesByMonth),
                 text = "",
                 /*answerFormat = AnswerFormat.ValuePickerAnswerFormat(
                         choices = (300..2000).toList().map { it.toString() },
                         defaultValue = 500.toString()
                 )*/
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "en Km"
+                        hint = getString(R.string.InKm)
                 )
 
         )
         Q7 = QuestionStep(
-                title = "A quelle fréquence vérifiez-vous la pression de vos pneus ?",
+                title = getString(R.string.tirepressure),
                 text = "",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Par mois"),
-                                TextChoice("Par semaine"),
-                                TextChoice("Par jour"),
-                                TextChoice("Lorsque vous partiez au trajet"),
-                                TextChoice("lorsque je remarque que le pneu est dégonflé"),
-                                TextChoice("lorsque je sens des vibration") ,
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.ByMonth)),
+                                TextChoice(getString(R.string.Byweek)),
+                                TextChoice(getString(R.string.ByDay)),
+                                TextChoice(getString(R.string.traget)),
+                                TextChoice(getString(R.string.deflated)),
+                                TextChoice(getString(R.string.vibration)) ,
+                                TextChoice(getString(R.string.Others))
                         )
                 )
         )
         Q7A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
-                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = "Super Car lol")
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
+                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5)
         )
         Q7B = QuestionStep(
-                title = "combien de fois ?",
+                title = getString(R.string.HowMany),
                 text = "",
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
                         hint = ""
                 )
         )
         Q8 = QuestionStep(
-                title = "Chez quel prestataire faites-vous la vérification de vos pneus ?",
+                title = getString(R.string.TyresProvider),
                 text = "",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Vulcanisateurs"),
-                                TextChoice("Garages mécaniques spécialisés"),
-                                TextChoice("Concessionnaire (Agent Agréé)"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.Vulcanisateurs)),
+                                TextChoice(getString(R.string.SpecializedMechanical)),
+                                TextChoice(getString(R.string.AccreditedAgent)),
+                                TextChoice(getString(R.string.Others))
                         )
                 )
         )
         Q8A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
-                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = "Super Car lol")
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
+                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5)
         )
         Q9 = QuestionStep(
-                title = "A quelle fréquence changez-vous vos pneus ?",
+                title = getString(R.string.ChangeYourTires),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Selon le Kilométrage"),
-                                TextChoice("Selon La période (durée)"),
-                                TextChoice("Selon le niveau d'usure des pneus"),
-                                TextChoice("Selon Selon la saison"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.Mileage)),
+                                TextChoice(getString(R.string.duration)),
+                                TextChoice(getString(R.string.levelOfWear)),
+                                TextChoice(getString(R.string.ByTheSaison)),
+                                TextChoice(getString(R.string.Others))
                         )
                 )
         )
         Q9A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q10 = QuestionStep(
-                title = "Si le Kilométrage, combien ?",
+                title = getString(R.string.IFmileage),
                 text = "",
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "en Km"
+                        hint = getString(R.string.InKm)
                 )
         )
         Q11 = QuestionStep(
-                title = "Si la période, Combien ?",
-                text = "par mois SPV",
+                title = getString(R.string.IFperiod),
+                text = getString(R.string.InMonth),
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "Mois"
+                        hint = getString(R.string.Month)
                 )
         )
         Q12 = QuestionStep(
-                title = "Avez-vous déjà changé vos pneus ?",
+                title = getString(R.string.HaveYouChangedYourTires),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Oui"),
-                                TextChoice("Non")
+                                TextChoice(getString(R.string.Yes)),
+                                TextChoice(getString(R.string.No))
                         )
                 )
         )
         Q13 = QuestionStep(
-                title = "Pourquoi vous avez changé vous pneus ?",
-                text = "SVP préciser!!",
+                title = getString(R.string.WhyHaveYouChange),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Le pneu à éclater"),
-                                TextChoice("Une bosse qui sort du pneu"),
-                                TextChoice("Une coupure profonde sur le pneu"),
-                                TextChoice("Vous devez ajouter de l'air dans l'un de vos pneus qutidianment"),
-                                TextChoice("Une vibration dans la course du pneu"),
-                                TextChoice("La bande de roulement est trop usée"),
-                                TextChoice("Une vibration dans la course du pneu"),
-                                TextChoice("l’âge: les pneus atteindre leur limite dans le temps"),
-                                TextChoice("la saison: remplacé les anciens pneus par les pneus d'hiver"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.WhyChange1)),
+                                TextChoice(getString(R.string.WhyChange2)),
+                                TextChoice(getString(R.string.WhyChange3)),
+                                TextChoice(getString(R.string.WhyChange4)),
+                                TextChoice(getString(R.string.WhyChange5)),
+                                TextChoice(getString(R.string.WhyChange6)),
+                                TextChoice(getString(R.string.WhyChange7)),
+                                TextChoice(getString(R.string.WhyChange8)),
+                                TextChoice(getString(R.string.WhyChange9)),
+                                TextChoice(getString(R.string.Others))
                         )
                 )
         )
         Q13A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q14 = QuestionStep(
-                title = "Combien de pneus avez vous changez ?",
+                title = getString(R.string.HowManyHaveYouChange),
                 text = "",
                 answerFormat = AnswerFormat.ScaleAnswerFormat(
                         minimumValue = 1,
@@ -774,105 +867,104 @@ open class SurvyLibTest : AppCompatActivity() {
                 )
         )
         Q15 = QuestionStep(
-                title = "Est ce que vous avez l'habitude de changer votre pneus",
+                title = getString(R.string.HabitOfChange),
                 text = "",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("4 pneus à la fois"),
-                                TextChoice("2 par 2"),
-                                TextChoice("Chaque pneu selon état"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.Habit1)),
+                                TextChoice(getString(R.string.Habit2)),
+                                TextChoice(getString(R.string.Habit3)),
+                                TextChoice(getString(R.string.Others))
                         )
                 )
         )
         Q15A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q16 = QuestionStep(
-                title = "Quelle était la marque de vos pneus avant de le changer ? ",
+                title = getString(R.string.WhatWasFirstTyresBrand),
                 text = "",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Michelin"),
-                                TextChoice("Pirelli"),
-                                TextChoice("Continental"),
-                                TextChoice("Triangle"),
-                                TextChoice("Bridge stone"),
-                                TextChoice("Dunlop"),
-                                TextChoice("Goodyear"),
-                                TextChoice("Kumho"),
-                                TextChoice("Hankook"),
-                                TextChoice("Barum"),
-                                TextChoice("Marque chinoise"),
-                                TextChoice("j'ai oublié son nom"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.TyresBrand1)),
+                                TextChoice(getString(R.string.TyresBrand2)),
+                                TextChoice(getString(R.string.TyresBrand3)),
+                                TextChoice(getString(R.string.TyresBrand4)),
+                                TextChoice(getString(R.string.TyresBrand5)),
+                                TextChoice(getString(R.string.TyresBrand6)),
+                                TextChoice(getString(R.string.TyresBrand7)),
+                                TextChoice(getString(R.string.TyresBrand8)),
+                                TextChoice(getString(R.string.TyresBrand9)),
+                                TextChoice(getString(R.string.TyresBrand10)),
+                                TextChoice(getString(R.string.ChinisTyresBrand)),
+                                TextChoice(getString(R.string.ForgetTyresBrand)),
+                                TextChoice(getString(R.string.Others))
 
                         )
                 )
         )
         Q16A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q17 = QuestionStep(
-                title = "Quand vous l'avez changé, quelle est la marque que vous avez choisie ?",
+                title = getString(R.string.WhatWasSecondTyresBrand),
                 text = "",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Michelin"),
-                                TextChoice("Pirelli"),
-                                TextChoice("Continental"),
-                                TextChoice("Triangle"),
-                                TextChoice("Bridge stone"),
-                                TextChoice("Dunlop"),
-                                TextChoice("Goodyear"),
-                                TextChoice("Kumho"),
-                                TextChoice("Hankook"),
-                                TextChoice("Barum"),
-                                TextChoice("Marque chinoise"),
-                                TextChoice("j'ai oublié son nom"),
-                                TextChoice("Autres")
-
-
+                                TextChoice(getString(R.string.TyresBrand1)),
+                                TextChoice(getString(R.string.TyresBrand2)),
+                                TextChoice(getString(R.string.TyresBrand3)),
+                                TextChoice(getString(R.string.TyresBrand4)),
+                                TextChoice(getString(R.string.TyresBrand5)),
+                                TextChoice(getString(R.string.TyresBrand6)),
+                                TextChoice(getString(R.string.TyresBrand7)),
+                                TextChoice(getString(R.string.TyresBrand8)),
+                                TextChoice(getString(R.string.TyresBrand9)),
+                                TextChoice(getString(R.string.TyresBrand10)),
+                                TextChoice(getString(R.string.ChinisTyresBrand)),
+                                TextChoice(getString(R.string.ForgetTyresBrand)),
+                                TextChoice(getString(R.string.Others))
                         )
                 )
         )
         Q17A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
         Q18 = QuestionStep(
-                title = "Pourquoi avez-vous choisi cette marque ?",
-                text = "SVP préciser!!",
+                title = getString(R.string.WhyThisTyresBrand),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("La Qualité"),
-                                TextChoice("basé sur des recommandation"),
-                                TextChoice("Le prix"),
-                                TextChoice("Pneu original"),
-                                TextChoice("Apparence - Sculpture (Dessein)"),
-                                TextChoice("Meilleure offre"),
-                                TextChoice("Disponibilité du produit"),
-                                TextChoice("Même marque que l'OE"),
-                                TextChoice("L’origine de pneu"),
-                                TextChoice("Publicité"),
-                                TextChoice("la durabilité"),
-                                TextChoice("Sécurité")
+                                TextChoice(getString(R.string.WhyThisTyresBrand0)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand1)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand2)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand3)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand4)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand5)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand6)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand7)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand8)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand9)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand10)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand11)),
+                                TextChoice(getString(R.string.WhyThisTyresBrand12))
                         ))
         )
         Q19 = QuestionStep(
-                title = "Combien était le prix ?",
+                title = getString(R.string.WhatWasThePrice),
                 text = "",
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "ed DZD"
+                        hint = getString(R.string.InDZD)
                 )
         )
         Q19A = QuestionStep(
-                title = "ce prix est pour combien de pneus ?",
+                title = getString(R.string.ThisPriceIsForHowManyTyre),
                 text = "",
                 answerFormat = AnswerFormat.ScaleAnswerFormat(
                         minimumValue = 1,
@@ -884,185 +976,195 @@ open class SurvyLibTest : AppCompatActivity() {
                 )
         )
         Q20 = QuestionStep(
-                title = "Depuis quand ?",
-                text = "par mois SPV",
+                title = getString(R.string.sinceWhen),
+                text = getString(R.string.InMonth),
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "Mois"
+                        hint = getString(R.string.Month)
                 )
         )
         Q20A = QuestionStep(
-                title = "Si vous devez changer un pneus ou plus est ce que vous changer",
+                title = getString(R.string.IfYouHaveToChangeTyres),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("seulement les pneus endommagés"),
-                                TextChoice("4 pneus à la fois"),
-                                TextChoice("2 par 2")
+                                TextChoice(getString(R.string.Habit1)),
+                                TextChoice(getString(R.string.Habit2)),
+                                TextChoice(getString(R.string.Habit3))
                         )
                 )
         )
+
         Q21 = QuestionStep(
-                title = "Quel critère important pour vous lors de l'achat d'un pneu ? ",
-                text = "Possibilité de réponses Multiples",
+                title = getString(R.string.importantCriterion),
+                text = getString(R.string.MultiChoose),
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("La Qualité"),
-                                TextChoice("Notoriété de la marque"),
-                                TextChoice("Budget (prix)"),
-                                TextChoice("Meilleure offre"),
-                                TextChoice("Apparence - Sculpture (Dessein)"),
-                                TextChoice("Meilleure offre"),
-                                TextChoice("Disponibilité du produit"),
-                                TextChoice("Même marque que l'OE"),
-                                TextChoice("L’origine de pneu"),
-                                TextChoice("Publicité"),
-                                TextChoice("Sécurité"),
-                                TextChoice("la durabilité"),
-                                TextChoice("Autres")
+                               TextChoice(getString(R.string.WhyThisTyresBrand0)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand1)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand2)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand3)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand4)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand5)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand6)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand7)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand8)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand9)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand10)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand11)),
+                               TextChoice(getString(R.string.WhyThisTyresBrand12)),
+                               TextChoice(getString(R.string.Others))
                         )
                 )
         )
 
         Q21A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
 
         Q22 = QuestionStep(
-                title = "Quel est votre budget pour l’achat d’un pneu ? ",
+                title = getString(R.string.budgetForBuying),
                 text = "",
                 answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = "ed DZD"
+                        hint = getString(R.string.InDZD)
                 )
         )
         Q23 = QuestionStep(
-                title = "Connaissez-vous la marque IRIS ?",
+                title = getString(R.string.DoYouKnowIris),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Oui"),
-                                TextChoice("Non")
+                                TextChoice( getString(R.string.Yes)),
+                                TextChoice(getString(R.string.No))
                         )
                 )
         )
         Q24 = QuestionStep(
-                title = "Savez-vous qu’IRIS produit des pneus en Algérie ?",
+                title = getString(R.string.DidYouKnowThatIrisProduces),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Oui"),
-                                TextChoice("Non")
+                                 TextChoice( getString(R.string.Yes)),
+                                 TextChoice(getString(R.string.No))
                         )
                 )
         )
         Q25 = QuestionStep(
-                title = "Si on vous dit qu’IRIS suit les normes internationales et européennes de la fabrication des pneus, Envisageriez-vous d’achetée des pneus IRIS ?",
+                title = getString(R.string.IfIrisFlowEuropeIso),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Oui"),
-                                TextChoice("Non")
+                                 TextChoice( getString(R.string.Yes)), 
+                                 TextChoice(getString(R.string.No))    
                         )
                 )
         )
         Q26 = QuestionStep(
-                title = "Qu'est-ce qui vous motiverait à le faire ?",
-                text = "Possibilité de réponses Multiples",
+                title = getString(R.string.WhyIris),
+                text = getString(R.string.MultiChoose),
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("La Qualité"),
-                                TextChoice("Prix moins cher"),
-                                TextChoice("Sculpture (Dessein)"),
-                                TextChoice("Offre MKT/service"),
-                                TextChoice("Notoriété de la marque"),
-                                TextChoice("Production local"),
-                                TextChoice("Disponibilité"),
-                                TextChoice("la durabilité"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.WhyIris1)  ),
+                                TextChoice(getString(R.string.WhyIris2)   ),
+                                TextChoice(getString(R.string.WhyIris3) ),
+                                TextChoice(getString(R.string.WhyIris4)     ),
+                                TextChoice(getString(R.string.WhyIris5)),
+                                TextChoice(getString(R.string.WhyIris6)),
+                                TextChoice(getString(R.string.WhyIris7)  ),
+                                TextChoice(getString(R.string.WhyIris8)      ),
+                                TextChoice(getString(R.string.Others)                          )
                         )
                 )
         )
+
         Q26A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
+
         Q27 = QuestionStep(
-                title = "Qu’est-ce qui vous empêcherait le faire ?",
-                text = "Possibilité de réponses Multiples",
+                title = getString(R.string.WhyNotIris),
+                text = getString(R.string.MultiChoose),
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Attendre les critiques"),
-                                TextChoice("Sculpture (Dessein)"),
-                                TextChoice("Prix cher"),
-                                TextChoice("Production local"),
-                                TextChoice("Offre MKT/service"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.WhyNotIris1)),
+                                TextChoice(getString(R.string.WhyNotIris2)),
+                                TextChoice(getString(R.string.WhyNotIris3)),
+                                TextChoice(getString(R.string.WhyNotIris4)),
+                                TextChoice(getString(R.string.WhyNotIris5)),
+                                TextChoice(getString(R.string.Others))
                         )
                 )
         )
+
         Q27A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
+
         Q28 = QuestionStep(
-                title = "quel(s) est (sont) pour vous le(s) facteur(s) important(s) qui vous inciterait (aient) à l'achat d'un pneu IRIS ?",
+                title = getString(R.string.HowWeCanChangeYourMind),
                 text = "",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Recommandation"),
-                                TextChoice("La Qualité"),
-                                TextChoice("Critiques positives"),
-                                TextChoice("Technologie Européenne"),
-                                TextChoice("Sculpture (Dessein)"),
-                                TextChoice("Moins cher que les autres marques"),
-                                TextChoice("Disponibilité"),
-                                TextChoice("je veux le tester"),
-                                TextChoice("Production local"),
-                                TextChoice("Autres")
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind1)     ),
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind2)   ),
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind3)       ),
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind4) ),
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind5)     ),
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind6) ),
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind7) ),
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind8)  ),
+                                TextChoice(getString(R.string.HowWeCanChangeYourMind9)  ),
+                               TextChoice(getString(R.string.Others))
                         )
                 )
         )
+
         Q28A = QuestionStep(
-                title = "Autres",
-                text = "SVP préciser!!",
+                title = getString(R.string.Others),
+                text = getString(R.string.beSpecified),
                 answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
         )
+
         Q29 = QuestionStep(
-                title = "Si on vous dit qu’IRIS fait de l’exportation des pneus, envisageriez-vous d’achetée des pneus IRIS ?",
+                title = getString(R.string.IfWeToldYouThatIrisExport),
                 text = "",
                 answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Oui"),
-                                TextChoice("Non")
+                                TextChoice( getString(R.string.Yes)),
+                                TextChoice(getString(R.string.No))
                         )
                 )
         )
         Q30 = QuestionStep(
-                title = "Quelle sont vos attentes de la part de marque IRIS ?",
+                title = getString(R.string.expectationsFromIris),
                 text = "",
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice("Un bon Produit"),
-                                TextChoice("Un bon rapport qualité prix"),
-                                TextChoice("Utiliser des technologie européenne"),
-                                TextChoice("Avoir plus de developpement"),
-                                TextChoice("Un bon Dessein"),
-                                TextChoice("Moins cher que les autres marques"),
-                                TextChoice("Disponibilité"),
-                                TextChoice("faire de l'exportation"),
-                                TextChoice("La communication des resultats des test"),
-                                TextChoice("La maintenabilité de la qualité"),
-                                TextChoice("L'évolution de la marque et sa maintenabilité"),
-                                TextChoice("Plus de variété des modules et des dimension"),
-                                TextChoice("Commencer a produire des pneus de neige"),
-                                TextChoice("Commencer a produire des pneus pour les véhicules poid lourdes"),
-                                TextChoice("Proposer une offre sous forme de pack "),
-                                TextChoice("Plus de publicité"),
-                                TextChoice("Commencer à fabriquer les pièces de rechange auto") ,
-                                TextChoice("Produit un produit solide avec une longue duree de vie")
+                                TextChoice(getString(R.string.expectationsFromIris1)   ),
+                                TextChoice(getString(R.string.expectationsFromIris2)    ),
+                                TextChoice(getString(R.string.expectationsFromIris3) ),
+                                TextChoice(getString(R.string.expectationsFromIris4)    ),
+                                TextChoice(getString(R.string.expectationsFromIris5)  ),
+                                TextChoice(getString(R.string.expectationsFromIris6)  ),
+                                TextChoice(getString(R.string.expectationsFromIris7)),
+                                TextChoice(getString(R.string.expectationsFromIris8)   ),
+                                TextChoice(getString(R.string.expectationsFromIris9) ),
+                                TextChoice(getString(R.string.expectationsFromIris10)  ),
+                                TextChoice(getString(R.string.expectationsFromIris11)    ),
+                                TextChoice(getString(R.string.expectationsFromIris12)    ),
+                                TextChoice(getString(R.string.expectationsFromIris13) ),
+                                TextChoice(getString(R.string.expectationsFromIris14)   ),
+                                TextChoice(getString(R.string.expectationsFromIris15)     ),
+                                TextChoice(getString(R.string.expectationsFromIris16)   ),
+                                TextChoice(getString(R.string.expectationsFromIris17) ),
+                                TextChoice(getString(R.string.expectationsFromIris18) ),
+                                TextChoice(getString(R.string.expectationsFromIris19)  ) ,
+                                TextChoice(getString(R.string.expectationsFromIris20)  )
                         ))
         )
         /* QuestionStep(
@@ -1101,8 +1203,8 @@ open class SurvyLibTest : AppCompatActivity() {
                      )
              ),*/
         completionStep=CompletionStep(
-                title = "Terminé",
-                text = "Merci d'avoir répondu à ce questionnaire est d'avoir participera ce tirage au sort, je vous souhaite bonne chance",
+                title = getString(R.string.EndOfSurvey),
+                text = getString(R.string.EndOfSurveyText),
                 buttonText = this.resources.getString(R.string.finish_question_submit)
         )
 
@@ -1118,6 +1220,14 @@ open class SurvyLibTest : AppCompatActivity() {
              Q1,
             Q1A,
              Q2,
+
+                //Car Brand List
+                 Q2Audi,
+                 Q2Dacia,
+                 Q2Citron,
+                 Q2Bmw  ,
+                 Q2Chevrolet ,
+
             Q3,
                 Q3A,
              Q4,

@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".QuestionType.StartASurvey"></activity>
+        <activity android:name=".QuestionType.SingleSurveyResult"></activity>
+        <activity android:name=".QuestionType.StartASurvey" />
         <activity android:name=".QuestionType.SurvyLibTest" />
         <activity android:name=".QuestionType.QuestionsCreature" />
         <activity android:name=".UserInfo" />
