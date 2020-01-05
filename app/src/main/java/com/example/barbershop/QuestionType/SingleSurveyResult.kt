@@ -15,7 +15,7 @@ class SingleSurveyResult : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_single_survey_result)
         val singleQuestionResultList=ArrayList<SingleQuestionResult>()
-        val singleSurveyAdapter=SingleSurveyAdapter(singleQuestionResultList)
+        val singleSurveyAdapter=SingleSurveyAdapter(singleQuestionResultList,this)
 
         dataBaseHelperClass= DataBaseHelperClass(this)
 

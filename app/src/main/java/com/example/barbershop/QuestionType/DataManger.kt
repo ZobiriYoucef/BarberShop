@@ -559,6 +559,16 @@ object DataManger {
         values.put(DataBaseTableEntry.COLUMN_Q30 ,surveyResultDataBaseModule.Q30 )
 
 
+        val selection=DataBaseTableEntry.COLUMN_ID + " LIKE ? "
+        val selectionArgs= arrayOf(surveyResultDataBaseModule.id)
+
+        db.update(
+                DataBaseTableEntry.TabName,
+                values,
+                selection,
+                selectionArgs
+        )
+
 
 
 
