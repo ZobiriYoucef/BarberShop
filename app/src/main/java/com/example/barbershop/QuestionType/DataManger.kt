@@ -1,5 +1,6 @@
 package com.example.barbershop.QuestionType
 
+import android.content.ContentValues
 import com.example.barbershop.QuestionType.IrisTyres.DataBaseTableEntry
 
 object DataManger {
@@ -492,6 +493,71 @@ object DataManger {
 
         queryCursorRsault.close()
         return fetchedResultModule
+
+
+
+
+    }
+
+    fun upDateASingleResponse(dataBaseHelper:DataBaseHelperClass,surveyResultDataBaseModule:SurveyResultDataBaseModule){
+    val db=dataBaseHelper.writableDatabase
+
+        val values = ContentValues()
+
+        values.put(DataBaseTableEntry.COLUMN_I1  ,surveyResultDataBaseModule.I1  )
+        values.put(DataBaseTableEntry.COLUMN_I2  ,surveyResultDataBaseModule.I2  )
+        values.put(DataBaseTableEntry.COLUMN_I3  ,surveyResultDataBaseModule.I3  )
+        values.put(DataBaseTableEntry.COLUMN_I4  ,surveyResultDataBaseModule.I4  )
+        values.put(DataBaseTableEntry.COLUMN_I5  ,surveyResultDataBaseModule.I5  )
+        values.put(DataBaseTableEntry.COLUMN_I6  ,surveyResultDataBaseModule.I6  )
+        values.put(DataBaseTableEntry.COLUMN_I7  ,surveyResultDataBaseModule.I7  )
+        values.put(DataBaseTableEntry.COLUMN_Q1  ,surveyResultDataBaseModule.Q1  )
+        values.put(DataBaseTableEntry.COLUMN_Q1A ,surveyResultDataBaseModule.Q1A )
+        values.put(DataBaseTableEntry.COLUMN_Q2  ,surveyResultDataBaseModule.Q2  )
+        values.put(DataBaseTableEntry.COLUMN_Q3  ,surveyResultDataBaseModule.Q3  )
+        values.put(DataBaseTableEntry.COLUMN_Q3A ,surveyResultDataBaseModule.Q3A )
+        values.put(DataBaseTableEntry.COLUMN_Q4  ,surveyResultDataBaseModule.Q4  )
+        values.put(DataBaseTableEntry.COLUMN_Q5  ,surveyResultDataBaseModule.Q5  )
+        values.put(DataBaseTableEntry.COLUMN_Q6  ,surveyResultDataBaseModule.Q6  )
+        values.put(DataBaseTableEntry.COLUMN_Q7  ,surveyResultDataBaseModule.Q7  )
+        values.put(DataBaseTableEntry.COLUMN_Q7A ,surveyResultDataBaseModule.Q7A )
+        values.put(DataBaseTableEntry.COLUMN_Q7B ,surveyResultDataBaseModule.Q7B )
+        values.put(DataBaseTableEntry.COLUMN_Q8  ,surveyResultDataBaseModule.Q8  )
+        values.put(DataBaseTableEntry.COLUMN_Q8A ,surveyResultDataBaseModule.Q8A )
+        values.put(DataBaseTableEntry.COLUMN_Q9  ,surveyResultDataBaseModule.Q9  )
+        values.put(DataBaseTableEntry.COLUMN_Q9A ,surveyResultDataBaseModule.Q9A )
+        values.put(DataBaseTableEntry.COLUMN_Q10 ,surveyResultDataBaseModule.Q10 )
+        values.put(DataBaseTableEntry.COLUMN_Q11 ,surveyResultDataBaseModule.Q11 )
+        values.put(DataBaseTableEntry.COLUMN_Q12 ,surveyResultDataBaseModule.Q12 )
+        values.put(DataBaseTableEntry.COLUMN_Q13 ,surveyResultDataBaseModule.Q13 )
+        values.put(DataBaseTableEntry.COLUMN_Q13A,surveyResultDataBaseModule.Q13A)
+        values.put(DataBaseTableEntry.COLUMN_Q14 ,surveyResultDataBaseModule.Q14 )
+        values.put(DataBaseTableEntry.COLUMN_Q15 ,surveyResultDataBaseModule.Q15 )
+        values.put(DataBaseTableEntry.COLUMN_Q15A,surveyResultDataBaseModule.Q15A)
+        values.put(DataBaseTableEntry.COLUMN_Q16 ,surveyResultDataBaseModule.Q16 )
+        values.put(DataBaseTableEntry.COLUMN_Q16A,surveyResultDataBaseModule.Q16A)
+        values.put(DataBaseTableEntry.COLUMN_Q17 ,surveyResultDataBaseModule.Q17 )
+        values.put(DataBaseTableEntry.COLUMN_Q17A,surveyResultDataBaseModule.Q17A)
+        values.put(DataBaseTableEntry.COLUMN_Q18 ,surveyResultDataBaseModule.Q18 )
+        values.put(DataBaseTableEntry.COLUMN_Q19 ,surveyResultDataBaseModule.Q19 )
+        values.put(DataBaseTableEntry.COLUMN_Q19A,surveyResultDataBaseModule.Q19A)
+        values.put(DataBaseTableEntry.COLUMN_Q20 ,surveyResultDataBaseModule.Q20 )
+        values.put(DataBaseTableEntry.COLUMN_Q20A,surveyResultDataBaseModule.Q20A)
+        values.put(DataBaseTableEntry.COLUMN_Q21 ,surveyResultDataBaseModule.Q21 )
+        values.put(DataBaseTableEntry.COLUMN_Q21A,surveyResultDataBaseModule.Q21A)
+        values.put(DataBaseTableEntry.COLUMN_Q22 ,surveyResultDataBaseModule.Q22 )
+        values.put(DataBaseTableEntry.COLUMN_Q23 ,surveyResultDataBaseModule.Q23 )
+        values.put(DataBaseTableEntry.COLUMN_Q24 ,surveyResultDataBaseModule.Q24 )
+        values.put(DataBaseTableEntry.COLUMN_Q25 ,surveyResultDataBaseModule.Q25 )
+        values.put(DataBaseTableEntry.COLUMN_Q26 ,surveyResultDataBaseModule.Q26 )
+        values.put(DataBaseTableEntry.COLUMN_Q26A,surveyResultDataBaseModule.Q26A)
+        values.put(DataBaseTableEntry.COLUMN_Q27 ,surveyResultDataBaseModule.Q27 )
+        values.put(DataBaseTableEntry.COLUMN_Q27A,surveyResultDataBaseModule.Q27A)
+        values.put(DataBaseTableEntry.COLUMN_Q28 ,surveyResultDataBaseModule.Q28 )
+        values.put(DataBaseTableEntry.COLUMN_Q28A,surveyResultDataBaseModule.Q28A)
+        values.put(DataBaseTableEntry.COLUMN_Q29 ,surveyResultDataBaseModule.Q29 )
+        values.put(DataBaseTableEntry.COLUMN_Q30 ,surveyResultDataBaseModule.Q30 )
+
 
 
 
