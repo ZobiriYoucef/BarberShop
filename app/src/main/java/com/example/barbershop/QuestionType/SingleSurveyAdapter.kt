@@ -15,15 +15,7 @@ import com.example.barbershop.R
 class SingleSurveyAdapter(val questionList:ArrayList<SingleQuestionResult>,context: Context):RecyclerView.Adapter<SingleSurveyAdapter.ViewHolder>() {
 
 
-    private val textWatcher = object : TextWatcher {
-        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-
-        override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-
-        override fun afterTextChanged(editable: Editable) {
-           Toast.makeText(context,"1225",Toast.LENGTH_LONG).show()
-        }
-    }
+    val context=context
 
 
 
@@ -46,8 +38,23 @@ class SingleSurveyAdapter(val questionList:ArrayList<SingleQuestionResult>,conte
     val singleQuestionResult:SingleQuestionResult=questionList[position]
         holder.SingleQuestionTextView.text=singleQuestionResult.questionText
         holder.SingleQuestionEditText.setText(singleQuestionResult.questionResult)
-        if(holder.SingleQuestionEditText.isFocused){
-            holder.SingleQuestionEditText.addTextChangedListener(textWatcher)
-        }
+        holder.SingleQuestionEditText.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(holder.SingleQuestionEditText.isFocused) {
+                    Toast.makeText(context,"1225", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        }  )
+
+
     }
 }
