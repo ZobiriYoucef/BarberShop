@@ -119,18 +119,18 @@ class SingleSurveyResult : AppCompatActivity() {
                                 .setConfirmClickListener{ sDialog ->
                                     sDialog.dismissWithAnimation()
                                     setResult(Activity.RESULT_OK, Intent())
-                                    super.onBackPressed()}
+                                    finish()}
                                 .changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
                     }
                     .setCancelClickListener { sDialog ->
                         sDialog.dismiss()
-                        super.onBackPressed()
+                        finish()
                     }
                     .show()
 
 
         }else{
-            super.onBackPressed()
+            finish()
         }
     }
 

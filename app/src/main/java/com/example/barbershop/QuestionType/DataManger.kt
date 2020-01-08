@@ -570,4 +570,14 @@ object DataManger {
         )
 
     }
+
+    fun deleteASingleResponse(dataBaseHelper:DataBaseHelperClass,singleSurveyID:String):Int{
+        val db=dataBaseHelper.writableDatabase
+
+        val selection=DataBaseTableEntry.COLUMN_ID + " LIKE ? "
+
+        val selectionArgs= arrayOf(singleSurveyID)
+
+        return db.delete(DataBaseTableEntry.TabName,selection,selectionArgs)
+    }
 }
