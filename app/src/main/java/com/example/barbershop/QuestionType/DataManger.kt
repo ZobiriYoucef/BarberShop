@@ -569,8 +569,5 @@ object DataManger {
                 selectionArgs
         )
 
-
-
-
     }
 }

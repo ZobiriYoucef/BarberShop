@@ -8,15 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.barbershop.R
 
-class SingleSurveyAdapter(val questionList:ArrayList<SingleQuestionResult>,context: Context):RecyclerView.Adapter<SingleSurveyAdapter.ViewHolder>() {
-
-
-    val context=context
-
+class SingleSurveyAdapter(val context: Context,val questionList:ArrayList<SingleQuestionResult>,var updatedsingleQuestionResult:ArrayList<String>,var checkChange:Boolean):RecyclerView.Adapter<SingleSurveyAdapter.ViewHolder>() {
 
 
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
@@ -40,7 +35,7 @@ class SingleSurveyAdapter(val questionList:ArrayList<SingleQuestionResult>,conte
         holder.SingleQuestionEditText.setText(singleQuestionResult.questionResult)
         holder.SingleQuestionEditText.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-
+                updatedsingleQuestionResult.set(position,p0.toString())
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -49,12 +44,22 @@ class SingleSurveyAdapter(val questionList:ArrayList<SingleQuestionResult>,conte
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if(holder.SingleQuestionEditText.isFocused) {
-                    Toast.makeText(context,"1225", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context,"wor from inside", Toast.LENGTH_LONG).show()
+                    checkChange=true
+
                 }
             }
 
         }  )
-
-
     }
+
+    fun getSurveyDataCheckChange():Boolean{
+        return this.checkChange
+    }
+
+    fun getupdatedsingleQuestionResult():ArrayList<String>{
+        return this.updatedsingleQuestionResult
+    }
+
+
 }
