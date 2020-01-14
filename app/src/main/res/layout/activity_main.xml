@@ -149,9 +149,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
         android:text="goToSurveyLabTest"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnGoToTheActivityLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/Enhance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="Enhance"
+        app:layout_constraintBottom_toTopOf="@+id/goToSurveyLabTest"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/etLibTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:text="Library Test"
+        app:layout_constraintBottom_toTopOf="@+id/btnGoToTheActivityLayout"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- app:lottie_loop="false"
     app:lottie_autoPlay="true"

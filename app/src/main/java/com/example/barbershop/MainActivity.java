@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.barbershop.QuestionType.LibraryTest;
 import com.example.barbershop.QuestionType.StartASurvey;
+import com.example.barbershop.QuestionType.StartASurveyEnhance;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.parse.ParseInstallation;
 
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private EditText Name, LastName, Job;
-    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout,goToSurveyLabTest;
+    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout,goToSurveyLabTest,Enhance,etLibTest;
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private LottieAnimationView mLottie;
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // hide keyborde on the start
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        Enhance=findViewById(R.id.Enhance);
+        etLibTest=findViewById(R.id.etLibTest);
+
 
         Name = findViewById(R.id.etName);
         LastName = findViewById(R.id.etLastName);
@@ -59,7 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Sand.setOnClickListener(this);
         btnGetDataFromSurver.setOnClickListener(this);
         GoToTheActivityLayout.setOnClickListener(this);
+        etLibTest.setOnClickListener(this);
 
+        Enhance.setOnClickListener(this);
 
 
         //Animation background
@@ -166,6 +173,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentToGoToSurveyLabTest);
                 break;
             }
+            case R.id.Enhance: {
+                Intent intentToGoToStartASurveyEnhance = new Intent(MainActivity.this, StartASurveyEnhance.class);
+                startActivity(intentToGoToStartASurveyEnhance);
+                break;
+            }
+            case R.id.etLibTest:
+                Intent intentToGoToLibraryTest = new Intent(MainActivity.this, LibraryTest.class);
+                startActivity(intentToGoToLibraryTest);
+                break;
+
 
         }
     }
