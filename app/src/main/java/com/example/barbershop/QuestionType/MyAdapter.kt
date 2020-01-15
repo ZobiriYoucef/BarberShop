@@ -4,13 +4,19 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.example.barbershop.R
 
-
+//, Filterable
  class MyAdapter(val context:Context): DragDropSwipeAdapter<SurveyResultDataBaseModule, MyAdapter.ViewHolder>() {
+
+     lateinit var filterArray: List<SurveyResultDataBaseModule>
+
 
      inner class ViewHolder(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView) {
 
@@ -100,8 +106,30 @@ import com.example.barbershop.R
 
      fun setFinishedSurveyResult(FinishedSurveyResult: ArrayList<SurveyResultDataBaseModule>) {
          dataSet=FinishedSurveyResult
+         filterArray=FinishedSurveyResult
          notifyDataSetChanged()
      }
+
+
+     /*override fun getFilter(): Filter =
+             object : Filter() {
+                 override fun performFiltering(value: CharSequence?): FilterResults {
+                     val results = FilterResults()
+                     if (value.isNullOrEmpty()) {
+                         results.values = dataSet
+                     } else {
+                         val dataSet2 = filterArray.filter {
+                             it.I1.contains(value, true)
+                         }
+                         results.values = dataSet2
+                     }
+                     return results
+                 }
+                 override fun publishResults(value: CharSequence?, results: FilterResults?) {
+                     dataSet = (results?.values as? List<SurveyResultDataBaseModule>).orEmpty()
+                     notifyDataSetChanged()
+                 }
+             }*/
 
 
 

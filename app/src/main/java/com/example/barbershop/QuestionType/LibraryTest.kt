@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +14,12 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.example.barbershop.R
+import com.example.barbershop.R2.id.fab3
+import com.ferfalk.simplesearchview.SimpleSearchView
+import com.ferfalk.simplesearchview.SimpleSearchView.SearchViewListener
 import com.shreyaspatil.MaterialDialog.MaterialDialog
 import kotlinx.android.synthetic.main.activity_library_test.*
+
 
 class LibraryTest : AppCompatActivity() {
 
@@ -139,11 +145,46 @@ class LibraryTest : AppCompatActivity() {
             startActivityForResult(GoToSurvyLibTest, 1)
         }
 
-        hidden_search_with_recycler.hideAtScroll = true
-        hidden_search_with_recycler.visibleAtInit = true
+        /*hidden_search_with_recycler.hideAtScroll = true
+        hidden_search_with_recycler.visibleAtInit = false
         hidden_search_with_recycler.scrollToBottomBeforeHide = false
         hidden_search_with_recycler.scrollToTopBeforeShow = false
-        hidden_search_with_recycler.filterWhileTyping = true
+        hidden_search_with_recycler.filterWhileTyping = true*/
+
+        searchView.setOnQueryTextListener(object : SimpleSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                Log.d("SimpleSearchView", "Submit:$query")
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                Log.d("SimpleSearchView", "Text changed:$newText")
+                return false
+            }
+
+            override fun onQueryTextCleared(): Boolean {
+                Log.d("SimpleSearchView", "Text cleared")
+                return false
+            }
+        })
+
+        searchView.setOnSearchViewListener(object : SearchViewListener {
+            override fun onSearchViewShown() {
+                Log.d("SimpleSearchView", "onSearchViewShown")
+            }
+
+            override fun onSearchViewClosed() {
+                Log.d("SimpleSearchView", "onSearchViewClosed")
+            }
+
+            override fun onSearchViewShownAnimation() {
+                Log.d("SimpleSearchView", "onSearchViewShownAnimation")
+            }
+
+            override fun onSearchViewClosedAnimation() {
+                Log.d("SimpleSearchView", "onSearchViewClosedAnimation")
+            }
+        })
 
     }
 
@@ -152,5 +193,24 @@ class LibraryTest : AppCompatActivity() {
         if(resultCode== Activity.RESULT_OK){
             mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
         }
+        if (searchView.onActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.test_library_menu, menu)
+        val item = menu!!.findItem(R.id.action_search)
+        searchView.setMenuItem(item)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onBackPressed() {
+        if (searchView.onBackPressed()) {
+            return
+        }
+        super.onBackPressed()
+    }
+
+
 }

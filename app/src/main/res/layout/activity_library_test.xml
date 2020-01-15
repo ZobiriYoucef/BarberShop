@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,12 +6,12 @@
     android:layout_height="match_parent">
 
 
-    <com.nicolettilu.hiddensearchwithrecyclerview.HiddenSearchWithRecyclerView
+    &lt;!&ndash;<com.nicolettilu.hiddensearchwithrecyclerview.HiddenSearchWithRecyclerView
         android:id="@+id/hidden_search_with_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- your RecyclerView here -->
+        &lt;!&ndash; your RecyclerView here &ndash;&gt;
         <com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
             android:id="@+id/mList2"
             android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             app:item_layout="@layout/list_item"
             app:divider="@drawable/list_divider"/>
 
-    </com.nicolettilu.hiddensearchwithrecyclerview.HiddenSearchWithRecyclerView>
+    </com.nicolettilu.hiddensearchwithrecyclerview.HiddenSearchWithRecyclerView>&ndash;&gt;
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab3"
@@ -29,4 +30,33 @@
         app:srcCompat="@drawable/ic_add" />
 
 
-</FrameLayout>
+</FrameLayout>-->
+<android.support.design.widget.AppBarLayout android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:subtitle="@string/app_subtitle"
+            app:title="Example" />
+
+        <com.ferfalk.simplesearchview.SimpleSearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary" />
+    </FrameLayout>
+
+</android.support.design.widget.AppBarLayout>

@@ -104,6 +104,8 @@ dependencies {
 
     implementation 'com.nicolettilu:hiddensearchwithrecyclerview:0.0.5'
 
+    implementation 'com.github.Ferfalk:SimpleSearchView:0.1.4'
+
 }
 
 
