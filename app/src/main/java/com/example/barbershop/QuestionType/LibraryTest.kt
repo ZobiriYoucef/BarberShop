@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.MenuItem
 import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieAnimationView
@@ -14,14 +17,15 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.example.barbershop.R
-import com.example.barbershop.R2.id.fab3
-import com.ferfalk.simplesearchview.SimpleSearchView
-import com.ferfalk.simplesearchview.SimpleSearchView.SearchViewListener
+import com.mancj.materialsearchbar.MaterialSearchBar
+import com.mancj.materialsearchbar.MaterialSearchBar.OnSearchActionListener
+import com.neeloy.lib.data.storage.StorageUtility
+import com.orhanobut.hawk.Hawk
 import com.shreyaspatil.MaterialDialog.MaterialDialog
 import kotlinx.android.synthetic.main.activity_library_test.*
 
 
-class LibraryTest : AppCompatActivity() {
+class LibraryTest : AppCompatActivity() , OnSearchActionListener {
 
     private lateinit var dataBaseHelper:DataBaseHelperClass
     val mAdapter =MyAdapter(this)
@@ -30,12 +34,64 @@ class LibraryTest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_library_test)
 
+        // hawk storge init
+        Hawk.init(this).build()
+
+
+        //Esay data storge
+        StorageUtility.initLibrary(this)
+
+        //************* Menu
+        searchBar.inflateMenu(R.menu.searchbarmenu)
+        searchBar.getMenu().setOnMenuItemClickListener(object: PopupMenu.OnMenuItemClickListener, androidx.appcompat.widget.PopupMenu.OnMenuItemClickListener {
+            override fun onMenuItemClick(item:MenuItem):Boolean {
+                when (item.itemId) {
+                    R.id.id1 -> Toast.makeText(applicationContext,"1111",Toast.LENGTH_LONG).show()
+                }
+                return false
+            }
+        })
+
+        //searchBar.setSpeechMode(true)
+        searchBar.setOnSearchActionListener(this)
+        searchBar.setHint("Name!!")
+        //searchBar.setText("Hello World!")
+        searchBar.setCardViewElevation(10)
+
+       // lastSearches=searchBar.lastSuggestions as List<String>?
+
+
+        if (Hawk.contains("Suggestions")) {
+            searchBar.lastSuggestions = Hawk.get("Suggestions")
+        }
+
+
+        searchBar.addTextChangeListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+               //Toast.makeText(this@LibraryTest,charSequence,Toast.LENGTH_LONG).show()
+                if (charSequence.isEmpty()){
+                    mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
+                } else {
+                    mAdapter.filter.filter(charSequence)
+                }
+
+            }
+
+            override fun afterTextChanged(editable: Editable) {}
+        })
+
+
+
+
+
+        //*************************************Collect info
         dataBaseHelper= DataBaseHelperClass(this)
-
         val allResults=DataManger.fetchAllResults(dataBaseHelper)
-
         mAdapter.setFinishedSurveyResult(allResults)
 
+        //***********************************setup the adopter
         mList2.layoutManager = LinearLayoutManager(this)
         mList2.adapter = mAdapter
 
@@ -80,8 +136,10 @@ class LibraryTest : AppCompatActivity() {
                             // Delete Operation
                             DataManger.deleteASingleResponse(dataBaseHelper,item.id)
                             mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
+                            dialogInterface.dismiss()
                         }
-                        .setNegativeButton("Cancel", R.drawable.ic_add) { dialogInterface, which -> dialogInterface.dismiss()
+                        .setNegativeButton("Cancel", R.drawable.ic_add) {
+                            dialogInterface,which -> dialogInterface.dismiss()
                             mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))}
                         .build()
                 mDialog.show()
@@ -117,21 +175,22 @@ class LibraryTest : AppCompatActivity() {
         mList2.swipeListener = onItemSwipeListener
         mList2.scrollListener = onListScrollListener
 
-        //behind_swiped_item
+        //********************************behind_swiped_item   1
 
-        // by Icons and colors
+        // *******************by Icons and colors
         /* mList.behindSwipedItemIconDrawableId = R.drawable.camera_icon
          mList.behindSwipedItemIconMargin = 20f //0 if not specified; ignored if behind_swiped_item_icon_centered is true.
          mList.behindSwipedItemCenterIcon = false
          mList.behindSwipedItemBackgroundColor =R.color.Blue*/
 
-        //by a layout (main direction)
+        //*********************by a layout (main direction)
         mList2.behindSwipedItemLayoutId = R.layout.swiped_item_main_direction_layout
 
 
 
-        //behind_swiped_item_secondary
-        /*// by Icons and colors
+        //**********************************behind_swiped_item_secondary 2
+        // *****************by Icons and colors
+        /*
         mList.behindSwipedItemIconSecondaryDrawableId = R.drawable.ic_account_circle_black_24dp
         mList.behindSwipedItemBackgroundSecondaryColor =R.color.Green*/
 
@@ -151,7 +210,7 @@ class LibraryTest : AppCompatActivity() {
         hidden_search_with_recycler.scrollToTopBeforeShow = false
         hidden_search_with_recycler.filterWhileTyping = true*/
 
-        searchView.setOnQueryTextListener(object : SimpleSearchView.OnQueryTextListener {
+      /*  searchView.setOnQueryTextListener(object : SimpleSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 Log.d("SimpleSearchView", "Submit:$query")
                 return false
@@ -184,7 +243,7 @@ class LibraryTest : AppCompatActivity() {
             override fun onSearchViewClosedAnimation() {
                 Log.d("SimpleSearchView", "onSearchViewClosedAnimation")
             }
-        })
+        })*/
 
     }
 
@@ -193,24 +252,57 @@ class LibraryTest : AppCompatActivity() {
         if(resultCode== Activity.RESULT_OK){
             mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
         }
-        if (searchView.onActivityResult(requestCode, resultCode, data)) {
-            return;
-        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.test_library_menu, menu)
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        getMenuInflater().inflate(R.menu.test_library_menu, menu)
         val item = menu!!.findItem(R.id.action_search)
-        searchView.setMenuItem(item)
         return super.onCreateOptionsMenu(menu)
-    }
+    }*/
 
     override fun onBackPressed() {
-        if (searchView.onBackPressed()) {
+        /*if (searchView.onBackPressed()) {
             return
-        }
+        }*/
         super.onBackPressed()
     }
 
+    override fun onButtonClicked(buttonCode: Int) {
+        //Toast.makeText(applicationContext,buttonCode.toString(),Toast.LENGTH_LONG).show()
+        when (buttonCode) {
+            MaterialSearchBar.BUTTON_SPEECH -> Toast.makeText(applicationContext, "Voice", Toast.LENGTH_LONG).show()
+            MaterialSearchBar.BUTTON_NAVIGATION -> Toast.makeText(applicationContext, "Navigation", Toast.LENGTH_LONG).show()
+            MaterialSearchBar.BUTTON_BACK -> {
+                Toast.makeText(applicationContext, "Back", Toast.LENGTH_LONG).show()
+                searchBar.closeSearch()
+            }
+        }
+    }
+
+        override fun onSearchStateChanged(enabled: Boolean) {
+            val s = if (enabled) "enabled" else "disabled"
+            Toast.makeText(applicationContext, "Search $s", Toast.LENGTH_SHORT).show()
+            if (!enabled) {
+                mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
+            }
+
+        }
+
+        override fun onSearchConfirmed(text: CharSequence?) {
+        }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        //save last queries to disk
+        Toast.makeText(applicationContext, "Search xxxx", Toast.LENGTH_SHORT).show()
+        Hawk.put("Suggestions", searchBar.lastSuggestions)
+    }
+
+
+
 
 }
+
+
+
+

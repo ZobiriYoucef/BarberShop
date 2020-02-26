@@ -25,12 +25,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private EditText Name, LastName, Job;
-    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout,goToSurveyLabTest,Enhance,etLibTest;
+    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout,goToSurveyLabTest,Enhance,etLibTest,QrTest;
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private LottieAnimationView mLottie;
     private TextView TheObjectList;
     private String Thelist;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         goToSurveyLabTest=findViewById(R.id.goToSurveyLabTest);
         goToSurveyLabTest.setOnClickListener(this);
+
+
+        QrTest=findViewById(R.id.QrTest);
+        QrTest.setOnClickListener(this);
 
         /*animationDrawable.setEnterFadeDuration(3000000);
         animationDrawable.setExitFadeDuration(1000000);
@@ -181,6 +187,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.etLibTest:
                 Intent intentToGoToLibraryTest = new Intent(MainActivity.this, LibraryTest.class);
                 startActivity(intentToGoToLibraryTest);
+                break;
+
+            case R.id.QrTest:
+                Intent intentToGoToQRtest = new Intent(MainActivity.this, OCR_test.class);
+                startActivity(intentToGoToQRtest);
                 break;
 
 

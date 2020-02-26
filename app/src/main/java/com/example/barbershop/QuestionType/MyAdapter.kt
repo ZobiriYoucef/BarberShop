@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
@@ -13,7 +12,7 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.example.barbershop.R
 
 //, Filterable
- class MyAdapter(val context:Context): DragDropSwipeAdapter<SurveyResultDataBaseModule, MyAdapter.ViewHolder>() {
+ class MyAdapter(val context:Context): DragDropSwipeAdapter<SurveyResultDataBaseModule, MyAdapter.ViewHolder>(), Filterable {
 
      lateinit var filterArray: List<SurveyResultDataBaseModule>
 
@@ -106,12 +105,12 @@ import com.example.barbershop.R
 
      fun setFinishedSurveyResult(FinishedSurveyResult: ArrayList<SurveyResultDataBaseModule>) {
          dataSet=FinishedSurveyResult
-         filterArray=FinishedSurveyResult
+         filterArray= ArrayList(FinishedSurveyResult)
          notifyDataSetChanged()
      }
 
 
-     /*override fun getFilter(): Filter =
+     override fun getFilter(): Filter =
              object : Filter() {
                  override fun performFiltering(value: CharSequence?): FilterResults {
                      val results = FilterResults()
@@ -129,7 +128,7 @@ import com.example.barbershop.R
                      dataSet = (results?.values as? List<SurveyResultDataBaseModule>).orEmpty()
                      notifyDataSetChanged()
                  }
-             }*/
+             }
 
 
 

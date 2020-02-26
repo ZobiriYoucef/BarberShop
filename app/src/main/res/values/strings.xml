@@ -57,6 +57,7 @@
     <string name="required">Required Field</string>
     <string name="deleteMsg">Warning you are about to delete this response</string>
 
+    <string name="app_subtitle">app title</string>
 
     ////////
 

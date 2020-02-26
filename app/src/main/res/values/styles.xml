@@ -33,4 +33,61 @@
         <item name="android:minWidth">200dp</item>
     </style>
 
+    <!--<style name="SimpleSearchViewStyle">
+        &lt;!&ndash; Change search style &ndash;&gt;
+        <item name="type">card</item>
+
+        &lt;!&ndash; Change search hint &ndash;&gt;
+        <item name="android:hint">Sample</item>
+
+        &lt;!&ndash; Change search inputType &ndash;&gt;
+        <item name="android:inputType">text</item>
+
+        &lt;!&ndash; Change search textColor &ndash;&gt;
+        <item name="android:textColor">@color/black</item>
+
+        &lt;!&ndash; Search bar/card background &ndash;&gt;
+        <item name="searchBackground">@drawable/sample</item>
+
+        &lt;!&ndash; Change icons &ndash;&gt;
+        <item name="searchBackIcon">@drawable/sample</item>
+        <item name="searchClearIcon">@drawable/sample</item>
+        <item name="searchVoiceIcon">@drawable/sample</item>
+
+        &lt;!&ndash; Change icons tint &ndash;&gt;
+        <item name="backIconTint">1</item>
+        <item name="iconsTint">1</item>
+
+        &lt;!&ndash; Change icons alpha &ndash;&gt;
+        <item name="backIconAlpha">0.8</item>
+        <item name="iconsAlpha">0.8</item>
+
+        &lt;!&ndash; Change search input colors &ndash;&gt;
+        <item name="cursorColor">@color/sample</item>
+        <item name="hintColor">@color/sample</item>
+
+        &lt;!&ndash; Enable voice search &ndash;&gt;
+        <item name="voiceSearch">true</item>
+
+        &lt;!&ndash; Set voice search prompt &ndash;&gt;
+        <item name="voiceSearchPrompt">Sample</item>
+    </style>-->
+
+
+
+    <style name="MyCustomTheme" parent="MaterialSearchBarLight">
+        <item name="mt_searchBarColor">@color/searchBarPrimaryColor</item>
+        <item name="mt_dividerColor">@color/searchBarDividerColor</item>
+        <item name="mt_navIconTint">@color/searchBarNavIconTintColor</item>
+        <item name="mt_searchIconTint">@color/searchBarSearchIconTintColor</item>
+        <item name="mt_clearIconTint">@color/searchBarClearIconTintColor</item>
+        <item name="mt_menuIconTint">@color/searchBarMenuIconTintColor</item>
+        <item name="mt_backIconTint">@color/searchBarBackIconTintColor</item>
+        <item name="mt_textCursorTint">@color/searchBarCursorColor</item>
+        <item name="mt_textColor">@color/searchBarTextColor</item>
+        <item name="mt_hintColor">@color/searchBarHintColor</item>
+        <item name="mt_placeholderColor">@color/searchBarPlaceholderColor</item>
+        <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColor</item>
+    </style>
+
 </resources>
