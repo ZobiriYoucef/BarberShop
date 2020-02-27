@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "897730748663",
+    "firebase_url": "https://iris-app-7da7c.firebaseio.com",
+    "project_id": "iris-app-7da7c",
+    "storage_bucket": "iris-app-7da7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897730748663:android:ea08e6d8e00697774ff3f2",
+        "android_client_info": {
+          "package_name": "com.example.barbershop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "897730748663-0i0uovccg7p6ig3bq23d3d84jr2fu67f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXJMk4tPptaWFz_XnDRMNjSztdJbH-fdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "897730748663-0i0uovccg7p6ig3bq23d3d84jr2fu67f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

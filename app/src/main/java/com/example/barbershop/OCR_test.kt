@@ -16,6 +16,8 @@ import kotlinx.android.synthetic.main.activity_ocr_test.*
 import kotlin.properties.Delegates
 
 class OCR_test : AppCompatActivity() {
+
+
     private var mCameraSource by Delegates.notNull<CameraSource>()
     private var textRecognizer by Delegates.notNull<TextRecognizer>()
 
@@ -78,6 +80,7 @@ class OCR_test : AppCompatActivity() {
                 val items = detections.detectedItems
 
                 if (items.size() <= 0) {
+                    Toast.makeText(applicationContext,"Nothing yet",Toast.LENGTH_LONG).show()
                     return
                 }
 

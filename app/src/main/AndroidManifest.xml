@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OCR_test"></activity>
+        <activity android:name=".FireBaseTest"></activity>
+        <activity android:name=".OCR_test" />
         <activity android:name=".SurveyFile.Qr2Test" />
         <activity android:name=".QRTest" />
         <activity
@@ -50,11 +51,10 @@
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/back4app_client_key" />
-
         <meta-data
-            tools:replace="android:value"
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="ocr" />
+            android:value="ocr"
+            tools:replace="android:value" />
     </application>
 
 </manifest>

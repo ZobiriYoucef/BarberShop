@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.QrTest:
-                Intent intentToGoToQRtest = new Intent(MainActivity.this, OCR_test.class);
+                Intent intentToGoToQRtest = new Intent(MainActivity.this, FireBaseTest.class);
                 startActivity(intentToGoToQRtest);
                 break;
 
