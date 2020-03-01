@@ -9,31 +9,43 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/my_image_view"
-        fresco:placeholderImage="@drawable/addquestion"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="360dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/view_finder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        fresco:placeholderImage="@drawable/addquestion" />
 
     <TextureView
         android:id="@+id/view_finder"
-        android:layout_width="640px"
-        android:layout_height="640px"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="360dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
 
     <ImageButton
         android:id="@+id/capture_button"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_margin="24dp"
-        app:srcCompat="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <Button
+        android:id="@+id/Detected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DetectAllTheText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

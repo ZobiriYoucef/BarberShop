@@ -13,11 +13,15 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".FireBaseTest"></activity>
+        <activity android:name=".UsePhoneCamera"></activity>
+        <activity android:name=".LiveEadge" />
+        <activity android:name=".AnalysedText" />
+        <activity android:name=".FireBaseTest" />
         <activity android:name=".OCR_test" />
         <activity android:name=".SurveyFile.Qr2Test" />
         <activity android:name=".QRTest" />
@@ -41,6 +45,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".LogInActivity" />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
 
         <meta-data
             android:name="com.parse.SERVER_URL"
@@ -55,6 +73,9 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="ocr"
             tools:replace="android:value" />
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="ocr" />
     </application>
 
 </manifest>

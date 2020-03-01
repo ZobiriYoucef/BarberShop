@@ -183,6 +183,15 @@
         app:layout_constraintBottom_toTopOf="@+id/etLibTest"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/edge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="edge"
+        app:layout_constraintBottom_toTopOf="@+id/Enhance"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <!-- app:lottie_loop="false"
     app:lottie_autoPlay="true"
     />-->

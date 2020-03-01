@@ -26,7 +26,6 @@ class OCR_test : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ocr_test)
-
         startCameraSource()
     }
 
@@ -74,6 +73,7 @@ class OCR_test : AppCompatActivity() {
         })
 
         textRecognizer.setProcessor(object : Detector.Processor<TextBlock> {
+
             override fun release() {}
 
             override fun receiveDetections(detections: Detector.Detections<TextBlock>) {

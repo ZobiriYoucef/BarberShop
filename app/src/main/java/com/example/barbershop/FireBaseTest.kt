@@ -1,11 +1,14 @@
 package com.example.barbershop
 
 import android.Manifest
+import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.util.Size
 import android.view.Surface
@@ -13,14 +16,17 @@ import android.view.TextureView
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.facebook.drawee.backends.pipeline.Fresco
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_fire_base_test.*
 import java.io.File
 import java.util.concurrent.Executors
+
 
 // This is an arbitrary number we are using to keep track of the permission
 // request. Where an app has multiple context for requesting permission,
@@ -28,7 +34,7 @@ import java.util.concurrent.Executors
 private const val REQUEST_CODE_PERMISSIONS = 10
 
 // This is an array of all the permission specified in the manifest.
-private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
 @Suppress("DEPRECATION")
 class FireBaseTest : AppCompatActivity(), LifecycleOwner {
@@ -37,11 +43,11 @@ class FireBaseTest : AppCompatActivity(), LifecycleOwner {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fire_base_test)
         Fresco.initialize(this)
+        Hawk.init(this).build()
 
 
-
+        //CameraX
         // Add this at the end of onCreate function
-
         viewFinder = findViewById(R.id.view_finder)
 
         // Request camera permissions
@@ -66,7 +72,7 @@ class FireBaseTest : AppCompatActivity(), LifecycleOwner {
     private fun startCamera() {
         // Create configuration object for the viewfinder use case
         val previewConfig = PreviewConfig.Builder().apply {
-            setTargetResolution(Size(640, 480))
+            setTargetResolution(Size(3600, 2000))
         }.build()
 
         // Build the viewfinder use case
@@ -84,10 +90,6 @@ class FireBaseTest : AppCompatActivity(), LifecycleOwner {
             updateTransform()
         }
 
-
-
-        // Add this before CameraX.bindToLifecycle
-
         // Create configuration object for the image capture use case
         val imageCaptureConfig = ImageCaptureConfig.Builder()
                 .apply {
@@ -100,8 +102,20 @@ class FireBaseTest : AppCompatActivity(), LifecycleOwner {
         // Build the image capture use case and attach button click listener
         val imageCapture = ImageCapture(imageCaptureConfig)
         findViewById<ImageButton>(R.id.capture_button).setOnClickListener {
-            val file = File(externalMediaDirs.first(),
-                    "${System.currentTimeMillis()}.jpg")
+                    // val file = File(externalMediaDirs.first(),
+                  //  "${System.currentTimeMillis()}.jpg")
+
+            //Location
+            val cw = ContextWrapper(application)
+            val directory = cw.getDir("imgDir", Context.MODE_APPEND)
+
+            val filepathFile = Environment.getExternalStorageDirectory().absolutePath
+            val dir = File("$filepathFile/IRISAPP/")
+            dir.mkdirs()
+
+
+
+            val file = File(dir,"${System.currentTimeMillis()}.jpg")
 
             imageCapture.takePicture(file, executor,
                     object : ImageCapture.OnImageSavedListener {
@@ -127,6 +141,13 @@ class FireBaseTest : AppCompatActivity(), LifecycleOwner {
                             }
                         }
                     })
+
+            Detected.setOnClickListener {
+                val intentToGoToAnalyserText = Intent(this, AnalysedText::class.java)
+                Hawk.put("filePath", file.absolutePath)
+                startActivity(intentToGoToAnalyserText)
+            }
+
         }
 
         // Add this before CameraX.bindToLifecycle
@@ -172,6 +193,59 @@ class FireBaseTest : AppCompatActivity(), LifecycleOwner {
         viewFinder.setTransform(matrix)
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Process result from permission request dialog box, has the request
      * been granted? If yes, start Camera. Otherwise display a toast
@@ -197,4 +271,6 @@ class FireBaseTest : AppCompatActivity(), LifecycleOwner {
         ContextCompat.checkSelfPermission(
                 baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
+
+
 }

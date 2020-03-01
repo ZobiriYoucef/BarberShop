@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     private EditText Name, LastName, Job;
-    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout,goToSurveyLabTest,Enhance,etLibTest,QrTest;
+    private Button Sand, btnGetDataFromSurver, GoToTheActivityLayout,goToSurveyLabTest,Enhance,etLibTest,QrTest,edge;
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
     private LottieAnimationView mLottie;
@@ -86,6 +86,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         QrTest=findViewById(R.id.QrTest);
         QrTest.setOnClickListener(this);
+
+        edge=findViewById(R.id.edge);
+        edge.setOnClickListener(this);
+
 
         /*animationDrawable.setEnterFadeDuration(3000000);
         animationDrawable.setExitFadeDuration(1000000);
@@ -193,6 +197,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentToGoToQRtest = new Intent(MainActivity.this, FireBaseTest.class);
                 startActivity(intentToGoToQRtest);
                 break;
+
+            case R.id.edge:
+                Intent intentToGoToedge = new Intent(MainActivity.this, UsePhoneCamera.class);
+                startActivity(intentToGoToedge);
+                break;
+
 
 
         }
