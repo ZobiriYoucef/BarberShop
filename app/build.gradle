@@ -146,6 +146,8 @@ dependencies {
     implementation 'com.github.yalantis:ucrop:2.2.4'
     implementation 'com.github.yalantis:ucrop:2.2.4'
 
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.2.0'
+
 
 }
 

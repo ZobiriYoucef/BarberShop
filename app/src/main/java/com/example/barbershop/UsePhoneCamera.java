@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+import com.google.i18n.phonenumbers.PhoneNumberMatch;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -29,7 +32,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ExecutionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class UsePhoneCamera extends AppCompatActivity {
@@ -43,7 +51,7 @@ public class UsePhoneCamera extends AppCompatActivity {
     Context context= UsePhoneCamera.this;
     ImageView imageView;
     Button BtnCap,BtnScan;
-    TextView ScannedText;
+    TextView ScannedText,tvname,tvemail,tvphone,tvWebsite,tvAdrress,tvJob,tvCompany;
     Bitmap bitmapUsedForScanne;
     String ScannResualt;
 
@@ -55,6 +63,13 @@ public class UsePhoneCamera extends AppCompatActivity {
         BtnCap= findViewById(R.id.BtnCaptureImage);
         BtnScan=findViewById(R.id.BtnScanneCard);
         ScannedText=findViewById(R.id.tvScannedText);
+        tvname=findViewById(R.id.tvNameOCR);
+        tvemail=findViewById(R.id.TvEmailOCR);
+        tvphone=findViewById(R.id.TvPhoneOCR);
+        tvWebsite=findViewById(R.id.tvWebsite);
+        tvAdrress=findViewById(R.id.tvAdrress);
+        tvJob    =findViewById(R.id.tvJob);
+        tvCompany=findViewById(R.id.tvCompany);
 
 
         BtnCap.setOnClickListener(v -> {
@@ -166,27 +181,131 @@ public class UsePhoneCamera extends AppCompatActivity {
             return;
         }
         for (int i = 0; i < blocks.size(); i++) {
+            //showToast(blocks.get(i).getText());
             List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
-
             for (int j = 0; j < lines.size(); j++) {
-                List<FirebaseVisionText.Element> elements = lines.get(j).getElements();
+                if(lines.get(j).getText().matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]") || lines.get(j).getText().startsWith("www") || lines.get(j).getText().contains("Website") || lines.get(j).getText().contains("www")){
+                    tvWebsite.setText(lines.get(j).getText());
+                }
+                if(lines.get(j).getText().matches(".[A-Z].[^@$#/-<>!]+")){
+                    tvname.setText(lines.get(j).getText());
+                }
+                if(lines.get(j).getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")){
+                    tvJob.setText(lines.get(j).getText());
 
+                }if(lines.get(j).getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*") && lines.get(j).getText().contains("Address") || lines.get(j).getText().contains("Cité") || lines.get(j).getText().contains("Rue") || lines.get(j).getText().contains("Alger") || lines.get(j).getText().contains("Algérie") || lines.get(j).getText().contains("Hai")|| lines.get(j).getText().contains("Floors")|| lines.get(j).getText().contains("floors")|| lines.get(j).getText().contains("floor")|| lines.get(j).getText().contains("Street")|| lines.get(j).getText().contains("Road")){
+                    String line1=lines.get(j).getText();
+                    String line2="";
+                    if(j+1<lines.size()){
+                         line2=lines.get(j+1).getText();
+                    }
+                    tvAdrress.setText(line1+"\n"+line2);
+                }
+
+                List<FirebaseVisionText.Element> elements = lines.get(j).getElements();
                 for (int k = 0; k < elements.size(); k++) {
 
                 }
             }
         }
+
+        //Full Text
         String text="";
         for(FirebaseVisionText.TextBlock textBlock:texts.getTextBlocks()){
-            text = text+"/n"+ textBlock.getText();
-            showToast(text);
+            text = text+ "\n" + textBlock.getText();
         }
-        ScannResualt=text;
+        ScannedText.setText(text);
+
+
+        tvemail.setText(parseEmail(text));
+
+
+        ArrayList<String> phoneNumbers = parseResults(text);
+        if(phoneNumbers.size()==0){
+            for (int i = 0; i < blocks.size(); i++) {
+                List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
+                for (int j = 0; j < lines.size(); j++) {
+                   if(lines.get(j).getText().contains("Tél") || lines.get(j).getText().contains("Fax") || lines.get(j).getText().contains("Tél:") || lines.get(j).getText().contains("Fax:")){
+                       tvphone.setText(lines.get(j).getText());
+                    }
+                }
+            }
+            if(tvphone.getText()=="") {
+                tvphone.setText("Error");
+            }
+
+        }else{
+            if(!phoneNumbers.isEmpty())
+                try {
+                    tvphone.setText(phoneNumbers.get(0));
+                }catch(IndexOutOfBoundsException e){
+                    e.printStackTrace();
+                    Toast.makeText(UsePhoneCamera.this, "There is no text!", Toast.LENGTH_SHORT).show();
+                }
+        }
+
 
     }
 
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+    public void extractName(String str){
+        System.out.println("Getting the Name");
+        final String NAME_REGEX = "^([A-Z]([a-z]*|\\.) *){1,2}([A-Z][a-z]+-?)+$";
+        Pattern p = Pattern.compile(NAME_REGEX, Pattern.MULTILINE);
+        Matcher m =  p.matcher(str);
+        if(m.find()){
+            System.out.println(m.group());
+            tvname.setText(m.group());
+        }
+    }
+
+
+    public void extractEmail(String str) {
+        System.out.println("Getting the email");
+        final String EMAIL_REGEX = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+        Pattern p = Pattern.compile(EMAIL_REGEX, Pattern.MULTILINE);
+        Matcher m = p.matcher(str);   // get a matcher object
+        if(m.find()){
+            System.out.println(m.group());
+            tvemail.setText(m.group());
+        }
+    }
+
+    public void extractPhone(String str){
+        System.out.println("Getting Phone Number");
+        final String PHONE_REGEX="(?:^|\\D)(\\d{3})[)\\-. ]*?(\\d{3})[\\-. ]*?(\\d{4})(?:$|\\D)";
+        Pattern p = Pattern.compile(PHONE_REGEX, Pattern.MULTILINE);
+        Matcher m = p.matcher(str);   // get a matcher object
+        if(m.find()){
+            System.out.println(m.group());
+            tvphone.setText(m.group());
+        }
+    }
+
+    // Methode use to parse phone number
+    private ArrayList<String> parseResults(String bCardText) {
+        PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+        Iterable<PhoneNumberMatch> numberMatches = phoneNumberUtil.findNumbers(bCardText, Locale.getDefault().getCountry());
+        ArrayList<String> data = new ArrayList<>();
+        for(PhoneNumberMatch number : numberMatches){
+            String s = number.rawString();
+            data.add(s);
+        }
+        return data;
+    }
+
+    //Hold to try
+    private String parseEmail(String results) {
+        Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(results);
+        String parsedEmail = "Error";
+        while (m.find()) {
+            parsedEmail = m.group();
+        }
+        return parsedEmail;
+    }
+
 
 }
