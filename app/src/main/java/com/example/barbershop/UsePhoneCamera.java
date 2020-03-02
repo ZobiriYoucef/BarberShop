@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +34,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,7 +49,7 @@ public class UsePhoneCamera extends AppCompatActivity {
     Context context= UsePhoneCamera.this;
     ImageView imageView;
     Button BtnCap,BtnScan;
-    TextView ScannedText,tvname,tvemail,tvphone,tvWebsite,tvAdrress,tvJob,tvCompany;
+    TextView ScannedText,tvname,tvemail,tvphone,tvphone2,tvWebsite,tvAdrress,tvJob,tvCompany;
     Bitmap bitmapUsedForScanne;
     String ScannResualt;
 
@@ -66,6 +64,7 @@ public class UsePhoneCamera extends AppCompatActivity {
         tvname=findViewById(R.id.tvNameOCR);
         tvemail=findViewById(R.id.TvEmailOCR);
         tvphone=findViewById(R.id.TvPhoneOCR);
+        tvphone2=findViewById(R.id.TvPhoneOCR2);
         tvWebsite=findViewById(R.id.tvWebsite);
         tvAdrress=findViewById(R.id.tvAdrress);
         tvJob    =findViewById(R.id.tvJob);
@@ -89,6 +88,8 @@ public class UsePhoneCamera extends AppCompatActivity {
 
             }
         });
+
+        tvphone.setText("");
 
     }
 
@@ -187,13 +188,28 @@ public class UsePhoneCamera extends AppCompatActivity {
                 if(lines.get(j).getText().matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]") || lines.get(j).getText().startsWith("www") || lines.get(j).getText().contains("Website") || lines.get(j).getText().contains("www")){
                     tvWebsite.setText(lines.get(j).getText());
                 }
-                if(lines.get(j).getText().matches(".[A-Z].[^@$#/-<>!]+")){
-                    tvname.setText(lines.get(j).getText());
-                }
-                if(lines.get(j).getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")){
-                    tvJob.setText(lines.get(j).getText());
+                // .[A-Z].[^@$#/-<>!]+
 
-                }if(lines.get(j).getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*") && lines.get(j).getText().contains("Address") || lines.get(j).getText().contains("Cité") || lines.get(j).getText().contains("Rue") || lines.get(j).getText().contains("Alger") || lines.get(j).getText().contains("Algérie") || lines.get(j).getText().contains("Hai")|| lines.get(j).getText().contains("Floors")|| lines.get(j).getText().contains("floors")|| lines.get(j).getText().contains("floor")|| lines.get(j).getText().contains("Street")|| lines.get(j).getText().contains("Road")){
+                if(lines.get(j).getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")){
+                    if(lines.get(j).getElements().size()==2){
+                    tvname.setText(lines.get(j).getText());
+                    }
+                }
+
+                if(lines.get(j).getText().matches("^.[A-Z].[^@$#/-<>!]+")){
+                    if(lines.get(j).getElements().size()==1){
+                        tvCompany.setText(lines.get(j).getText());
+                    }
+                }
+
+                if(lines.get(j).getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")){
+                    if(lines.get(j).getText()!=tvname.getText()&& lines.get(j).getText()!=tvCompany.getText() && lines.get(j).getElements().size()>1){
+                        tvJob.setText(lines.get(j).getText());
+                    }
+
+                }
+
+                if(lines.get(j).getText().contains("Address:") || lines.get(j).getText().contains("Address") || lines.get(j).getText().contains("Address :")  || lines.get(j).getText().contains("Address : ")|| lines.get(j).getText().contains("Cité") || lines.get(j).getText().contains("Rue") || lines.get(j).getText().contains("Alger") || lines.get(j).getText().contains("Algérie") || lines.get(j).getText().contains("Hai") || lines.get(j).getText().contains("R.N")|| lines.get(j).getText().contains("R.N.")|| lines.get(j).getText().contains("Avenue")|| lines.get(j).getText().contains("Road")){
                     String line1=lines.get(j).getText();
                     String line2="";
                     if(j+1<lines.size()){
@@ -225,8 +241,10 @@ public class UsePhoneCamera extends AppCompatActivity {
             for (int i = 0; i < blocks.size(); i++) {
                 List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
                 for (int j = 0; j < lines.size(); j++) {
-                   if(lines.get(j).getText().contains("Tél") || lines.get(j).getText().contains("Fax") || lines.get(j).getText().contains("Tél:") || lines.get(j).getText().contains("Fax:")){
-                       tvphone.setText(lines.get(j).getText());
+                   if(lines.get(j).getText().contains("Tél") || lines.get(j).getText().contains("Tel") ||  lines.get(j).getText().contains("Fax") || lines.get(j).getText().contains("Tél:") || lines.get(j).getText().contains("Fax:") || lines.get(j).getText().contains("Tel/Fax:") || lines.get(j).getText().contains("Mob:")){
+                       String str =lines.get(j).getText();
+                       str=str.replaceAll("[^\\d.]", "");
+                       tvphone.setText(str);
                     }
                 }
             }
@@ -234,18 +252,29 @@ public class UsePhoneCamera extends AppCompatActivity {
                 tvphone.setText("Error");
             }
 
-        }else{
-            if(!phoneNumbers.isEmpty())
+        }
+        if(phoneNumbers.size()==1){
+                    try {
+                        tvphone.setText(phoneNumbers.get(0));
+                    }catch(IndexOutOfBoundsException e){
+                        e.printStackTrace();
+                        Toast.makeText(UsePhoneCamera.this, "There is no text!", Toast.LENGTH_SHORT).show();
+                    }
+        }
+        if(phoneNumbers.size()==2){
                 try {
                     tvphone.setText(phoneNumbers.get(0));
+                    tvphone2.setText(phoneNumbers.get(1));
                 }catch(IndexOutOfBoundsException e){
                     e.printStackTrace();
                     Toast.makeText(UsePhoneCamera.this, "There is no text!", Toast.LENGTH_SHORT).show();
                 }
         }
 
+        }
 
-    }
+
+
 
     private void showToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -306,6 +335,7 @@ public class UsePhoneCamera extends AppCompatActivity {
         }
         return parsedEmail;
     }
+
 
 
 }
