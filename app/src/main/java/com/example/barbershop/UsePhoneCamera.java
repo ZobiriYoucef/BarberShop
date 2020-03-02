@@ -26,6 +26,8 @@ import com.google.i18n.phonenumbers.PhoneNumberMatch;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.yalantis.ucrop.UCrop;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -89,8 +91,7 @@ public class UsePhoneCamera extends AppCompatActivity {
             }
         });
 
-        tvphone.setText("");
-
+        InitAllTv();
     }
 
     private void openCamera() throws IOException {
@@ -107,11 +108,15 @@ public class UsePhoneCamera extends AppCompatActivity {
 
     private File getImageFile() throws IOException {
         String imageFileName = "JPEG_" + System.currentTimeMillis() + "_";
-        File storageDir = new File(
+        String filepathFile = Environment.getExternalStorageDirectory().getAbsolutePath();
+        /*File storageDir = new File(
                 Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_DCIM
-                ), "Camera"
-        );
+                ), "IRIS Client Business Card"
+        );*/
+        File storageDir = new File(filepathFile+"/IRIS Client Business Card/");
+        storageDir.mkdirs();
+
         System.out.println(storageDir.getAbsolutePath());
         if (storageDir.exists())
             System.out.println("File exists");
@@ -181,77 +186,153 @@ public class UsePhoneCamera extends AppCompatActivity {
             showToast("No text found");
             return;
         }
+        InitAllTv();
+
+        //********************************************** <<<< Full Text >>>> ******************************************************
+        String text="";
+        for(FirebaseVisionText.TextBlock textBlock:texts.getTextBlocks()){
+            text = text + "\n" + textBlock.getText();
+        }
+        ScannedText.setText(text);
+
+        //********************************************** <<<< Email >>>> ******************************************************
+        tvemail.setText(parseEmail(text));
+        if(tvemail.getText()==""){
+            outerloop:
+            for (int i = 0; i < blocks.size(); i++) {
+                List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
+                for (int j = 0; j < lines.size(); j++) {
+                    if(lines.get(j).getElements().size()<=3){
+                        {
+                            if(lines.get(j).getText().contains("E-mail") || lines.get(j).getText().contains("Email")){
+                                tvemail.setText(lines.get(j).getText());
+                                break outerloop;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        //********************************************** <<<< Name >>>> ******************************************************
+        outerloop:
         for (int i = 0; i < blocks.size(); i++) {
-            //showToast(blocks.get(i).getText());
             List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
             for (int j = 0; j < lines.size(); j++) {
-                if(lines.get(j).getText().matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]") || lines.get(j).getText().startsWith("www") || lines.get(j).getText().contains("Website") || lines.get(j).getText().contains("www")){
-                    tvWebsite.setText(lines.get(j).getText());
-                }
-                // .[A-Z].[^@$#/-<>!]+
+                    if(lines.get(j).getElements().size()<=3){
+                        {
+                            if(lines.get(j).getText().matches("^[A-Z]*\\s[A-Z][a-z]*") || lines.get(j).getText().matches("^[A-Z][a-z]*\\s[A-Z]*") || lines.get(j).getText().matches("^[A-Z]*\\s[A-Z]*\\s[A-Z][a-z]*") || lines.get(j).getText().matches("^[A-Z][a-z]*\\s[A-Z]*\\s[A-Z]*")){
+                                tvname.setText(lines.get(j).getText());
+                                break outerloop;
+                            }
 
-                if(lines.get(j).getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")){
-                    if(lines.get(j).getElements().size()==2){
-                    tvname.setText(lines.get(j).getText());
+                        }
                     }
-                }
+            }
+        }
+        if(tvname.getText().toString().equals("")){
+            String s=StringUtils.substringBefore(tvemail.getText().toString(), "@");
+            s=StringUtils.replace(s,"."," ");
+            tvname.setText(s);
+        }
 
-                if(lines.get(j).getText().matches("^.[A-Z].[^@$#/-<>!]+")){
-                    if(lines.get(j).getElements().size()==1){
-                        tvCompany.setText(lines.get(j).getText());
-                    }
-                }
+                //********************************************** <<<< WebSite >>>> ******************************************************
+        outerloop:
+        for (int i = 0; i < blocks.size(); i++) {
+                    List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
+                    for (int j = 0; j < lines.size(); j++) {
+                        if (lines.get(j).getText().matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]") || lines.get(j).getText().startsWith("www") || lines.get(j).getText().contains("Website") || lines.get(j).getText().contains("www")) {
+                            tvWebsite.setText(lines.get(j).getText());
+                            break outerloop;
+                        }
+                    }}
+                //********************************************** <<<< Address >>>> ******************************************************
 
-                if(lines.get(j).getText().matches("[a-zA-z]+([ '-][a-zA-Z]+)*")){
-                    if(lines.get(j).getText()!=tvname.getText()&& lines.get(j).getText()!=tvCompany.getText() && lines.get(j).getElements().size()>1){
-                        tvJob.setText(lines.get(j).getText());
-                    }
-
-                }
-
+        outerloop:
+        for (int i = 0; i < blocks.size(); i++) {
+            List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
+            for (int j = 0; j < lines.size(); j++) {
                 if(lines.get(j).getText().contains("Address:") || lines.get(j).getText().contains("Address") || lines.get(j).getText().contains("Address :")  || lines.get(j).getText().contains("Address : ")|| lines.get(j).getText().contains("Cité") || lines.get(j).getText().contains("Rue") || lines.get(j).getText().contains("Alger") || lines.get(j).getText().contains("Algérie") || lines.get(j).getText().contains("Hai") || lines.get(j).getText().contains("R.N")|| lines.get(j).getText().contains("R.N.")|| lines.get(j).getText().contains("Avenue")|| lines.get(j).getText().contains("Road")){
                     String line1=lines.get(j).getText();
                     String line2="";
                     if(j+1<lines.size()){
                          line2=lines.get(j+1).getText();
+                    }else if(blocks.get(i+1).getLines().size()==1){
+                        String s=blocks.get(i+1).getText().trim();
+                        if(s.contains("Address:") || s.contains("Address") || s.contains("Address :")  || s.contains("Address : ")|| s.contains("Cité") || s.contains("Rue") || s.contains("Alger") || s.contains("Algérie") || s.contains("Hai") || s.contains("R.N")|| s.contains("R.N.")|| s.contains("Avenue")|| s.contains("Road")){
+                            line2=s;
+                        }
                     }
-                    tvAdrress.setText(line1+"\n"+line2);
+                    String s=line1+ " " +line2;
+                    tvAdrress.setText(s);
+                    break outerloop;
                 }
 
-                List<FirebaseVisionText.Element> elements = lines.get(j).getElements();
+                /*List<FirebaseVisionText.Element> elements = lines.get(j).getElements();
                 for (int k = 0; k < elements.size(); k++) {
+                }*/
+            }
+        }
+        if(tvAdrress.getText().toString() !="" &&   ){
+            if(tvAdrress.getText().toString().contains("Tel") || )
+        }
+
+
+        //********************************************** <<<< Company >>>> ******************************************************
+        outerloop:
+        for (int i = 0; i < blocks.size(); i++) {
+            List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
+            for (int j = 0; j < lines.size(); j++) {
+                if(lines.get(j).getText().matches("^[A-Z]*")){
+                    if(lines.get(j).getElements().size()==1){
+                        tvCompany.setText(lines.get(j).getText());
+                        break outerloop;
+                    }
+                }
+            }
+        }
+        if(tvCompany.getText()=="" && tvWebsite.getText()!=""){
+            final String NAME_REGEX = "(?<=%w.)(.*)(?=.dz)"; // the pattern to search for
+            Pattern p = Pattern.compile(NAME_REGEX);
+            Matcher m = p.matcher(tvWebsite.getText().toString());
+            String s=StringUtils.substringBetween(tvWebsite.getText().toString(), ".");
+            tvCompany.setText(s);
+        }
+
+        //********************************************** <<<< Job >>>> ******************************************************
+        outerloop:
+        for (int i = 0; i < blocks.size(); i++) {
+            List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
+            for (int j = 0; j < lines.size(); j++) {
+                if(lines.get(j).getText().matches("^[A-Z][a-z]*([ '][a-zA-Z]+)*")){
+                    if(lines.get(j).getText()!=tvname.getText() && lines.get(j).getText()!=tvCompany.getText() && lines.get(j).getElements().size()>1){
+                        tvJob.setText(lines.get(j).getText());
+                        break outerloop;
+                    }
 
                 }
             }
         }
 
-        //Full Text
-        String text="";
-        for(FirebaseVisionText.TextBlock textBlock:texts.getTextBlocks()){
-            text = text+ "\n" + textBlock.getText();
-        }
-        ScannedText.setText(text);
 
-
-        tvemail.setText(parseEmail(text));
-
+        //********************************************** <<<< Phone Number >>>> ******************************************************
 
         ArrayList<String> phoneNumbers = parseResults(text);
+
         if(phoneNumbers.size()==0){
+            outerloop:
             for (int i = 0; i < blocks.size(); i++) {
                 List<FirebaseVisionText.Line> lines = blocks.get(i).getLines();
                 for (int j = 0; j < lines.size(); j++) {
-                   if(lines.get(j).getText().contains("Tél") || lines.get(j).getText().contains("Tel") ||  lines.get(j).getText().contains("Fax") || lines.get(j).getText().contains("Tél:") || lines.get(j).getText().contains("Fax:") || lines.get(j).getText().contains("Tel/Fax:") || lines.get(j).getText().contains("Mob:")){
+                   if(lines.get(j).getText().contains("Tél") || lines.get(j).getText().contains("Tel") ||  lines.get(j).getText().contains("Fax") || lines.get(j).getText().contains("Tél:") || lines.get(j).getText().contains("Fax:") || lines.get(j).getText().contains("Tel/Fax:") || lines.get(j).getText().contains("Mob:") || lines.get(j).getText().contains("213")){
                        String str =lines.get(j).getText();
                        str=str.replaceAll("[^\\d.]", "");
                        tvphone.setText(str);
+                       break outerloop;
                     }
                 }
             }
-            if(tvphone.getText()=="") {
-                tvphone.setText("Error");
-            }
-
         }
         if(phoneNumbers.size()==1){
                     try {
@@ -271,9 +352,15 @@ public class UsePhoneCamera extends AppCompatActivity {
                 }
         }
 
+        if(tvphone.getText()=="") {
+            tvphone.setText("No Phone Number Found");
         }
 
+        if(tvphone2.getText()=="") {
+            tvphone2.setText("No Phone Number Found");
+        }
 
+        }
 
 
     private void showToast(String message) {
@@ -290,7 +377,6 @@ public class UsePhoneCamera extends AppCompatActivity {
             tvname.setText(m.group());
         }
     }
-
 
     public void extractEmail(String str) {
         System.out.println("Getting the email");
@@ -314,7 +400,7 @@ public class UsePhoneCamera extends AppCompatActivity {
         }
     }
 
-    // Methode use to parse phone number
+    // Methode used to parse phone number
     private ArrayList<String> parseResults(String bCardText) {
         PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
         Iterable<PhoneNumberMatch> numberMatches = phoneNumberUtil.findNumbers(bCardText, Locale.getDefault().getCountry());
@@ -326,7 +412,7 @@ public class UsePhoneCamera extends AppCompatActivity {
         return data;
     }
 
-    //Hold to try
+    // Methode used to parse E-mail
     private String parseEmail(String results) {
         Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+").matcher(results);
         String parsedEmail = "Error";
@@ -336,6 +422,15 @@ public class UsePhoneCamera extends AppCompatActivity {
         return parsedEmail;
     }
 
-
+    private void InitAllTv(){
+        tvname.setText("");
+        tvAdrress.setText("");
+        tvWebsite.setText("");
+        tvJob.setText("");
+        tvphone.setText("");
+        tvphone2.setText("");
+        tvCompany.setText("");
+        tvemail.setText("");
+    }
 
 }
