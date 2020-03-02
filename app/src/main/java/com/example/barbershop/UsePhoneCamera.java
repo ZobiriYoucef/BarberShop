@@ -258,10 +258,12 @@ public class UsePhoneCamera extends AppCompatActivity {
                     String line2="";
                     if(j+1<lines.size()){
                          line2=lines.get(j+1).getText();
-                    }else if(blocks.get(i+1).getLines().size()==1){
-                        String s=blocks.get(i+1).getText().trim();
-                        if(s.contains("Address:") || s.contains("Address") || s.contains("Address :")  || s.contains("Address : ")|| s.contains("Cité") || s.contains("Rue") || s.contains("Alger") || s.contains("Algérie") || s.contains("Hai") || s.contains("R.N")|| s.contains("R.N.")|| s.contains("Avenue")|| s.contains("Road")){
-                            line2=s;
+                    }else if(i+1<blocks.size()){
+                        if(blocks.get(i+1).getLines().size()==1){
+                            String s=blocks.get(i+1).getText().trim();
+                            if(s.contains("Address:") || s.contains("Address") || s.contains("Address :")  || s.contains("Address : ")|| s.contains("Cité") || s.contains("Rue") || s.contains("Alger") || s.contains("Algérie") || s.contains("Hai") || s.contains("R.N")|| s.contains("R.N.")|| s.contains("Avenue")|| s.contains("Road")){
+                                line2=s;
+                            }
                         }
                     }
                     String s=line1+ " " +line2;
@@ -274,10 +276,15 @@ public class UsePhoneCamera extends AppCompatActivity {
                 }*/
             }
         }
-        if(tvAdrress.getText().toString() !="" &&   ){
-            if(tvAdrress.getText().toString().contains("Tel") || )
-        }
 
+        if(!tvAdrress.getText().toString().equals("")){
+            if(tvAdrress.getText().toString().contains("Tél")){
+                tvAdrress.setText(StringUtils.substringBefore(tvAdrress.getText().toString(),"Tél"));
+            }
+            if(tvAdrress.getText().toString().contains("Tel")){
+                tvAdrress.setText(StringUtils.substringBefore(tvAdrress.getText().toString(),"Tel"));
+            }
+        }
 
         //********************************************** <<<< Company >>>> ******************************************************
         outerloop:
@@ -292,11 +299,18 @@ public class UsePhoneCamera extends AppCompatActivity {
                 }
             }
         }
-        if(tvCompany.getText()=="" && tvWebsite.getText()!=""){
-            final String NAME_REGEX = "(?<=%w.)(.*)(?=.dz)"; // the pattern to search for
+        if(tvCompany.getText().toString().equals("") && !tvWebsite.getText().toString().equals("")){
+            /*final String NAME_REGEX = "(?<=%w.)(.*)(?=.dz)"; // the pattern to search for
             Pattern p = Pattern.compile(NAME_REGEX);
-            Matcher m = p.matcher(tvWebsite.getText().toString());
+            Matcher m = p.matcher(tvWebsite.getText().toString());*/
             String s=StringUtils.substringBetween(tvWebsite.getText().toString(), ".");
+            tvCompany.setText(s);
+        }
+        if(tvCompany.getText().toString().equals("") && !tvemail.getText().toString().equals("")){
+            /*final String NAME_REGEX = "(?<=%w.)(.*)(?=.dz)"; // the pattern to search for
+            Pattern p = Pattern.compile(NAME_REGEX);
+            Matcher m = p.matcher(tvWebsite.getText().toString());*/
+            String s=StringUtils.substringBetween(tvemail.getText().toString(), "@",".");
             tvCompany.setText(s);
         }
 
@@ -314,7 +328,6 @@ public class UsePhoneCamera extends AppCompatActivity {
                 }
             }
         }
-
 
         //********************************************** <<<< Phone Number >>>> ******************************************************
 
