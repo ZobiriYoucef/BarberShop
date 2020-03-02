@@ -3,7 +3,6 @@ package com.example.barbershop
 import android.Manifest
 import android.content.Context
 import android.content.ContextWrapper
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Matrix
 import android.net.Uri
@@ -143,9 +142,9 @@ class FireBaseTest : AppCompatActivity(), LifecycleOwner {
                     })
 
             Detected.setOnClickListener {
-                val intentToGoToAnalyserText = Intent(this, AnalysedText::class.java)
+                /*val intentToGoToAnalyserText = Intent(this, AnalysedText::class.java)
                 Hawk.put("filePath", file.absolutePath)
-                startActivity(intentToGoToAnalyserText)
+                startActivity(intentToGoToAnalyserText)*/
             }
 
         }

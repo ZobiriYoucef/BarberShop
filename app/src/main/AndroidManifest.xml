@@ -18,13 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".UsePhoneCamera"></activity>
-        <activity android:name=".LiveEadge" />
-        <activity android:name=".AnalysedText" />
+        <activity android:name=".UsePhoneCamera" />
         <activity android:name=".FireBaseTest" />
-        <activity android:name=".OCR_test" />
-        <activity android:name=".SurveyFile.Qr2Test" />
-        <activity android:name=".QRTest" />
         <activity
             android:name=".QuestionType.LibraryTest"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -32,7 +27,6 @@
         <activity android:name=".QuestionType.SingleSurveyResult" />
         <activity android:name=".QuestionType.StartASurvey" />
         <activity android:name=".QuestionType.SurvyLibTest" />
-        <activity android:name=".QuestionType.QuestionsCreature" />
         <activity android:name=".UserInfo" />
         <activity
             android:name=".ActivityAfterLogIn"
