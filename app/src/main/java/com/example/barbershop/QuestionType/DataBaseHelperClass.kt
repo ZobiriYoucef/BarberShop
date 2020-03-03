@@ -17,14 +17,6 @@ class DataBaseHelperClass(context: Context)
         onCreate(db)
     }
 
-    override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        super.onDowngrade(db, oldVersion, newVersion)
-    }
-
-    override fun onOpen(db: SQLiteDatabase?) {
-        super.onOpen(db)
-    }
-
     companion object{
         const val DATABASE_NAME="IRISTYRESBDD.db"
         const val DATABASE_VERSION=1

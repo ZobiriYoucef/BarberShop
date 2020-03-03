@@ -11,24 +11,24 @@
 
         <TextView
             android:id="@+id/tvDeleteMsg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="167dp"
+            android:layout_height="105dp"
+            android:layout_marginStart="16dp"
             android:text="@string/deleteMsg"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/indicator_colors1"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/indicator_colors1"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/delete_logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

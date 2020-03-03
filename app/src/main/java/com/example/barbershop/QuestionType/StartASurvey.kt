@@ -41,7 +41,6 @@ class StartASurvey : AppCompatActivity(){
 
         surveyResultDataBaseAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
 
-
         fab.setOnClickListener {
             val GoToSurvyLibTest = Intent(this, SurvyLibTest::class.java)
             startActivityForResult(GoToSurvyLibTest, 1)

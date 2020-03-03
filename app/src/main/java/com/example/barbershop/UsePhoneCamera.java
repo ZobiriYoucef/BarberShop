@@ -1,5 +1,6 @@
 package com.example.barbershop;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.example.barbershop.QuestionType.SurvyLibTest;
 import com.example.barbershop.utils.FileUtils;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
@@ -24,6 +26,7 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.google.i18n.phonenumbers.PhoneNumberMatch;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.orhanobut.hawk.Hawk;
 import com.yalantis.ucrop.UCrop;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +36,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -49,7 +54,7 @@ public class UsePhoneCamera extends AppCompatActivity {
     public static final int ONLY_STORAGE_REQUEST_CODE = 613;
 
     Context context= UsePhoneCamera.this;
-    ImageView imageView;
+    ImageView imageView,ivStartSurvy;
     Button BtnCap,BtnScan;
     TextView ScannedText,tvname,tvemail,tvphone,tvphone2,tvWebsite,tvAdrress,tvJob,tvCompany;
     Bitmap bitmapUsedForScanne;
@@ -60,6 +65,8 @@ public class UsePhoneCamera extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_use_phone_camera);
         imageView=findViewById(R.id.imageViewCam);
+        ivStartSurvy=findViewById(R.id.ivStartSurvy);
+
         BtnCap= findViewById(R.id.BtnCaptureImage);
         BtnScan=findViewById(R.id.BtnScanneCard);
         ScannedText=findViewById(R.id.tvScannedText);
@@ -72,6 +79,7 @@ public class UsePhoneCamera extends AppCompatActivity {
         tvJob    =findViewById(R.id.tvJob);
         tvCompany=findViewById(R.id.tvCompany);
 
+        Hawk.init(context).build();
 
         BtnCap.setOnClickListener(v -> {
             try {
@@ -89,6 +97,14 @@ public class UsePhoneCamera extends AppCompatActivity {
                 }
 
             }
+        });
+
+        ivStartSurvy.setOnClickListener(v->{
+            transferData();
+           Intent intentGoToStartSurvey = new Intent(UsePhoneCamera.this, SurvyLibTest.class);
+           startActivity(intentGoToStartSurvey);
+           setResult(Activity.RESULT_OK, intentGoToStartSurvey);
+           finish();
         });
 
         InitAllTv();
@@ -436,6 +452,7 @@ public class UsePhoneCamera extends AppCompatActivity {
     }
 
     private void InitAllTv(){
+        ScannedText.setText("");
         tvname.setText("");
         tvAdrress.setText("");
         tvWebsite.setText("");
@@ -444,6 +461,32 @@ public class UsePhoneCamera extends AppCompatActivity {
         tvphone2.setText("");
         tvCompany.setText("");
         tvemail.setText("");
+
+        Hawk.delete("I1");
+        Hawk.delete("I2");
+        Hawk.delete("I3");
+        Hawk.delete("I4");
+        Hawk.delete("I5");
+        Hawk.delete("I6");
+        Hawk.delete("I7");
+        Hawk.delete("I8");
+        Hawk.delete("I9");
+        Hawk.delete("I10");
+    }
+
+    private  void transferData(){
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+        Hawk.put("I1","yoyo");
+        Hawk.put("I2",date);
+        Hawk.put("I3",tvname.getText().toString());
+        Hawk.put("I4",tvCompany.getText().toString());
+        Hawk.put("I5",tvJob.getText().toString());
+        Hawk.put("I6",tvphone.getText().toString());
+        Hawk.put("I7",tvphone2.getText().toString());
+        Hawk.put("I8",tvemail.getText().toString());
+        Hawk.put("I9",tvAdrress.getText().toString());
+        Hawk.put("I10",currentPhotoPath);
     }
 
 }

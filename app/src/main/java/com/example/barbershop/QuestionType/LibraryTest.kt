@@ -17,6 +17,7 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.example.barbershop.R
+import com.example.barbershop.UsePhoneCamera
 import com.mancj.materialsearchbar.MaterialSearchBar
 import com.mancj.materialsearchbar.MaterialSearchBar.OnSearchActionListener
 import com.neeloy.lib.data.storage.StorageUtility
@@ -37,7 +38,6 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
         // hawk storge init
         Hawk.init(this).build()
 
-
         //Esay data storge
         StorageUtility.initLibrary(this)
 
@@ -57,9 +57,6 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
         searchBar.setHint("Name!!")
         //searchBar.setText("Hello World!")
         searchBar.setCardViewElevation(10)
-
-       // lastSearches=searchBar.lastSuggestions as List<String>?
-
 
         if (Hawk.contains("Suggestions")) {
             searchBar.lastSuggestions = Hawk.get("Suggestions")
@@ -82,10 +79,6 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
             override fun afterTextChanged(editable: Editable) {}
         })
 
-
-
-
-
         //*************************************Collect info
         dataBaseHelper= DataBaseHelperClass(this)
         val allResults=DataManger.fetchAllResults(dataBaseHelper)
@@ -103,29 +96,6 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
                 // Return true to stop the swiped item from being automatically removed from the adapter's data set (in this case, it will be your responsibility to manually update the data set as necessary)
                 /*Toast.makeText(this@StartASurveyEnhance,position.toString(),Toast.LENGTH_LONG).show()
                 Toast.makeText(this@StartASurveyEnhance,item.id,Toast.LENGTH_LONG).show()*/
-
-                /*SweetAlertDialog(this@StartASurveyEnhance, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Are you sure you want to delete ${item.I1} response profile")
-                        .setContentText("Won't be able to recover this response profile!")
-                        .setConfirmText("Yes,deleted it!")
-                        .setCancelText("No,cancel plx!")
-                        .setConfirmClickListener { sDialog ->
-                            DataManger.deleteASingleResponse(dataBaseHelper,item.id)
-                            mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
-                            sDialog
-                                    .setTitleText("Successfully deleted")
-                                    .setContentText("${item.I1} response no longer exists")
-                                    .setConfirmText("OK")
-                                    .showCancelButton(false)
-                                    .setConfirmClickListener{ sDialog ->
-                                        sDialog.dismissWithAnimation()
-                                        }
-                                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE)
-                        }
-                        .setCancelClickListener { sDialog ->
-                            mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
-                            sDialog.dismiss() }
-                        .show()*/
 
                 val mDialog = MaterialDialog.Builder(this@LibraryTest)
                         .setTitle("Delete?")
@@ -147,8 +117,6 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
                 // Get Animation View
                 val animationView: LottieAnimationView = mDialog.getAnimationView()
                 //TODO Do operations on animationView
-
-
                 return true
             }
         }
@@ -186,8 +154,6 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
         //*********************by a layout (main direction)
         mList2.behindSwipedItemLayoutId = R.layout.swiped_item_main_direction_layout
 
-
-
         //**********************************behind_swiped_item_secondary 2
         // *****************by Icons and colors
         /*
@@ -198,52 +164,10 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
         mList2.reduceItemAlphaOnSwiping = true
         mList2.longPressToStartDragging = true
 
-
         fab3.setOnClickListener {
-            val GoToSurvyLibTest = Intent(this, SurvyLibTest::class.java)
-            startActivityForResult(GoToSurvyLibTest, 1)
+            val GoToUseCameraPhone = Intent(this, UsePhoneCamera::class.java)
+            startActivityForResult(GoToUseCameraPhone, 1)
         }
-
-        /*hidden_search_with_recycler.hideAtScroll = true
-        hidden_search_with_recycler.visibleAtInit = false
-        hidden_search_with_recycler.scrollToBottomBeforeHide = false
-        hidden_search_with_recycler.scrollToTopBeforeShow = false
-        hidden_search_with_recycler.filterWhileTyping = true*/
-
-      /*  searchView.setOnQueryTextListener(object : SimpleSearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                Log.d("SimpleSearchView", "Submit:$query")
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                Log.d("SimpleSearchView", "Text changed:$newText")
-                return false
-            }
-
-            override fun onQueryTextCleared(): Boolean {
-                Log.d("SimpleSearchView", "Text cleared")
-                return false
-            }
-        })
-
-        searchView.setOnSearchViewListener(object : SearchViewListener {
-            override fun onSearchViewShown() {
-                Log.d("SimpleSearchView", "onSearchViewShown")
-            }
-
-            override fun onSearchViewClosed() {
-                Log.d("SimpleSearchView", "onSearchViewClosed")
-            }
-
-            override fun onSearchViewShownAnimation() {
-                Log.d("SimpleSearchView", "onSearchViewShownAnimation")
-            }
-
-            override fun onSearchViewClosedAnimation() {
-                Log.d("SimpleSearchView", "onSearchViewClosedAnimation")
-            }
-        })*/
 
     }
 
@@ -253,6 +177,8 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
             mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
         }
     }
+
+
 
     /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.test_library_menu, menu)
@@ -279,17 +205,17 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
         }
     }
 
-        override fun onSearchStateChanged(enabled: Boolean) {
-            val s = if (enabled) "enabled" else "disabled"
-            Toast.makeText(applicationContext, "Search $s", Toast.LENGTH_SHORT).show()
-            if (!enabled) {
-                mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
-            }
-
+    override fun onSearchStateChanged(enabled: Boolean) {
+        val s = if (enabled) "enabled" else "disabled"
+        Toast.makeText(applicationContext, "Search $s", Toast.LENGTH_SHORT).show()
+        if (!enabled) {
+            mAdapter.setFinishedSurveyResult(DataManger.fetchAllResults(dataBaseHelper))
         }
 
-        override fun onSearchConfirmed(text: CharSequence?) {
-        }
+    }
+
+    override fun onSearchConfirmed(text: CharSequence?) {
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -297,9 +223,6 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
         Toast.makeText(applicationContext, "Search xxxx", Toast.LENGTH_SHORT).show()
         Hawk.put("Suggestions", searchBar.lastSuggestions)
     }
-
-
-
 
 }
 

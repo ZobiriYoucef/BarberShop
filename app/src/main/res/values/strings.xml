@@ -55,7 +55,7 @@
     <string name="IsSurgeon">Is Surgeon: </string>
     <string name="delete">Are you sure you want to delete this</string>
     <string name="required">Required Field</string>
-    <string name="deleteMsg">Warning you are about to delete this response</string>
+    <string name="deleteMsg">Warning you are about to Delete!!</string>
 
     <string name="app_subtitle">app title</string>
 
