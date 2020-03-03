@@ -27,7 +27,7 @@
     //Survey String
     <string name="Next">Next</string>
     <string name="SurveyTitle">Commercialisation des pneumatiques en Algérie</string>
-    <string name="SurveyDescription">Questionnaire s"'"adressant aux personnes possédant un véhicule immatriculé entre 2008 et 2018</string>
+    <string name="SurveyDescription">Questionnaire s"'"adressant aux personnes invitée</string>
     <string name="IntegerHintTest">You tap here an integer</string>
 
 

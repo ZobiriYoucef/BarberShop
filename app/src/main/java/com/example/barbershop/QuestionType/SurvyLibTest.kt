@@ -81,6 +81,42 @@ open class SurvyLibTest : AppCompatActivity() {
 
         val task = NavigableOrderedTask(steps = allSteps)
 
+        task.setNavigationRule(
+                I1.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                getString(R.string.Others) -> I2.id
+                                else -> I3.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                I3.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                getString(R.string.Others) -> I4.id
+                                else -> I5.id
+                            }
+                        }
+                )
+        )
+
+        task.setNavigationRule(
+                I6.id,
+                NavigationRule.ConditionalDirectionStepNavigationRule(
+                        resultToStepIdentifierMapper = { input ->
+                            when (input) {
+                                getString(R.string.Others) -> I7.id
+                                else -> Q1.id
+                            }
+                        }
+                )
+        )
+
         /*task.setNavigationRule(
                 Q1.id,
                 NavigationRule.ConditionalDirectionStepNavigationRule(
@@ -235,82 +271,85 @@ open class SurvyLibTest : AppCompatActivity() {
         )
         I1 = QuestionStep(
                 title = getString(R.string.NameOfInvestigator),
-                text = "",
-                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5, hintText = null)
+                text = getString(R.string.MultiChoose),
+                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
+                        textChoices = listOf(
+                                TextChoice("Client"),
+                                TextChoice("Invité"),
+                                TextChoice("Exposant"),
+                                TextChoice("Visiteur"),
+                                TextChoice("Autres"))
+                )
         )
         I2 = QuestionStep(
                 title = getString(R.string.EquityIdentifier),
-                text = getString(R.string.PhoneNumber),
-                answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = getString(R.string.PlzEnterYOurPhoneNumber)
-                )
+                text = "soyez plus précis s'il vous plaît",
+                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5)
         )
         I3 = QuestionStep(
                 title = getString(R.string.Region),
-                text = "",
-                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                text = getString(R.string.MultiChoose),
+                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice(getString(R.string.West)),
-                                TextChoice(getString(R.string.Centre)),
-                                TextChoice(getString(R.string.Est))
-                        )
+                                TextChoice("Documentation"),
+                                TextChoice("Partenaria"),
+                                TextChoice("Fournisseur"),
+                                TextChoice("Publicité"),
+                                TextChoice("Presentation"),
+                                        TextChoice("Autres"))
                 )
         )
         I4 = QuestionStep(
                 title = getString(R.string.Sex),
                 text = "",
-                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
-                        textChoices = listOf(
-                                TextChoice(getString(R.string.Man)),
-                                TextChoice(getString(R.string.Woman))
-                        )
-                )
+                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5)
         )
         I5 = QuestionStep(
                 title = getString(R.string.YourAge),
                 text = "",
-                answerFormat = AnswerFormat.IntegerAnswerFormat(
-                        hint = getString(R.string.PleaseEnterYourAge)
-                )
+                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5)
+
         )
+
         I6 = QuestionStep(
                 title = getString(R.string.DoYouWork),
-                text = "",
-                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
-                        textChoices = listOf(
-                                TextChoice(getString(R.string.Yes)),
-                                TextChoice(getString(R.string.No)) ,
-                                TextChoice(getString(R.string.Retierd))
-                        )
-                )
-        )
-        I7 = QuestionStep(
-                title = getString(R.string.CSP),
-                text = getString(R.string.monthlyIncome),
-                answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
-                        textChoices = listOf(
-                                TextChoice(getString(R.string.A)),
-                                TextChoice(getString(R.string.B)),
-                                TextChoice(getString(R.string.C)),
-                                TextChoice(getString(R.string.D)))
-                )
-        )
-        Q1 = QuestionStep(
-                title = getString(R.string.typeofvehicle),
                 text = getString(R.string.MultiChoose),
                 answerFormat = AnswerFormat.MultipleChoiceAnswerFormat(
                         textChoices = listOf(
-                                TextChoice(getString(R.string.Tourist)),
-                                TextChoice(getString(R.string.SUV)),
-                                TextChoice(getString(R.string.Utility)),
-                                TextChoice(getString(R.string.Others))
-                        )
+                                TextChoice("Client"),
+                                TextChoice("Invité"),
+                                TextChoice("Exposant"),
+                                TextChoice("Visiteur"),
+                       TextChoice("Autres")))
+        )
+        I7 = QuestionStep(
+                title = getString(R.string.CSP),
+                text ="soyez plus précis s'il vous plaît",
+                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5)
+        )
+        Q1 = QuestionStep(
+                title = "Potentiel",
+                text = "Choose only one",
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                        textChoices = listOf(
+                                TextChoice("Super Hight"),
+                                TextChoice("Hight"),
+                                TextChoice("Medium"),
+                                TextChoice("Low"),
+                                TextChoice("To forget"))
                 )
         )
         Q1A = QuestionStep(
-                title = getString(R.string.OthersCarType),
-                text = getString(R.string.beSpecified),
-                answerFormat = AnswerFormat.TextAnswerFormat(maxLines = 5)
+                title = "Department"                                                                                          ,
+                text ="Choose only one",
+                answerFormat = AnswerFormat.SingleChoiceAnswerFormat(
+                        textChoices = listOf(
+                                TextChoice("commercial"),
+                                TextChoice("marketing"),
+                                TextChoice("communication"),
+                                TextChoice("production")
+                                )
+                )
         )
 
 

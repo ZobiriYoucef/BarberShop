@@ -220,7 +220,7 @@ class LibraryTest : AppCompatActivity() , OnSearchActionListener {
     override fun onDestroy() {
         super.onDestroy()
         //save last queries to disk
-        Toast.makeText(applicationContext, "Search xxxx", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Search End", Toast.LENGTH_SHORT).show()
         Hawk.put("Suggestions", searchBar.lastSuggestions)
     }
 
